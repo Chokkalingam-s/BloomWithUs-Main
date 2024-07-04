@@ -88,13 +88,13 @@
           
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-        <a class="btn-getstarted" href="index.html#about">Appointment</a>
+        <a class="btn-getstarted" href="index.php">Appointment</a>
       </div>
     </header>
 
     <main class="main">
       <div class="login-form">
-        <h3 class="text-center">Admin Login</h3>
+        <h3 class="text-center" style="color: #388da8;">Admin Login</h3>
         <form action="login_process.php" method="POST">
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
@@ -104,7 +104,7 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
           </div>
-          <button type="submit" class="btn btn-primary w-100">Login</button>
+          <button type="submit" class="btn btn-primary w-100" style="background-color: #388da8;">Login</button>
         </form>
       </div>
     </main>
