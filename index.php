@@ -333,11 +333,13 @@ $result = $conn->query($sql);
                                             }
                                             ?>
                                         </div>
-                                        <?php
-                                        if ($imageCount > 2) {
-                                            echo '<button class="btn btn-primary view-more-btn" style="background-color: #388da8;" data-bs-toggle="modal" data-bs-target="#eventModal_' . $row['id'] . '">View More Images</button>';
-                                        }
-                                        ?>
+                                        <div class="d-flex justify-content-center mt-3"> <!-- Center align button -->
+                                       <?php
+                                          if ($imageCount > 2) {
+                                              echo '<button class="btn btn-primary view-more-btn" style="background-color: #388da8;" data-bs-toggle="modal" data-bs-target="#eventModal_' . $row['id'] . '">View More Images</button>';
+                                          }
+                                          ?>
+                                      </div>
                                     </div>
                                 </div>
                                 <!-- Event Card End -->

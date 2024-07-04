@@ -26,7 +26,7 @@ if (isset($_GET['delete'])) {
 }
 
 // Fetch all posts
-$result = $conn->query("SELECT * FROM events ORDER BY created_at DESC");
+$result = $conn->query("SELECT * FROM events ORDER BY created_at ASC");
 
 // Fetch post for editing if edit action is set
 $editPost = null;
@@ -132,21 +132,23 @@ $conn->close();
                 </a>
                 <nav id="navmenu" class="navmenu">
                     <ul>
-                        <li><a href="index.php" class="active">Home</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="admin_dashboard.php" class="active">Add Post</a></li>
+                        <li><a href="admin_dashboard.php#ManagePost" class="active">Manage Post</a></li>
                         <li><a href="logout.php">Logout</a></li>
                     </ul>
                     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                 </nav>
-                <a class="btn-getstarted" href="index.html#about">Appointment</a>
+                <a class="btn-getstarted" href="index.php">Appointment</a>
             </div>
         </header>
 
-        <main class="main">
-            <div class="container mt-5">
-                <h1 class="mb-4">Admin Dashboard</h1>
-
-                <!-- Add Post Form -->
-                <h2>Add New Post</h2>
+        <main class="main" style="margin-top: 13vh;">
+    <div class="container mt-5" >
+        <!-- Add New Post Card -->
+        <div class="card mb-4" id="AddPost">
+            <div class="card-body" >
+                <h2 class="card-title">Add New Post</h2>
                 <form action="admin_dashboard.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="add">
                     <div class="mb-3">
@@ -163,10 +165,14 @@ $conn->close();
                     </div>
                     <button type="submit" class="btn btn-primary">Add Post</button>
                 </form>
+            </div>
+        </div>
 
-                <!-- Edit Post Form -->
-                <?php if ($editPost): ?>
-                <h2>Edit Post</h2>
+        <!-- Edit Post Card -->
+        <?php if ($editPost): ?>
+        <div class="card mb-4" id="EditPost">
+            <div class="card-body" >
+                <h2 class="card-title">Edit Post</h2>
                 <form action="admin_dashboard.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" value="<?php echo $editPost['id']; ?>">
@@ -186,7 +192,7 @@ $conn->close();
                             $images = json_decode($editPost['images'], true);
                             if (is_array($images)) {
                                 foreach ($images as $image) {
-                                    echo "<img src='uploads/$image' alt='' style='width:50px;height:50px;margin-right:5px;'>";
+                                    echo "<img src='uploads/$image' alt='' style='width:50px;height:50px;margin-right:5px;' class='img-thumbnail'>";
                                 }
                             }
                             ?>
@@ -194,11 +200,15 @@ $conn->close();
                     </div>
                     <button type="submit" class="btn btn-primary">Update Post</button>
                 </form>
-                <?php endif; ?>
+            </div>
+        </div>
+        <?php endif; ?>
 
-                <!-- Post List with Edit/Delete Buttons -->
-                <h2 class="mt-5">Manage Posts</h2>
-                <table class="table">
+        <!-- Post List Card -->
+        <div class="card" id="ManagePost">
+            <div class="card-body">
+                <h2 class="card-title mt-4 mb-3">Manage Posts</h2>
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">Title</th>
@@ -218,7 +228,10 @@ $conn->close();
                     </tbody>
                 </table>
             </div>
-        </main>
+        </div>
+    </div>
+</main>
+
 
         <footer id="footer" class="footer position-relative light-background">
             <div class="container copyright text-center mt-4">
