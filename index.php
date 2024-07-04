@@ -1,3 +1,20 @@
+<?php
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$dbname = "bloom";
+
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch all posts
+$result = $conn->query("SELECT * FROM events ORDER BY created_at DESC");
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -302,6 +319,32 @@
       </div>
     </section><!-- /Sessions Section -->
 
+    <div class="container mt-5">
+        <h1>Sessions & Seminars</h1>
+        <div class="row">
+            <?php while ($row = $result->fetch_assoc()): ?>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo htmlspecialchars($row['title']); ?></h5>
+                        <div class="mb-3">
+                            <?php 
+                            $images = json_decode($row['images'], true);
+                            if (is_array($images)) {
+                                foreach ($images as $image) {
+                                    echo "<img src='uploads/$image' alt='' class='img-fluid mb-2'>";
+                                }
+                            }
+                            ?>
+                        </div>
+                        <p class="card-text"><?php echo htmlspecialchars(substr($row['description'], 0, 150)); ?>...</p>
+                    </div>
+                </div>
+            </div>
+            <?php endwhile; ?>
+        </div>
+    </div>
+
     <!-- Faq Section -->
     <section id="faq" class="faq section">
 
@@ -429,6 +472,7 @@
     
 
     </section><!-- /Contact Section -->
+
 
   </main>
 
