@@ -10,9 +10,8 @@ if ($conn->connect_error) {
 }
 
 // Fetch all posts
-$result = $conn->query("SELECT * FROM events ORDER BY created_at DESC");
-
-$conn->close();
+$sql = "SELECT * FROM events ORDER BY id ASC";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -305,45 +304,90 @@ $conn->close();
         <h2>Sessions on Mental Health</h2>
          </div><!-- End Section Title -->
         <div class="container">
-        <div class="row g-5">
-          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item item-cyan position-relative">
-              <i class="bi bi-activity icon"></i>
-              <div>
-                <h3>Chandigarh</h3>
-                <p>* Participated in organizing free education and health awareness camps. * Active participation in Environmental Drives, Anti-AIDS Drives, Anti-Drugs Campaign at college and university level. * Holder of NCC ‘C’ certificate. * Remained an Active member of NSS and has participated in various camps and drives organized for educating the poor children and health awareness.</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->         
-        </div>
+                <div class="row">
+
+                    <?php
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $title = $row['title'];
+                            $description = $row['description'];
+                            $images = json_decode($row['images'], true);
+                    ?>
+
+                            <div class="col-md-6">
+                                <!-- Event Card Start -->
+                                <div class="card event-card">
+                                    <div class="card-header event-card-header">
+                                        <h5 class="card-title event-card-title"><?php echo $title; ?></h5>
+                                    </div>
+                                    <div class="card-body event-card-body">
+                                        <p class="card-text event-card-description"><?php echo $description; ?></p>
+                                        <div class="row">
+                                            <?php
+                                            $imageCount = count($images);
+                                            $limit = min($imageCount, 2); // Show maximum of 2 images
+                                            for ($i = 0; $i < $limit; $i++) {
+                                                echo '<div class="col-6">';
+                                                echo '<img src="uploads/' . $images[$i] . '" alt="' . $title . ' Image ' . ($i + 1) . '" class="event-image" data-bs-toggle="modal" data-bs-target="#eventModal">';
+                                                echo '</div>';
+                                            }
+                                            ?>
+                                        </div>
+                                        <?php
+                                        if ($imageCount > 2) {
+                                            echo '<button class="btn btn-primary view-more-btn" style="background-color: #388da8;" data-bs-toggle="modal" data-bs-target="#eventModal_' . $row['id'] . '">View More Images</button>';
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                                <!-- Event Card End -->
+                            </div>
+
+                            <!-- Modal for Images -->
+                            <div class="modal fade" id="eventModal_<?php echo $row['id']; ?>" tabindex="-1" aria-labelledby="eventModalLabel_<?php echo $row['id']; ?>" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="eventModalLabel_<?php echo $row['id']; ?>">Event Images - <?php echo $title; ?></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="carouselExampleControls_<?php echo $row['id']; ?>" class="carousel slide" data-bs-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    <?php
+                                                    foreach ($images as $index => $image) {
+                                                        echo '<div class="carousel-item ' . ($index === 0 ? 'active' : '') . '">';
+                                                        echo '<img src="uploads/' . $image . '" class="d-block w-100" alt="Event Image ' . ($index + 1) . '">';
+                                                        echo '</div>';
+                                                    }
+                                                    ?>
+                                                </div>
+                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls_<?php echo $row['id']; ?>" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_<?php echo $row['id']; ?>" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Modal -->
+                    <?php
+                        }
+                    } else {
+                        echo "No events found";
+                    }
+                    $conn->close();
+                    ?>
+                </div>
       </div>
     </section><!-- /Sessions Section -->
 
-    <div class="container mt-5">
-        <h1>Sessions & Seminars</h1>
-        <div class="row">
-            <?php while ($row = $result->fetch_assoc()): ?>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo htmlspecialchars($row['title']); ?></h5>
-                        <div class="mb-3">
-                            <?php 
-                            $images = json_decode($row['images'], true);
-                            if (is_array($images)) {
-                                foreach ($images as $image) {
-                                    echo "<img src='uploads/$image' alt='' class='img-fluid mb-2'>";
-                                }
-                            }
-                            ?>
-                        </div>
-                        <p class="card-text"><?php echo htmlspecialchars(substr($row['description'], 0, 150)); ?>...</p>
-                    </div>
-                </div>
-            </div>
-            <?php endwhile; ?>
-        </div>
-    </div>
+    
 
     <!-- Faq Section -->
     <section id="faq" class="faq section">
