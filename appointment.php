@@ -119,15 +119,14 @@
     <div class="container mt-5">
         <h2 class="mb-4">Appointment Calendar</h2>
         <div class="calendar-header">
-        <button id="prevMonthBtn" class="btn btn-outline-secondary">Previous</button>
-    <h2 id="currentMonth" class="mb-0"></h2>
-    <button id="nextMonthBtn" class="btn btn-outline-secondary">Next</button>
-                  
+            <button id="prevMonthBtn" class="btn btn-outline-secondary">Previous</button>
+            <h2 id="currentMonth" class="mb-0"></h2>
+            <button id="nextMonthBtn" class="btn btn-outline-secondary">Next</button>
         </div>
         <div class="calendar" id="adminCalendar">
             <!-- Days will be dynamically added here -->
         </div>
-    </div>
+    
 
     <!-- Appointment Details Modal -->
     <div class="modal fade" id="appointmentDetailsModal" tabindex="-1" aria-labelledby="appointmentDetailsModalLabel"
@@ -172,6 +171,8 @@
                 </div>
             </div>
         </div>
+    </div>
+
     </div>
 
     </main>
