@@ -389,8 +389,6 @@ $result = $conn->query($sql);
       </div>
     </section><!-- /Sessions Section -->
 
-    
-
     <!-- Faq Section -->
     <section id="faq" class="faq section">
 
