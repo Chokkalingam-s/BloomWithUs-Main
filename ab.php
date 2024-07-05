@@ -202,10 +202,11 @@
 
                                     <!-- DOB, Age, Gender -->
                                     <div class="row mb-3">
-                                        <div class="col-5">
-                                            <label for="dob" class="form-label">Date of Birth</label>
-                                            <input type="date" class="form-control" id="dob" name="dob" required>
-                                        </div>
+                                    <div class="col-5">
+                                        <label for="dob" class="form-label">Date of Birth</label>
+                                        <input type="text" class="form-control" id="dob" name="dob" placeholder="YYYY-MM-DD" required>
+                                    </div>
+
                                         <div class="col-3">
                                             <label for="age" class="form-label">Age</label>
                                             <input type="number" class="form-control" id="age" name="age" required>
