@@ -13,19 +13,40 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch appointments for a specific date
-$date = $_GET['date'] ?? '';
-$sql = "SELECT * FROM appointments WHERE appointment_date = '$date' ORDER BY time_slot ASC";
-$result = $conn->query($sql);
+// Check if date parameter is set
+if (isset($_GET['date'])) {
+    $date = $_GET['date'];
 
-$appointments = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $appointments[] = $row;
+    // Query to fetch appointments for the specified date
+    $query = "SELECT * FROM appointments WHERE appointment_date = '$date' ORDER BY time_slot ASC";
+
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+        $appointments = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $appointments[] = array(
+                'unique_id' => $row['unique_id'],
+                'time_slot' => $row['time_slot']
+                // Add more fields as needed
+            );
+        }
+
+        // Return JSON response
+        echo json_encode($appointments);
+    } else {
+        echo json_encode(array('message' => 'No appointments found'));
     }
+
+    // Free result set
+    mysqli_free_result($result);
+
+    // Close connection
+    mysqli_close($conn);
+} else {
+    echo json_encode(array('message' => 'Date parameter is missing'));
 }
 
-$conn->close();
-
-echo json_encode($appointments);
 ?>
+

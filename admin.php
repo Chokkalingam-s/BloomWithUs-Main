@@ -34,7 +34,7 @@
         }
 
         .calendar .booked {
-            background-color: #dc3545;
+            background-color: #28a745;
             color: #fff;
         }
 
