@@ -341,11 +341,24 @@
             renderCalendar(currentDate);
 
             appointmentForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                // Implement your booking logic here
-                alert('Appointment booked successfully!');
-                appointmentModal.hide();
-            });
+                    e.preventDefault();
+                    const formData = new FormData(appointmentForm);
+                    fetch('book_appointment.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const appointmentID = data.appointmentID;
+                         console.log('Appointment ID:', appointmentID);
+                         alert(`Appointment booked successfully! Your Appointment ID is: ${appointmentID}. Please note it down.`);
+                        appointmentModal.hide();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error booking appointment. Please try again.');
+                    });
+                });
         });
 
         function copyName() {
