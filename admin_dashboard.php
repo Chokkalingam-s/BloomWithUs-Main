@@ -139,7 +139,7 @@ $conn->close();
                     </ul>
                     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                 </nav>
-                <a class="btn-getstarted" href="index.php">Appointment</a>
+                <a class="btn-getstarted" href="appointment.php">View Appointments</a>
             </div>
         </header>
 
