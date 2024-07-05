@@ -68,7 +68,7 @@ $result = $conn->query($sql);
         
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-      <a class="btn-getstarted" href="index.php">Appointment</a>
+      <a class="btn-getstarted" href="ab.php">Appointment</a>
     </div>
   </header>
 
