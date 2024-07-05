@@ -28,7 +28,9 @@ if (isset($_GET['date'])) {
         while ($row = mysqli_fetch_assoc($result)) {
             $appointments[] = array(
                 'unique_id' => $row['unique_id'],
-                'time_slot' => $row['time_slot']
+                'time_slot' => $row['time_slot'],
+                'first_name' => $row['first_name'],
+                'last_name' => $row['last_name']
                 // Add more fields as needed
             );
         }
@@ -49,4 +51,3 @@ if (isset($_GET['date'])) {
 }
 
 ?>
-
