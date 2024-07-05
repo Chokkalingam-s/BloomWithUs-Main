@@ -175,6 +175,18 @@
                                         <input type="checkbox" class="form-check-input" id="selfCheckbox">
                                         <label class="form-check-label" for="selfCheckbox">Appointment for myself</label>
                                     </div>
+                                    <!-- Patient First Name and Last Name side by side -->
+                                    <div class="row mb-3">
+                                    <p>Patient Details</p>
+                                        <div class="col">
+                                            <label for="patientFirstName" class="form-label">First Name</label>
+                                            <input type="text" class="form-control" id="patientFirstName" name="patient_first_name" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="patientLastName" class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" id="patientLastName" name="patient_last_name" required>
+                                        </div>
+                                    </div>
 
                                     <!-- (Relation and Profession side by side) -->
                                     <div class="row mb-3">
@@ -265,8 +277,9 @@
         function renderCalendar() {
             const calendar = document.getElementById('calendar');
             calendar.innerHTML = ''; // Clear previous calendar
-  // Day names
-  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+            // Day names
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             dayNames.forEach(day => {
                 const dayNameElement = document.createElement('div');
                 dayNameElement.classList.add('day-name');
@@ -376,24 +389,64 @@
                 });
         }
 
-        // Copy name fields if "Self" checkbox is checked
+        // Sync fields if "Self" checkbox is checked
         document.getElementById('selfCheckbox').addEventListener('change', function () {
             const isChecked = this.checked;
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
 
             document.getElementById('patientFirstName').value = isChecked ? firstName : '';
             document.getElementById('patientLastName').value = isChecked ? lastName : '';
-            document.getElementById('phoneNumber').value = isChecked ? phoneNumber : '';
             document.getElementById('relation').value = isChecked ? 'Myself' : '';
+
+            if (isChecked) {
+                document.getElementById('phoneNumber').addEventListener('input', syncPhoneNumber);
+            } else {
+                document.getElementById('phoneNumber').removeEventListener('input', syncPhoneNumber);
+                document.getElementById('patientNumber').value = '';
+            }
         });
+
+        // Function to sync phone number fields
+        function syncPhoneNumber() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (document.getElementById('selfCheckbox').checked) {
+                document.getElementById('patientNumber').value = phoneNumber;
+            }
+        }
 
         // Calculate age from date of birth
         document.getElementById('dob').addEventListener('input', function () {
             const dob = new Date(this.value);
             const age = new Date().getFullYear() - dob.getFullYear();
             document.getElementById('age').value = age;
+        });
+
+        // Handle form submission
+        const appointmentForm = document.getElementById('appointmentForm');
+        appointmentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(appointmentForm);
+            fetch('book_appointment.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const appointmentID = data.appointmentID;
+                    alert(`Appointment booked successfully! Your Appointment ID is: ${appointmentID}. Please note it down.`);
+                    const appointmentModal = bootstrap.Modal.getInstance(document.getElementById('appointmentModal'));
+                    appointmentModal.hide();
+                    renderCalendar();
+                } else {
+                    alert('Error booking appointment. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error booking appointment. Please try again.');
+            });
         });
 
         // Initial render
