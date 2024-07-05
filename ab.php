@@ -58,6 +58,15 @@
             text-align: center;
             border: 1px solid #ddd;
         }
+
+        .calendar .day-name,
+        .calendar .date {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: center;
+        }
+
         .calendar .day {
             cursor: pointer;
         }
@@ -106,13 +115,7 @@
                     <button id="nextMonth" class="btn btn-secondary">Next</button>
                 </div>
                 <div class="calendar" id="calendar">
-                    <div class="day-name">Sun</div>
-                    <div class="day-name">Mon</div>
-                    <div class="day-name">Tue</div>
-                    <div class="day-name">Wed</div>
-                    <div class="day-name">Thu</div>
-                    <div class="day-name">Fri</div>
-                    <div class="day-name">Sat</div>
+                    
                 </div>
                 <div id="appointmentModal" class="modal fade" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -125,7 +128,7 @@
                                 <form id="appointmentForm" action="book_appointment.php" method="POST">
                                     <input type="hidden" name="appointment_date" id="appointmentDate">
                                     <input type="hidden" name="time_slot" id="timeSlot">
-                                    
+
                                     <!-- Slot selection near date -->
                                     <div class="mb-3">
                                         <label for="selectedDate" class="form-label">Selected Date</label>
@@ -154,7 +157,8 @@
                                         </select>
                                     </div>
                                     
-                                    <!-- First Name and Last Name side by side -->
+                                    <!-- Rest of the form fields -->
+                                    <!-- (First Name and Last Name side by side) -->
                                     <div class="row mb-3">
                                         <div class="col">
                                             <label for="firstName" class="form-label">First Name</label>
@@ -165,47 +169,34 @@
                                             <input type="text" class="form-control" id="lastName" name="last_name" required>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Self checkbox -->
                                     <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="selfCheck" onchange="copyName()">
-                                        <label class="form-check-label" for="selfCheck">Self</label>
+                                        <input type="checkbox" class="form-check-input" id="selfCheckbox">
+                                        <label class="form-check-label" for="selfCheckbox">Appointment for myself</label>
                                     </div>
-                                    
-                                    <!-- Patient First Name and Last Name side by side -->
-                                    <div class="row mb-3">
-                                    <p>Patient Details</p>
-                                        <div class="col">
-                                            <label for="patientFirstName" class="form-label">First Name</label>
-                                            <input type="text" class="form-control" id="patientFirstName" name="patient_first_name" required>
-                                        </div>
-                                        <div class="col">
-                                            <label for="patientLastName" class="form-label">Last Name</label>
-                                            <input type="text" class="form-control" id="patientLastName" name="patient_last_name" required>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Relation and Profession side by side -->
+
+                                    <!-- (Relation and Profession side by side) -->
                                     <div class="row mb-3">
                                         <div class="col">
                                             <label for="relation" class="form-label">Relation</label>
-                                            <input type="text" class="form-control" id="relation" name="relation_to_patient" required>
+                                            <input type="text" class="form-control" id="relation" name="relation_to_patient">
                                         </div>
                                         <div class="col">
                                             <label for="profession" class="form-label">Profession</label>
                                             <input type="text" class="form-control" id="profession" name="profession" required>
                                         </div>
                                     </div>
-                                    
-                                    <!-- DOB, Age, and Gender side by side -->
+
+                                    <!-- DOB, Age, Gender -->
                                     <div class="row mb-3">
                                         <div class="col-5">
                                             <label for="dob" class="form-label">Date of Birth</label>
-                                            <input type="date" class="form-control" id="dob" name="dob" required onchange="calculateAge()">
+                                            <input type="date" class="form-control" id="dob" name="dob" required>
                                         </div>
                                         <div class="col-3">
                                             <label for="age" class="form-label">Age</label>
-                                            <input type="number" class="form-control" id="age" name="age" readonly>
+                                            <input type="number" class="form-control" id="age" name="age" required>
                                         </div>
                                         <div class="col-4">
                                             <label for="gender" class="form-label">Gender</label>
@@ -216,26 +207,24 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
-                                    <!-- Phone Number, Patient Number, and Email side by side -->
+
+                                    <!-- Phone Number, Patient Number, Email -->
                                     <div class="row mb-3">
                                         <div class="col">
-                                            <label for="phone" class="form-label">Phone Number</label>
-                                            <input type="text" class="form-control" id="phone" name="phone_number" required>
+                                            <label for="phoneNumber" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="phoneNumber" name="phone_number" required>
                                         </div>
                                         <div class="col">
-                                            <label for="patientPhone" class="form-label">Patient Number</label>
-                                            <input type="text" class="form-control" id="patientPhone" name="patient_number" required>
+                                            <label for="patientNumber" class="form-label">Patient Number</label>
+                                            <input type="text" class="form-control" id="patientNumber" name="patient_number" required>
                                         </div>
-                                        
                                     </div>
-                                    <div class="row mb-3">
-                                    <div class="col">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email">
-                                        </div>
-                                        </div>        
-                                    <button type="submit" class="btn btn-primary">Book Appointment</button>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -269,130 +258,146 @@
 
     <!-- Calendar Script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const calendarElement = document.getElementById('calendar');
-            const appointmentModal = new bootstrap.Modal(document.getElementById('appointmentModal'));
-            const appointmentForm = document.getElementById('appointmentForm');
-            const appointmentDateInput = document.getElementById('appointmentDate');
-            const timeSlotInput = document.getElementById('timeSlot');
-            const currentMonthElement = document.getElementById('currentMonth');
-            const prevMonthButton = document.getElementById('prevMonth');
-            const nextMonthButton = document.getElementById('nextMonth');
+        // JavaScript for calendar and modal form
+        let currentDate = new Date();
 
-            let currentDate = new Date();
-
-            function renderCalendar(date) {
-                const year = date.getFullYear();
-                const month = date.getMonth();
-
-                const firstDay = new Date(year, month, 1);
-                const lastDay = new Date(year, month + 1, 0);
-                const daysInMonth = lastDay.getDate();
-                const startDay = firstDay.getDay();
-
-                calendarElement.innerHTML = '';
-                currentMonthElement.textContent = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-
-                const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                dayNames.forEach(day => {
-                    const dayNameElement = document.createElement('div');
-                    dayNameElement.textContent = day;
-                    dayNameElement.classList.add('day-name');
-                    calendarElement.appendChild(dayNameElement);
-                });
-
-                for (let i = 0; i < startDay; i++) {
-                    calendarElement.appendChild(document.createElement('div'));
-                }
-
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const dayElement = document.createElement('div');
-                    dayElement.textContent = day;
-                    dayElement.classList.add('day');
-                    dayElement.addEventListener('click', function() {
-                        openAppointmentModal(new Date(year, month, day));
-                    });
-                    calendarElement.appendChild(dayElement);
-                }
-            }
-
-            function openAppointmentModal(date) {
-                appointmentDateInput.value = date.toISOString().split('T')[0];
-                document.getElementById('selectedDate').value = date.toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                timeSlotInput.value = '';
-                appointmentModal.show();
-            }
-
-            prevMonthButton.addEventListener('click', function() {
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                renderCalendar(currentDate);
+        // Render calendar
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = ''; // Clear previous calendar
+  // Day names
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayNames.forEach(day => {
+                const dayNameElement = document.createElement('div');
+                dayNameElement.classList.add('day-name');
+                dayNameElement.textContent = day;
+                calendar.appendChild(dayNameElement);
             });
 
-            nextMonthButton.addEventListener('click', function() {
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                renderCalendar(currentDate);
-            });
+            // Get the current year and month
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
 
-            renderCalendar(currentDate);
+            // Set current month title
+            const currentMonth = document.getElementById('currentMonth');
+            currentMonth.textContent = currentDate.toLocaleDateString('default', { month: 'long', year: 'numeric' });
 
-            appointmentForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const formData = new FormData(appointmentForm);
-                    fetch('book_appointment.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        const appointmentID = data.appointmentID;
-                         console.log('Appointment ID:', appointmentID);
-                         alert(`Appointment booked successfully! Your Appointment ID is: ${appointmentID}. Please note it down.`);
-                        appointmentModal.hide();
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error booking appointment. Please try again.');
-                    });
-                });
+            // Get the first day of the month
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Add blank days for the first week
+            for (let i = 0; i < firstDay; i++) {
+                const blankDay = document.createElement('div');
+                calendar.appendChild(blankDay);
+            }
+
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateElement = document.createElement('div');
+                dateElement.classList.add('date');
+                dateElement.textContent = day;
+                dateElement.addEventListener('click', () => openAppointmentModal(year, month, day));
+                calendar.appendChild(dateElement);
+            }
+        }
+
+        // Navigate months
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
         });
 
-        function copyName() {
-            const selfCheck = document.getElementById('selfCheck');
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // Open appointment modal with selected date
+        function openAppointmentModal(year, month, day) {
+            const appointmentDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            document.getElementById('appointmentDate').value = appointmentDate;
+            document.getElementById('selectedDate').value = appointmentDate;
+
+            // Fetch booked slots for the selected date
+            fetchBookedSlots(appointmentDate);
+
+            const appointmentModal = new bootstrap.Modal(document.getElementById('appointmentModal'));
+            appointmentModal.show();
+        }
+
+        // Fetch booked slots and update available slots
+        function fetchBookedSlots(date) {
+            fetch(`book_appointment.php?date=${date}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const bookedSlots = data.bookedSlots;
+                        const timeSlotSelect = document.getElementById('timeSlotInput');
+
+                        // Clear existing options
+                        while (timeSlotSelect.options.length > 1) {
+                            timeSlotSelect.remove(1);
+                        }
+
+                        // Predefined time slots
+                        const timeSlots = [
+                            '10:00 AM To 10:30 AM',
+                            '10:30 AM To 11:00 AM',
+                            '11:00 AM To 11:30 AM',
+                            '11:30 AM To 12:00 PM',
+                            '12:00 PM To 12:30 PM',
+                            '12:30 PM To 01:00 PM',
+                            '02:00 PM To 02:30 PM',
+                            '02:30 PM To 03:00 PM',
+                            '03:00 PM To 03:30 PM',
+                            '03:30 PM To 04:00 PM',
+                            '04:00 PM To 04:30 PM',
+                            '04:30 PM To 05:00 PM',
+                            '05:00 PM To 05:30 PM',
+                            '05:30 PM To 06:00 PM'
+                        ];
+
+                        // Add available time slots to select
+                        timeSlots.forEach(slot => {
+                            if (!bookedSlots.includes(slot)) {
+                                const option = document.createElement('option');
+                                option.value = slot;
+                                option.textContent = slot;
+                                timeSlotSelect.appendChild(option);
+                            }
+                        });
+                    } else {
+                        console.error('Error fetching booked slots:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching booked slots:', error);
+                });
+        }
+
+        // Copy name fields if "Self" checkbox is checked
+        document.getElementById('selfCheckbox').addEventListener('change', function () {
+            const isChecked = this.checked;
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
-            const patientFirstName = document.getElementById('patientFirstName');
-            const patientLastName = document.getElementById('patientLastName');
-            const relation = document.getElementById('relation');
+            const phoneNumber = document.getElementById('phoneNumber').value;
 
-            if (selfCheck.checked) {
-                patientFirstName.value = firstName;
-                patientLastName.value = lastName;
-                document.getElementById('patientPhone').value = document.getElementById('phone').value;
-                relation.value = 'Myself';
-            } else {
-                patientFirstName.value = '';
-                patientLastName.value = '';
-                document.getElementById('patientPhone').value = '';
-                relation.value = '';
-            }
-        }
+            document.getElementById('patientFirstName').value = isChecked ? firstName : '';
+            document.getElementById('patientLastName').value = isChecked ? lastName : '';
+            document.getElementById('phoneNumber').value = isChecked ? phoneNumber : '';
+            document.getElementById('relation').value = isChecked ? 'Myself' : '';
+        });
 
-        function calculateAge() {
-            const dob = document.getElementById('dob').value;
-            const age = document.getElementById('age');
+        // Calculate age from date of birth
+        document.getElementById('dob').addEventListener('input', function () {
+            const dob = new Date(this.value);
+            const age = new Date().getFullYear() - dob.getFullYear();
+            document.getElementById('age').value = age;
+        });
 
-            if (dob) {
-                const dobDate = new Date(dob);
-                const diff = Date.now() - dobDate.getTime();
-                const ageDate = new Date(diff);
-                age.value = Math.abs(ageDate.getUTCFullYear() - 1970);
-            }
-        }
+        // Initial render
+        renderCalendar();
     </script>
 </body>
 
