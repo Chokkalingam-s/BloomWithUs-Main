@@ -329,6 +329,17 @@
 
         // Open appointment modal with selected date
         function openAppointmentModal(year, month, day) {
+        // Get today's date at midnight (start of the day)
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+
+        // Create a new date for the selected day
+        const selectedDate = new Date(year, month, day);
+        selectedDate.setHours(0, 0, 0, 0);
+
+        // Compare the selected date with today's date
+        if (selectedDate.getTime() >= currentDate.getTime()) {
+            // Date is today or in the future
             const appointmentDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
             document.getElementById('appointmentDate').value = appointmentDate;
             document.getElementById('selectedDate').value = appointmentDate;
@@ -338,7 +349,11 @@
 
             const appointmentModal = new bootstrap.Modal(document.getElementById('appointmentModal'));
             appointmentModal.show();
+        } else {
+            // Optionally, show an alert or message for past dates
+            alert("Yesterday is Behind Us.. Appointments are for the Days to come.\nLet’s focus on what’s next!");
         }
+    }
 
         // Fetch booked slots and update available slots
         function fetchBookedSlots(date) {
