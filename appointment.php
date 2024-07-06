@@ -144,8 +144,8 @@ if (!isset($_SESSION['username'])) {
         } 
         .btn-sm {
             display: block;
-            width: 80%;
-            margin-left: 10%;
+            width: 90%;
+            margin-left: 5%;
         }      
 
     </style>
@@ -380,7 +380,7 @@ if (!isset($_SESSION['username'])) {
             // In your existing renderCalendar function, after appending dayElement
             const reserveButton = document.createElement('button');
             reserveButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm', 'mt-10');
-            reserveButton.textContent = 'Reserve!';
+            reserveButton.textContent = 'Reserve';
             reserveButton.setAttribute('data-toggle', 'modal');
             reserveButton.setAttribute('data-target', '#reservationModal');
             reserveButton.addEventListener('click', function () {
@@ -576,7 +576,7 @@ reservationForm.addEventListener('submit', function(e) {
             const appointmentID = data.appointmentID;
             const reservationDate = data.reservationDate;
             alert(`Appointment for ${appointmentID} Reserved successfully on ${reservationDate}!`);
-            // Optionally, update your UI or refresh data
+            location.reload();
             renderCalendar(currentDisplayedDate);
         } else {
             alert('Failed to reserve appointment. Please try again.');
