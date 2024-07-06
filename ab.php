@@ -204,7 +204,7 @@
                                     <div class="row mb-3">
                                     <div class="col-5">
                                         <label for="dob" class="form-label">Date of Birth</label>
-                                        <input type="text" class="form-control" id="dob" name="dob" placeholder="YYYY-MM-DD" required>
+                                        <input type="date" class="form-control" id="dob" name="dob" placeholder="YYYY-MM-DD" required>
                                     </div>
 
                                         <div class="col-3">
@@ -237,7 +237,7 @@
                                         <input type="email" class="form-control" id="email" name="email" required>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary" style="background-color: #388da8;">Submit</button>
                                 </form>
                             </div>
                         </div>

@@ -115,7 +115,7 @@
                     <a class="btn-getstarted" href="appointment.php">View Appointments</a>
                 </div>
             </header>
-            <main class="main" style="margin-top: 13vh;">
+            <main class="main" style="margin-top: 10vh;">
     <div class="container mt-5">
         <h2 class="mb-4">Appointment Calendar</h2>
         <div class="calendar-header">
