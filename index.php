@@ -308,8 +308,8 @@ $result = $conn->query($sql);
                     <?php
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            $title = $row['title'];
-                            $description = $row['description'];
+                            $title = htmlspecialchars($row['title']);
+                            $description = nl2br(htmlspecialchars($row['description']));;
                             $images = json_decode($row['images'], true);
                     ?>
 
@@ -352,13 +352,13 @@ $result = $conn->query($sql);
                                             <h5 class="modal-title" id="eventModalLabel_<?php echo $row['id']; ?>">Event Images - <?php echo $title; ?></h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-body" style="max-height: calc(100vh - 200px); overflow-y: auto;">
                                             <div id="carouselExampleControls_<?php echo $row['id']; ?>" class="carousel slide" data-bs-ride="carousel">
                                                 <div class="carousel-inner">
                                                     <?php
                                                     foreach ($images as $index => $image) {
                                                         echo '<div class="carousel-item ' . ($index === 0 ? 'active' : '') . '">';
-                                                        echo '<img src="uploads/' . $image . '" class="d-block w-100" alt="Event Image ' . ($index + 1) . '">';
+                                                        echo '<img src="uploads/' . $image . '" class="d-block w-100" style="object-fit:contain;height:auto; max-height:95vh;" alt="Event Image ' . ($index + 1) . '">';
                                                         echo '</div>';
                                                     }
                                                     ?>

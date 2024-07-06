@@ -237,7 +237,7 @@
                                         <input type="email" class="form-control" id="email" name="email" required>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary" style="background-color: #388da8;margin-left:38%;">Submit</button>
+                                    <button type="submit" class="btn btn-primary" style="background-color: #388da8; width:100%;">Submit</button>
                                 </form>
                             </div>
                         </div>

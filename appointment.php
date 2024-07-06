@@ -105,7 +105,7 @@
                     </a>
                     <nav id="navmenu" class="navmenu">
                         <ul>
-                            <li><a href="index.php">Home</a></li>
+                            <li><a href="admin_dashboard.php">Home</a></li>
                             <li><a href="admin_dashboard.php" >Add Post</a></li>
                             <li><a href="admin_dashboard.php#ManagePost">Manage Post</a></li>
                             <li><a href="logout.php">Logout</a></li>
@@ -313,7 +313,7 @@
             adminCalendar.appendChild(dayElement);
             // In your existing renderCalendar function, after appending dayElement
             const reserveButton = document.createElement('button');
-            reserveButton.classList.add('btn', 'btn-outline-primary', 'btn-sm', 'mt-3');
+            reserveButton.classList.add('btn', 'btn-outline-primary', 'btn-sm', 'mt-10');
             reserveButton.textContent = 'Reserve';
             reserveButton.setAttribute('data-toggle', 'modal');
             reserveButton.setAttribute('data-target', '#reservationModal');

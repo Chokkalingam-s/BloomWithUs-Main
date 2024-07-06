@@ -143,7 +143,7 @@ $conn->close();
                 </a>
                 <nav id="navmenu" class="navmenu">
                     <ul>
-                        <li><a href="index.php">Home</a></li>
+                        <li><a href="admin_dashboard.php">Home</a></li>
                         <li><a href="admin_dashboard.php" class="active">Add Post</a></li>
                         <li><a href="admin_dashboard.php#ManagePost" class="active">Manage Post</a></li>
                         <li><a href="logout.php" style="color: red;">Logout</a></li>
@@ -168,11 +168,11 @@ $conn->close();
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Event Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="5" maxlength="750" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="images" class="form-label">Event Images</label>
-                        <input type="file" class="form-control" id="images" name="images[]" multiple required>
+                        <input type="file" class="form-control" id="images" name="images[]" multiple >
                     </div>
                     <button type="submit" class="btn btn-primary">Add Post</button>
                 </form>
@@ -193,7 +193,7 @@ $conn->close();
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Event Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="5" required><?php echo htmlspecialchars($editPost['description']); ?></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="5" maxlength="750" required><?php echo htmlspecialchars($editPost['description']); ?></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="images" class="form-label">Event Images</label>
