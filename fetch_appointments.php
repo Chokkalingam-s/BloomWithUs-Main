@@ -18,7 +18,29 @@ if (isset($_GET['date'])) {
     $date = $_GET['date'];
 
     // Query to fetch appointments for the specified date
-    $query = "SELECT * FROM appointments WHERE appointment_date = '$date' ORDER BY time_slot ASC";
+    $query = "SELECT *,
+       CASE
+           WHEN time_slot LIKE '10:00 AM%' THEN 1
+           WHEN time_slot LIKE '10:30 AM%' THEN 2
+           WHEN time_slot LIKE '11:00 AM%' THEN 3
+           WHEN time_slot LIKE '11:30 AM%' THEN 4
+           WHEN time_slot LIKE '12:00 PM%' THEN 5
+           WHEN time_slot LIKE '12:30 PM%' THEN 6
+           WHEN time_slot LIKE '01:00 PM%' THEN 7
+           WHEN time_slot LIKE '02:00 PM%' THEN 8
+           WHEN time_slot LIKE '02:30 PM%' THEN 9
+           WHEN time_slot LIKE '03:00 PM%' THEN 10
+           WHEN time_slot LIKE '03:30 PM%' THEN 11
+           WHEN time_slot LIKE '04:00 PM%' THEN 12
+           WHEN time_slot LIKE '04:30 PM%' THEN 13
+           WHEN time_slot LIKE '05:00 PM%' THEN 14
+           WHEN time_slot LIKE '05:30 PM%' THEN 15
+           ELSE 999
+       END AS slot_order
+FROM appointments
+WHERE appointment_date = '$date'
+ORDER BY slot_order ASC;
+";
 
     $result = mysqli_query($conn, $query);
 
