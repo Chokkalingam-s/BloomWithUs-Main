@@ -122,22 +122,32 @@ if (!isset($_SESSION['username'])) {
         }
 
         .btn-link {
-    color: #007bff;
-    text-decoration: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
+            color: #007bff;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
 
-.btn-link:hover {
-    text-decoration: underline;
-    color:#28a745;
-}
+        .btn-link:hover {
+            text-decoration: underline;
+            color:#28a745;
+        }
 
         .modal-body {
             max-height: calc(100vh - 200px);
             overflow-y: auto;
         }
+        .day{
+            font-weight:500;
+            display: block;
+        } 
+        .btn-sm {
+            display: block;
+            width: 80%;
+            margin-left: 10%;
+        }      
+
     </style>
 </head>
 
@@ -154,7 +164,7 @@ if (!isset($_SESSION['username'])) {
                             <li><a href="admin_dashboard.php">Home</a></li>
                             <li><a href="admin_dashboard.php" >Add Post</a></li>
                             <li><a href="admin_dashboard.php#ManagePost">Manage Post</a></li>
-                            <li><a href="logout.php">Logout</a></li>
+                            <li><a href="logout.php" style="color:red;">Logout</a></li>
                         </ul>
                         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                     </nav>
@@ -163,7 +173,7 @@ if (!isset($_SESSION['username'])) {
             </header>
             <main class="main" style="margin-top: 10vh;">
     <div class="container mt-3">
-        <h2 class="mb-4">Appointment Calendar</h2>
+        <h2 class="mb-4 text-center" style="color:#388da8;">Appointment Calendar</h2>
         <div class="calendar-header">
             <button id="prevMonthBtn" class="btn btn-outline-secondary">Previous</button>
             <h2 id="currentMonth" class="mb-0"></h2>
@@ -369,8 +379,8 @@ if (!isset($_SESSION['username'])) {
             adminCalendar.appendChild(dayElement);
             // In your existing renderCalendar function, after appending dayElement
             const reserveButton = document.createElement('button');
-            reserveButton.classList.add('btn', 'btn-outline-primary', 'btn-sm', 'mt-10');
-            reserveButton.textContent = 'Reserve';
+            reserveButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm', 'mt-10');
+            reserveButton.textContent = 'Reserve!';
             reserveButton.setAttribute('data-toggle', 'modal');
             reserveButton.setAttribute('data-target', '#reservationModal');
             reserveButton.addEventListener('click', function () {
