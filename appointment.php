@@ -82,18 +82,57 @@ if (!isset($_SESSION['username'])) {
         .calendar .day {
             cursor: pointer;
         }
-
         .calendar .booked {
             background-color: #28a745;
             color: #fff;
+            font-size: 0.5rem;
+            margin-top: 0.2rem; /* Space between appointments */
+            border-radius: 0.5rem; /* Slightly rounded corners */
+            text-align: left; /* Align text to the left */
+            white-space: nowrap; /* Prevent wrapping */
+            overflow: hidden; /* Hide overflow */
+            display: flex;
+            flex-direction: column;
         }
 
+        .calendar .booked .appointment-time {
+            font-weight: bold; /* Bold for emphasis */
+            font-size: 0.7rem; /* Larger font size for time */
+            display: block; /* Ensure single-line display */
+            overflow: hidden; /* Ensure it stays on one line */
+            text-overflow: ellipsis; /* Add ellipsis if it overflows */
+            background-color: #28a745;
+        }
+
+        .calendar .booked .unique-id {
+            font-size: 0.6rem; /* Smaller font size for ID */
+            font-weight: bold;
+            color: black; /* Light grey color */
+            display: block; /* Ensure single-line display */
+            overflow: hidden; /* Ensure it stays on one line */
+            text-overflow: ellipsis; /* Add ellipsis if it overflows */
+            margin-top: 0.1rem; /* Slight margin to separate from time */
+            background-color: #83E3A8;
+        }
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
         }
+
+        .btn-link {
+    color: #007bff;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+    color:#28a745;
+}
 
         .modal-body {
             max-height: calc(100vh - 200px);
@@ -149,9 +188,9 @@ if (!isset($_SESSION['username'])) {
                 <div class="modal-body" id="appointmentDetailsBody">
                     <!-- Appointment details will be dynamically added here -->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+               
+                    <button type="button" class="btn btn-secondary" style="width:80%; margin-left: 10%;" data-dismiss="modal">Close</button>
+                
             </div>
         </div>
     </div>
@@ -270,6 +309,16 @@ if (!isset($_SESSION['username'])) {
     <script src="assets/js/main.js"></script>
 
    <script>
+
+        // Function to copy text to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Unique-ID copied to clipboard!');
+            }).catch(err => {
+                console.error('Error copying to clipboard:', err);
+                alert('Failed to copy Unique-ID. Sorry.');
+            });
+        }
     document.addEventListener('DOMContentLoaded', function () {
     const adminCalendar = document.getElementById('adminCalendar');
     const prevMonthBtn = document.getElementById('prevMonthBtn');
@@ -357,17 +406,27 @@ if (!isset($_SESSION['username'])) {
                 const uniqueId = appointment.unique_id;
 
                 // Create appointment element and append to dayElement
-                const appointmentElement = document.createElement('div');
-                appointmentElement.textContent = `${appointmentTime} (${uniqueId})`;
-                appointmentElement.classList.add('booked');
-                appointmentElement.setAttribute('data-toggle', 'modal');
-                appointmentElement.setAttribute('data-target', '#appointmentDetailsModal');
-                appointmentElement.addEventListener('click', function () {
-                    showAppointmentDetails(uniqueId);
-                });
+                    const appointmentElement = document.createElement('div');
+                    appointmentElement.classList.add('booked');
+                    appointmentElement.setAttribute('data-toggle', 'modal');
+                    appointmentElement.setAttribute('data-target', '#appointmentDetailsModal');
+                    appointmentElement.addEventListener('click', function () {
+                        showAppointmentDetails(uniqueId);
+                    });
 
-                // Append appointmentElement to dayElement
-                dayElement.appendChild(appointmentElement);
+                    const appointmentTimeElement = document.createElement('span');
+                    appointmentTimeElement.classList.add('appointment-time');
+                    appointmentTimeElement.textContent = appointmentTime;
+
+                    const uniqueIdElement = document.createElement('span');
+                    uniqueIdElement.classList.add('unique-id');
+                    uniqueIdElement.textContent = uniqueId;
+
+                    appointmentElement.appendChild(appointmentTimeElement);
+                    appointmentElement.appendChild(uniqueIdElement);
+
+                    dayElement.appendChild(appointmentElement);
+
             });
         })
         .catch(error => console.error('Error fetching appointments:', error));
@@ -381,7 +440,13 @@ if (!isset($_SESSION['username'])) {
             .then(data => {
                 const appointmentDetailsBody = document.getElementById('appointmentDetailsBody');
                 appointmentDetailsBody.innerHTML = `
-                    <p><strong>Unique-ID:</strong>${ data.unique_id}</p>
+                      <p><strong>UniqueID:</strong> 
+                    ${data.unique_id} 
+                    <br>
+                    <button class="btn btn-link" onclick="copyToClipboard('${data.unique_id}')">
+                        <i class="bi bi-copy" >Copy Unique Id</i>
+                    </button>
+                </p>
                     <p><strong>Name:</strong> ${data.first_name} ${data.last_name}</p>
                     <p><strong>Patient Name:</strong> ${data.patient_first_name} ${data.patient_last_name}</p>
                     <p><strong>Relation:</strong> ${data.relation_to_patient}</p>
@@ -399,6 +464,8 @@ if (!isset($_SESSION['username'])) {
             })
             .catch(error => console.error('Error fetching appointment details:', error));
     }
+
+
 
     // Event listeners for navigation buttons
     prevMonthBtn.addEventListener('click', function () {
