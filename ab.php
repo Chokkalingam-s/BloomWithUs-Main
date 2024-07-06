@@ -28,7 +28,7 @@
 
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #f8f9fa;     
         }
         .container-wrapper {
             display: flex;
@@ -237,7 +237,7 @@
                                         <input type="email" class="form-control" id="email" name="email" required>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary" style="background-color: #388da8;">Submit</button>
+                                    <button type="submit" class="btn btn-primary" style="background-color: #388da8;margin-left:38%;">Submit</button>
                                 </form>
                             </div>
                         </div>

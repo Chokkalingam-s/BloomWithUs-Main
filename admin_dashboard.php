@@ -101,7 +101,18 @@ $conn->close();
     <style>
         body {
             background-color: #f8f9fa;
+            
         }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        :root::-webkit-scrollbar {
+            display: none;
+            }
+
+            /* Hide scrollbar for IE, Edge and Firefox */
+            :root{
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            }
         .container-wrapper {
             display: flex;
             flex-direction: column;

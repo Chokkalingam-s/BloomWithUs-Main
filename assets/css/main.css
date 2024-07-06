@@ -557,50 +557,6 @@ p, li ,h6{
 .footer .footer-contact p {
   margin-bottom: 5px;
 }
-
-.footer .footer-newsletter .newsletter-form {
-  margin-top: 30px;
-  margin-bottom: 15px;
-  padding: 6px 8px;
-  position: relative;
-  border-radius: 50px;
-  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
-  display: flex;
-  background-color: var(--surface-color);
-  transition: 0.3s;
-}
-
-.footer .footer-newsletter .newsletter-form:focus-within {
-  border-color: var(--accent-color);
-}
-
-.footer .footer-newsletter .newsletter-form input[type=email] {
-  border: 0;
-  padding: 4px 10px;
-  width: 100%;
-  background-color: var(--contrsast-color);
-  color: var(--default-color);
-}
-
-.footer .footer-newsletter .newsletter-form input[type=email]:focus-visible {
-  outline: none;
-}
-
-.footer .footer-newsletter .newsletter-form input[type=submit] {
-  border: 0;
-  font-size: 16px;
-  padding: 0 20px;
-  margin: -7px -9px -7px 0;
-  background: var(--accent-color);
-  color: var(--contrast-color);
-  transition: 0.3s;
-  border-radius: 50px;
-}
-
-.footer .footer-newsletter .newsletter-form input[type=submit]:hover {
-  background: color-mix(in srgb, var(--accent-color), transparent 20%);
-}
-
 .footer .copyright {
   padding-top: 25px;
   padding-bottom: 25px;
@@ -793,25 +749,16 @@ section,
 .section-title p {
   margin-bottom: 0;
 }
-
-/*--------------------------------------------------------------
-# Hero Section
---------------------------------------------------------------*/
-
-
-
-
-
 /*--------------------------------------------------------------
 # Featured Services Section
 --------------------------------------------------------------*/
 .featured-services {
-  padding: 40px 0;
+  padding: 10px 0;
 }
 
 .featured-services .service-item {
   position: relative;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .featured-services .service-item .icon {
@@ -888,7 +835,7 @@ section,
 }
 
 .about .content ul i {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   margin-right: 4px;
   color: var(--accent-color);
 }
