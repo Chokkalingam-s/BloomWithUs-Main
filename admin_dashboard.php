@@ -129,6 +129,29 @@ $conn->close();
             flex-shrink: 0;
             background: #f8f9fa;
         }
+
+
+        .card-custom {
+            text-align: center;
+            padding: 0px 20px 20px 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background-color: #EAFAFF;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: #388da8;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
     </style>
 
 </head>
@@ -143,9 +166,9 @@ $conn->close();
                 </a>
                 <nav id="navmenu" class="navmenu">
                     <ul>
-                        <li><a href="admin_dashboard.php">Home</a></li>
-                        <li><a href="admin_dashboard.php" class="active">Add Post</a></li>
-                        <li><a href="admin_dashboard.php#ManagePost" class="active">Manage Post</a></li>
+                        <li><a href="admin_dashboard.php" class="active">Home</a></li>
+                        <li><a href="admin_dashboard.php#AddPost">Add Post</a></li>
+                        <li><a href="admin_dashboard.php#ManagePost">Manage Post</a></li>
                         <li><a href="logout.php" style="color: red;">Logout</a></li>
                     </ul>
                     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -156,8 +179,48 @@ $conn->close();
 
         <main class="main" style="margin-top: 13vh;">
     <div class="container mt-5" >
+    <div class="mb-4 text-center">
+                    <h2>Hello Admin!</h2>
+                </div>
+
+                 <!-- Admin Feature Cards -->
+                  <div style="margin-top:3%;">
+                 <div class="row g-4">
+                    <div class="col-md-4">
+                        <a href="appointment.php" class="text-decoration-none">
+                            <div class="card card-custom h-100">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-calendar-check card-icon"></i>
+                                    <p class="card-title mt-3">Manage Appointments</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="admin_dashboard.php#AddPost" class="text-decoration-none">
+                            <div class="card card-custom h-100">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-plus-circle card-icon"></i>
+                                    <p class="card-title mt-3">Add New Post</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="admin_dashboard.php#ManagePost" class="text-decoration-none">
+                            <div class="card card-custom h-100">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-pencil-square card-icon"></i>
+                                    <p class="card-title mt-3">Edit / Delete Post</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                </div>
         <!-- Add New Post Card -->
-        <div class="card mb-4" id="AddPost">
+         <div id="AddPost" style="padding-top:10%">
+        <div class="card mb-4" >
             <div class="card-body" >
                 <h2 class="card-title">Add New Post</h2>
                 <form action="admin_dashboard.php" method="POST" enctype="multipart/form-data">
@@ -177,6 +240,7 @@ $conn->close();
                     <button type="submit" class="btn btn-primary">Add Post</button>
                 </form>
             </div>
+        </div>
         </div>
 
         <!-- Edit Post Card -->
@@ -248,7 +312,7 @@ $conn->close();
             <div class="container copyright text-center mt-4">
                 <p style="display: flex; justify-content: center;">©<span>Copyright</span> <strong class="px-1 sitename">BloomWithUs</strong><span>All Rights Reserved</span></p>
                 <div class="credits">
-                    Designed by <a href="https://rudraksha.org.in/" target="_blank"> Rudraksha</a>
+                    Designed From <a href="https://rudraksha.org.in/" target="_blank"> Rudraksha</a>
                 </div>
             </div>
         </footer>
