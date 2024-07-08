@@ -82,6 +82,13 @@ if (!isset($_SESSION['username'])) {
         .calendar .day {
             cursor: pointer;
         }
+
+        .calendar .date {
+            background-color: #d6f6ff;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: center;
+        }
         .calendar .booked {
             background-color: #28a745;
             color: #fff;

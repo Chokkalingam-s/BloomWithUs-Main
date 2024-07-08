@@ -59,9 +59,14 @@
             border: 1px solid #ddd;
         }
 
-        .calendar .day-name,
+        .calendar .day-name{
+            background-color: #77b6ca;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: center;
+        }
         .calendar .date {
-            background-color: #f8f9fa;
+            background-color: #d6f6ff;
             border: 1px solid #dee2e6;
             padding: 10px;
             text-align: center;
