@@ -92,13 +92,13 @@ if (!isset($_SESSION['username'])) {
         }
 
         .calendar .day {
-            background-color: #d6f6ff;
+            background-color: #e4feff;
             border: 1px solid #dee2e6;
             padding: 10px;
             text-align: center;
         }
         .calendar .booked {
-            background-color: #28a745;
+            background-color: #01BD7B;
             color: #fff;
             font-size: 0.5rem;
             margin-top: 0.2rem; /* Space between appointments */
@@ -116,7 +116,7 @@ if (!isset($_SESSION['username'])) {
             display: block; /* Ensure single-line display */
             overflow: hidden; /* Ensure it stays on one line */
             text-overflow: ellipsis; /* Add ellipsis if it overflows */
-            background-color: #28a745;
+            background-color: #02C681;
         }
 
         .calendar .booked .unique-id {
@@ -127,7 +127,7 @@ if (!isset($_SESSION['username'])) {
             overflow: hidden; /* Ensure it stays on one line */
             text-overflow: ellipsis; /* Add ellipsis if it overflows */
             margin-top: 0.1rem; /* Slight margin to separate from time */
-            background-color: #83E3A8;
+            background-color: #D1FBC0;
         }
         .calendar-header {
             display: flex;

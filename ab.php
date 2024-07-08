@@ -66,7 +66,7 @@
             text-align: center;
         }
         .calendar .date {
-            background-color: #d6f6ff;
+            background-color: #e4feff;
             border: 1px solid #dee2e6;
             padding: 10px;
             text-align: center;
