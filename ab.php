@@ -376,7 +376,7 @@
             appointmentModal.show();
         } else {
             // Optionally, show an alert or message for past dates
-            showCustomAlert("Yesterday is Behind Us.. \n Appointments are for the Days to come.\nLet’s focus on what’s next!");
+            showCustomAlert("Yesterday is Behind Us.. \n Appointments are for the Days to come.\n Try Booking for future dates!");
         }
     }
 
