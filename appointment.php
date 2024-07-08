@@ -84,7 +84,7 @@ if (!isset($_SESSION['username'])) {
         }
 
         .calendar .day-name{
-            background-color: #77b6ca;
+            background-color: #EA3666;
             border: 1px solid #dee2e6;
             padding: 10px;
             text-align: center;
@@ -92,13 +92,13 @@ if (!isset($_SESSION['username'])) {
         }
 
         .calendar .day {
-            background-color: #e4feff;
+            background-color: #FFCCE6;
             border: 1px solid #dee2e6;
             padding: 10px;
             text-align: center;
         }
         .calendar .booked {
-            background-color: #01BD7B;
+            background-color:#FF9ACD;
             color: #fff;
             font-size: 0.5rem;
             margin-top: 0.2rem; /* Space between appointments */
@@ -116,18 +116,18 @@ if (!isset($_SESSION['username'])) {
             display: block; /* Ensure single-line display */
             overflow: hidden; /* Ensure it stays on one line */
             text-overflow: ellipsis; /* Add ellipsis if it overflows */
-            background-color: #02C681;
+            background-color: #EA3666;
         }
 
         .calendar .booked .unique-id {
-            font-size: 0.6rem; /* Smaller font size for ID */
+            background-color: #FFBFE0;
+            font-size: 0.6rem; 
             font-weight: bold;
-            color: black; /* Light grey color */
-            display: block; /* Ensure single-line display */
-            overflow: hidden; /* Ensure it stays on one line */
-            text-overflow: ellipsis; /* Add ellipsis if it overflows */
-            margin-top: 0.1rem; /* Slight margin to separate from time */
-            background-color: #D1FBC0;
+            color: black; 
+            display: block; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            margin-top: 0.1rem; 
         }
         .calendar-header {
             display: flex;
@@ -161,6 +161,8 @@ if (!isset($_SESSION['username'])) {
             display: block;
             width: 90%;
             margin-left: 5%;
+            font-weight: 500;
+            border-width: bold;
         }      
 
     </style>
@@ -168,22 +170,22 @@ if (!isset($_SESSION['username'])) {
 
 <body class="index-page">
          <!-- Custom Alert Modal -->
-<div class="modal fade" id="customAlertModal" tabindex="-1" aria-labelledby="customAlertLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="customAlertLabel">BloomWithUs</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="customAlertMessage">
-                <!-- Dynamic alert message will be injected here -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+                <div class="modal fade" id="customAlertModal" tabindex="-1" aria-labelledby="customAlertLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="customAlertLabel">BloomWithUs</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="customAlertMessage">
+                                <!-- Dynamic alert message will be injected here -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 <div class="container-wrapper">
             <header id="header" class="header d-flex align-items-center fixed-top">
                 <div class="container-fluid container-xl position-relative d-flex align-items-center">
@@ -203,7 +205,7 @@ if (!isset($_SESSION['username'])) {
                     <a class="btn-getstarted" href="appointment.php">View Appointments</a>
                 </div>
             </header>
-            <main class="main" style="margin-top: 10vh;">
+            <main class="main" style="margin-top: 11vh;">
     <div class="container mt-3">
         <h2 class="mb-4 text-center" style="color:#388da8;">Appointment Calendar</h2>
         <div class="calendar-header">
@@ -223,7 +225,7 @@ if (!isset($_SESSION['username'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="appointmentDetailsModalLabel">Appointment Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -231,7 +233,7 @@ if (!isset($_SESSION['username'])) {
                     <!-- Appointment details will be dynamically added here -->
                 </div>
                
-                    <button type="button" class="btn btn-secondary" style="width:80%; margin-left: 10%;" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" style="width:80%; margin-left: 10%;" data-bs-dismiss="modal">Close</button>
                 
             </div>
         </div>
@@ -366,6 +368,21 @@ if (!isset($_SESSION['username'])) {
             location.reload();
         });
     });
+    // Ensure modal hides completely when the close button or close icon is clicked
+    document.getElementById('appointmentDetailsModal').addEventListener('hidden.bs.modal', function () {
+        document.body.classList.remove('modal-open');
+        document.querySelector('.modal-backdrop').remove();
+    });
+
+    // Ensure any remaining backdrop elements are removed
+    document.addEventListener('hidden.bs.modal', function (event) {
+        var backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+    });
+
+
 
 
         // Function to copy text to clipboard
@@ -427,8 +444,8 @@ if (!isset($_SESSION['username'])) {
             adminCalendar.appendChild(dayElement);
             // In your existing renderCalendar function, after appending dayElement
             const reserveButton = document.createElement('button');
-            reserveButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm', 'mt-10');
-            reserveButton.textContent = 'Reserve';
+            reserveButton.classList.add('btn', 'btn-light', 'btn-sm', 'mt-10');
+            reserveButton.textContent = 'Book!';
             reserveButton.setAttribute('data-toggle', 'modal');
             reserveButton.setAttribute('data-target', '#reservationModal');
             reserveButton.addEventListener('click', function () {
