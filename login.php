@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>BloomWithUs</title>
-  <link rel="icon" href="http://bloomwithus.co.in/logo.png" type="image/x-icon">
+  <link rel="icon" href="assets/img/logo.png" type="image/x-icon">
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -72,7 +72,7 @@
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
         <a href="index.html" class="logo d-flex align-items-center me-auto">
-          <img src="http://bloomwithus.co.in/logo.png" alt="">
+        <img src="assets/img/logo.png" alt="Logo">
           <h1 class="sitename">BloomWithUs</h1>
         </a>
 

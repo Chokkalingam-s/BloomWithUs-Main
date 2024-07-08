@@ -807,7 +807,11 @@ section,
 .featured-services .service-item:hover .icon i {
   color: var(--contrast-color);
 }
-
+@media (max-width: 1199px) {
+.team-social{
+  padding-left: 12px;
+}
+}
 /*--------------------------------------------------------------
 # About Section
 --------------------------------------------------------------*/
