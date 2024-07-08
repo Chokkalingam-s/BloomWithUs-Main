@@ -152,6 +152,23 @@ if (!isset($_SESSION['username'])) {
 </head>
 
 <body class="index-page">
+         <!-- Custom Alert Modal -->
+<div class="modal fade" id="customAlertModal" tabindex="-1" aria-labelledby="customAlertLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="customAlertLabel">BloomWithUs</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="customAlertMessage">
+                <!-- Dynamic alert message will be injected here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-wrapper">
             <header id="header" class="header d-flex align-items-center fixed-top">
                 <div class="container-fluid container-xl position-relative d-flex align-items-center">
@@ -317,16 +334,32 @@ if (!isset($_SESSION['username'])) {
 
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
    <script>
+        function showCustomAlert(message) {
+            const alertMessageElement = document.getElementById('customAlertMessage');
+            alertMessageElement.innerText = message;
+
+            const customAlertModal = new bootstrap.Modal(document.getElementById('customAlertModal'));
+            customAlertModal.show();
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+        const customAlertModal = document.getElementById('customAlertModal');
+
+        customAlertModal.addEventListener('hidden.bs.modal', function() {
+            location.reload();
+        });
+    });
+
 
         // Function to copy text to clipboard
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                alert('Unique-ID copied to clipboard!');
+                showCustomAlert('Unique-ID copied to clipboard!');
             }).catch(err => {
                 console.error('Error copying to clipboard:', err);
-                alert('Failed to copy Unique-ID. Sorry.');
+                showCustomAlert('Failed to copy Unique-ID. Sorry.');
             });
         }
     document.addEventListener('DOMContentLoaded', function () {
@@ -575,11 +608,22 @@ reservationForm.addEventListener('submit', function(e) {
         if (data.success) {
             const appointmentID = data.appointmentID;
             const reservationDate = data.reservationDate;
-            alert(`Appointment for ${appointmentID} Reserved successfully on ${reservationDate}!`);
-            location.reload();
+            const reservationModalElement = document.getElementById('reservationModal');
+            const reservationModalInstance = bootstrap.Modal.getInstance(reservationModalElement);
+
+            if (reservationModalInstance) {
+                reservationModalInstance.dispose();
+            }
+            reservationModalElement.classList.remove('show');
+            reservationModalElement.setAttribute('aria-hidden', 'true');
+            reservationModalElement.removeAttribute('aria-modal');
+            reservationModalElement.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            document.body.style.paddingRight = '';
+            showCustomAlert(`Appointment for ${appointmentID} Reserved successfully on ${reservationDate}!`);
             renderCalendar(currentDisplayedDate);
         } else {
-            alert('Failed to reserve appointment. Please try again.');
+            showCustomAlert('Failed to reserve appointment. Please try again.');
         }
     })
    

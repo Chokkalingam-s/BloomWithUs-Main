@@ -84,6 +84,24 @@
 </head>
 
 <body class="index-page">
+    <!-- Custom Alert Modal -->
+<div class="modal fade" id="customAlertModal" tabindex="-1" aria-labelledby="customAlertLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="customAlertLabel">BloomWithUs</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="customAlertMessage">
+                <!-- Dynamic alert message will be injected here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="container-wrapper">
         <header id="header" class="header d-flex align-items-center fixed-top">
             <div class="container-fluid container-xl position-relative d-flex align-items-center">
@@ -271,6 +289,13 @@
 
     <!-- Calendar Script -->
     <script>
+         function showCustomAlert(message) {
+         const alertMessageElement = document.getElementById('customAlertMessage');
+         alertMessageElement.innerText = message;
+
+         const customAlertModal = new bootstrap.Modal(document.getElementById('customAlertModal'));
+         customAlertModal.show();
+     }
         // JavaScript for calendar and modal form
         let currentDate = new Date();
 
@@ -351,7 +376,7 @@
             appointmentModal.show();
         } else {
             // Optionally, show an alert or message for past dates
-            alert("Yesterday is Behind Us.. Appointments are for the Days to come.\nLet’s focus on what’s next!");
+            showCustomAlert("Yesterday is Behind Us.. Appointments are for the Days to come.\nLet’s focus on what’s next!");
         }
     }
 
@@ -451,17 +476,17 @@
             .then(data => {
                 if (data.success) {
                     const appointmentID = data.appointmentID;
-                    alert(`Appointment booked successfully! Your Appointment ID is: ${appointmentID}. Please note it down.`);
+                    showCustomAlert(`Appointment booked successfully! Your Appointment ID is: ${appointmentID}. Please note it down.`);
                     const appointmentModal = bootstrap.Modal.getInstance(document.getElementById('appointmentModal'));
                     appointmentModal.hide();
                     renderCalendar();
                 } else {
-                    alert('Error booking appointment. Please try again.');
+                    showCustomAlert('Error booking appointment. Please try again.');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error booking appointment. Please try again.');
+                showCustomAlert('Error booking appointment. Please try again.');
             });
         });
 
