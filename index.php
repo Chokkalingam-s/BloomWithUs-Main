@@ -523,7 +523,7 @@ $result = $conn->query($sql);
     <div class="container copyright text-center mt-4">
       <p style="display: flex; justify-content: center;">©<span>Copyright</span> <strong class="px-1 sitename">BloomWithUs</strong><span>All Rights Reserved</span></p>
       <div class="credits">
-        Designed From <a href="https://rudraksha.org.in/" target="_blank"> Rudraksha</a>
+        Designed From <a href="https://rudraksha.org.in/" target="_blank"> Rudraksha Welfare Foundation <a href="https://www.linkedin.com/in/chokkalingam2005/" target="_blank"><i class="bi bi-person-workspace"></i></a></a>
       </div>
     </div>
   </footer>
