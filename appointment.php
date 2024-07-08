@@ -83,7 +83,15 @@ if (!isset($_SESSION['username'])) {
             cursor: pointer;
         }
 
-        .calendar .date {
+        .calendar .day-name{
+            background-color: #77b6ca;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .calendar .day {
             background-color: #d6f6ff;
             border: 1px solid #dee2e6;
             padding: 10px;
@@ -398,7 +406,7 @@ if (!isset($_SESSION['username'])) {
         dayNames.forEach(day => {
             const dayNameElement = document.createElement('div');
             dayNameElement.textContent = day;
-            dayNameElement.classList.add('day');
+            dayNameElement.classList.add('day-name');
             adminCalendar.appendChild(dayNameElement);
         });
 
