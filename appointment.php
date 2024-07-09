@@ -198,6 +198,7 @@ if (!isset($_SESSION['username'])) {
                         <li><a href="admin_dashboard.php">Home</a></li>
                         <li><a href="admin_dashboard.php#AddPost">Add Post</a></li>
                         <li><a href="admin_dashboard.php#ManagePost">Manage Post</a></li>
+                        <li><a href="prescription.php">Prescription</a></li>
                         <li><a href="logout.php" style="color: red;">Logout</a></li>
                         </ul>
                         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

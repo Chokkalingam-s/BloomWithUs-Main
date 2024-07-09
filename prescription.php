@@ -53,7 +53,7 @@ if (!isset($_SESSION['username'])) {
             flex: 1;
             display: flex;
             justify-content: center;
-            align-items: center;
+            
         }
         footer {
             flex-shrink: 0;
@@ -75,13 +75,13 @@ if (!isset($_SESSION['username'])) {
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="customAlertLabel">BloomWithUs</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body" id="customAlertMessage">
                                 <!-- Dynamic alert message will be injected here -->
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -98,6 +98,7 @@ if (!isset($_SESSION['username'])) {
                         <li><a href="admin_dashboard.php">Home</a></li>
                         <li><a href="admin_dashboard.php#AddPost">Add Post</a></li>
                         <li><a href="admin_dashboard.php#ManagePost">Manage Post</a></li>
+                        <li><a href="prescription.php" class="active">Prescription</a></li>
                         <li><a href="logout.php" style="color: red;">Logout</a></li>
                         </ul>
                         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -110,8 +111,8 @@ if (!isset($_SESSION['username'])) {
     <h2>Prescription Management</h2>
     <form method="GET" action="">
         <div class="form-group">
-            <label for="uniqueIdSearch">Search by Unique ID</label>
-            <input type="text" class="form-control" id="uniqueIdSearch" name="unique_id" placeholder="Enter Unique ID" onkeyup="this.form.submit()">
+            <label for="uniqueIdSearch">Unique ID based Prescription</label>
+            <input type="text" class="form-control" id="uniqueIdSearch" name="unique_id" placeholder="Paste Unique ID" onkeyup="this.form.submit()">
             <div id="uniqueIdDropdown" class="dropdown-menu">
                 <?php
                 // Fetch unique IDs matching the search term
@@ -217,6 +218,22 @@ if (!isset($_SESSION['username'])) {
     <!-- script -->
 
     <script>
+
+function showCustomAlert(message) {
+            const alertMessageElement = document.getElementById('customAlertMessage');
+            alertMessageElement.innerText = message;
+
+            const customAlertModal = new bootstrap.Modal(document.getElementById('customAlertModal'));
+            customAlertModal.show();
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+        const customAlertModal = document.getElementById('customAlertModal');
+
+        customAlertModal.addEventListener('hidden.bs.modal', function() {
+            location.reload();
+        });
+    });
+
 $(document).ready(function() {
     // Populate the unique ID search dropdown and handle modal display
     const urlParams = new URLSearchParams(window.location.search);
@@ -264,7 +281,7 @@ $(document).ready(function() {
         const formData = $(this).serialize() + '&key_therapies=' + encodeURIComponent(keyTherapies.join(', '));
 
         $.post('save_prescription.php', formData, function(response) {
-            alert(response);
+            showCustomAlert(response);
             $('#prescriptionModal').modal('hide');
         });
     });
