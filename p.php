@@ -7,11 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        .modal-lg {
-            max-width: 80%;
-        }
-    </style>
+
 </head>
 <body>
 <div class="container mt-5">
@@ -58,7 +54,7 @@
 
 <!-- Prescription Modal -->
 <div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg" style="max-width: 80%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="prescriptionModalLabel">Prescription for <span id="modalUniqueId"></span></h5>
