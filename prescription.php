@@ -166,14 +166,14 @@ if (!isset($_SESSION['username'])) {
                     <div class="form-group">
                         <label for="keyTherapies">Key Therapies</label>
                         <div id="keyTherapies" class="mb-3">
-                            <span class="badge badge-secondary therapy-tag">Cognitive behavioural therapy</span>
-                            <span class="badge badge-secondary therapy-tag">Relaxation therapy</span>
-                            <span class="badge badge-secondary therapy-tag">Behavioural therapy</span>
-                            <span class="badge badge-secondary therapy-tag">Art therapy</span>
-                            <span class="badge badge-secondary therapy-tag">Interpersonal therapy</span>
-                            <span class="badge badge-secondary therapy-tag">Emotion focused therapy</span>
-                            <span class="badge badge-secondary therapy-tag">Family therapy</span>
-                            <span class="badge badge-secondary therapy-tag">Others</span>
+                            <span class="badge badge-dark therapy-tag">Cognitive behavioural therapy</span>
+                            <span class="badge badge-dark therapy-tag">Relaxation therapy</span>
+                            <span class="badge badge-dark therapy-tag">Behavioural therapy</span>
+                            <span class="badge badge-dark therapy-tag">Art therapy</span>
+                            <span class="badge badge-dark therapy-tag">Interpersonal therapy</span>
+                            <span class="badge badge-dark therapy-tag">Emotion focused therapy</span>
+                            <span class="badge badge-dark therapy-tag">Family therapy</span>
+                            <span class="badge badge-dark therapy-tag">Others</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -255,9 +255,9 @@ $(document).ready(function() {
                 $('.therapy-tag').each(function() {
                     const therapy = $(this).text();
                     if (selectedTherapies.includes(therapy)) {
-                        $(this).removeClass('badge-secondary').addClass('badge-success');
+                        $(this).removeClass('badge-dark').addClass('badge-success');
                     } else {
-                        $(this).removeClass('badge-success').addClass('badge-secondary');
+                        $(this).removeClass('badge-success').addClass('badge-dark');
                     }
                 });
 
@@ -267,7 +267,7 @@ $(document).ready(function() {
     }
 
     $('.therapy-tag').on('click', function() {
-        $(this).toggleClass('badge-secondary badge-success');
+        $(this).toggleClass('badge-dark badge-success');
     });
 
     $('#prescriptionModal form').on('submit', function(event) {
