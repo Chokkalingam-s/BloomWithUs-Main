@@ -178,26 +178,26 @@ $conn->close();
             </div>
         </header>
 
-        <main class="main" style="margin-top: 13vh;">
+        <main class="main" style="margin-top: 10vh;">
     <div class="container mt-5" >
     <div class="mb-4 text-center">
                     <h2>Hello Admin!</h2>
                 </div>
 
                  <!-- Admin Feature Cards -->
-                  <div style="margin-top:3%;">
-                 <div class="row g-4">
-                    <div class="col-md-4">
+                  <div style="margin-top:1%;">
+                 <div class="row g-3">
+                    <div class="col-md-3">
                         <a href="appointment.php" class="text-decoration-none">
                             <div class="card card-custom h-100">
                                 <div class="card-body d-flex flex-column align-items-center">
                                     <i class="bi bi-calendar-check card-icon"></i>
-                                    <p class="card-title mt-3">Manage Appointments</p>
+                                    <p class="card-title mt-3">Check Appointments</p>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <a href="admin_dashboard.php#AddPost" class="text-decoration-none">
                             <div class="card card-custom h-100">
                                 <div class="card-body d-flex flex-column align-items-center">
@@ -207,12 +207,22 @@ $conn->close();
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <a href="admin_dashboard.php#ManagePost" class="text-decoration-none">
                             <div class="card card-custom h-100">
                                 <div class="card-body d-flex flex-column align-items-center">
                                     <i class="bi bi-pencil-square card-icon"></i>
                                     <p class="card-title mt-3">Edit / Delete Post</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="Prescription.php" class="text-decoration-none">
+                            <div class="card card-custom h-100">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-journal-text card-icon"></i>
+                                    <p class="card-title mt-3">Prescription</p>
                                 </div>
                             </div>
                         </a>

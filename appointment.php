@@ -241,8 +241,8 @@ if (!isset($_SESSION['username'])) {
     </div>
 
     <!-- Reservation Modal -->
-<div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
+<div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-scrollable"  >
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="reservationModalLabel">Reserve Appointment</h5>
@@ -262,7 +262,7 @@ if (!isset($_SESSION['username'])) {
                     </div>
                     <div class="form-group">
                         <label for="reservationPatientId">Patient Unique ID</label>
-                        <input type="text" class="form-control" id="reservationPatientId" name="reservationPatientId" placeholder="Enter Patient Unique ID">
+                        <input type="text" class="form-control" id="reservationPatientId" name="reservationPatientId" placeholder="Paste Patient Unique ID">
                     </div>
                     <div id="patientDetails" style="display: none;">
                         <hr>
@@ -315,7 +315,7 @@ if (!isset($_SESSION['username'])) {
                             <input type="text" class="form-control" id="reservationEmail" name="reservationEmail" readonly>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div >
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save Reservation</button>
             </div>
