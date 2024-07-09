@@ -388,8 +388,8 @@ if (!isset($_SESSION['username'])) {
         // Function to copy text to clipboard
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                showCustomAlert('Unique-ID copied to clipboard!');
-            }).catch(err => {
+                console.log('Text copied to clipboard:', text);
+                        }).catch(err => {
                 console.error('Error copying to clipboard:', err);
                 showCustomAlert('Failed to copy Unique-ID. Sorry.');
             });
