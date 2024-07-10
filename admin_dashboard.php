@@ -103,16 +103,6 @@ $conn->close();
             background-color: #f8f9fa;
             
         }
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        :root::-webkit-scrollbar {
-            display: none;
-            }
-
-            /* Hide scrollbar for IE, Edge and Firefox */
-            :root{
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-            }
         .container-wrapper {
             display: flex;
             flex-direction: column;
@@ -129,33 +119,26 @@ $conn->close();
             flex-shrink: 0;
             background: #f8f9fa;
         }
-
-
         .card-custom {
             text-align: center;
             padding: 0px 20px 20px 20px;
             transition: transform 0.3s, box-shadow 0.3s;
             background-color: #EAFAFF;
         }
-
         .card-custom:hover {
             transform: translateY(-10px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
         .card-icon {
             font-size: 2rem;
             color: #388da8;
         }
-
         .card-title {
             font-size: 1.2rem;
             margin-top: 10px;
         }
     </style>
-
 </head>
-
 <body class="index-page">
     <div class="container-wrapper">
         <header id="header" class="header d-flex align-items-center fixed-top">
