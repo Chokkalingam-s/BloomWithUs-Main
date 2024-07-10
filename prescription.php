@@ -151,7 +151,7 @@ if (!isset($_SESSION['username'])) {
 
 <!-- Prescription Modal -->
 <div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" style="max-width: 80%;">
+    <div class="modal-dialog modal-lg" style="max-width: 90%;margin-left:5%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="prescriptionModalLabel">Prescription for <span id="modalUniqueId"></span></h5>
