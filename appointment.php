@@ -388,13 +388,27 @@ if (!isset($_SESSION['username'])) {
 
         // Function to copy text to clipboard
         function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                console.log('Text copied to clipboard:', text);
-                        }).catch(err => {
-                console.error('Error copying to clipboard:', err);
-                showCustomAlert('Failed to copy Unique-ID. Sorry.');
-            });
-        }
+                var hiddenInput = document.getElementById('hiddenInput')
+                hiddenInput.value = text;
+                hiddenInput.select();
+                hiddenInput.setSelectionRange(0, 99999); 
+                try {
+                    var successful = document.execCommand('copy');
+                    if (successful) {
+                        console.log('Unique-ID copied to clipboard:', text);
+                    } else {
+                        console.error('Failed to copy text to clipboard');
+                        showCustomAlert('Failed to copy Unique-ID. Sorry.');
+                    }
+                } catch (err) {
+                    console.error('Error copying to clipboard:', err);
+                    showCustomAlert('Failed to copy Unique-ID. Sorry.');
+                }
+
+                // Deselect the text field
+                hiddenInput.blur();
+            }
+
     document.addEventListener('DOMContentLoaded', function () {
     const adminCalendar = document.getElementById('adminCalendar');
     const prevMonthBtn = document.getElementById('prevMonthBtn');
@@ -519,6 +533,7 @@ if (!isset($_SESSION['username'])) {
                       <p><strong>UniqueID:</strong> 
                     ${data.unique_id} 
                     <br>
+                    <input type="text" id="hiddenInput" style="position: absolute; left: -9999px;">
                     <button class="btn btn-link" onclick="copyToClipboard('${data.unique_id}')">
                         <i class="bi bi-copy" >Copy Unique Id</i>
                     </button>
