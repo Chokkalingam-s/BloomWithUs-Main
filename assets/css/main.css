@@ -156,6 +156,8 @@ p, li ,h6{
     order: 2;
     margin: 0 10px 0 0;
     padding: 6px 10px;
+    margin-left: 5px;
+    margin-right:8px;
   }
 
   .header .navmenu {
