@@ -382,10 +382,6 @@ if (!isset($_SESSION['username'])) {
             backdrop.remove();
         }
     });
-
-
-
-
         // Function to copy text to clipboard
         function copyToClipboard(text) {
                 var hiddenInput = document.getElementById('hiddenInput')
