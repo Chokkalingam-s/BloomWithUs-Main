@@ -98,7 +98,8 @@ p, li ,h6{
 }
 
 .header .logo {
-  line-height: 1;
+  display: flex;
+  align-items: center;
 }
 
 .header .logo img {
@@ -121,6 +122,9 @@ p, li ,h6{
   .header .logo h1 {
     font-size: 24px;
   }
+  h1.sitename {
+    margin-left: -10px !important;
+}
 }
 
 .header .btn-getstarted,
