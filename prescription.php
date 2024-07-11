@@ -63,8 +63,7 @@ if (!isset($_SESSION['username'])) {
         .container {
             max-width: 90vw;
             margin-top: 50px;
-        }    
-
+        }      
     </style>
 </head>
 
@@ -116,13 +115,13 @@ if (!isset($_SESSION['username'])) {
          
         </div>
     </form>
-</div>
+    </div>
 
 
 <!-- Prescription Modal -->
 <div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="max-width: 90%;margin-left:5%;">
-        <div class="modal-content">
+        <div class="modal-content" style="height: 95vh;">
             <div class="modal-header">
                 <h5 class="modal-title" id="prescriptionModalLabel">Prescription for <span id="modalUniqueId"></span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -133,26 +132,42 @@ if (!isset($_SESSION['username'])) {
                 <div class="modal-body">
                     <input type="hidden" name="unique_id" id="hiddenUniqueId">
                     <p><strong>Name: </strong><span id="patientName"></span></p>
-                    <div class="form-group">
-                        <label for="keyTherapies">Key Therapies</label>
-                        <div id="keyTherapies" class="mb-3">
-                            <span class="badge badge-dark therapy-tag">Cognitive behavioural therapy</span>
-                            <span class="badge badge-dark therapy-tag">Relaxation therapy</span>
-                            <span class="badge badge-dark therapy-tag">Behavioural therapy</span>
-                            <span class="badge badge-dark therapy-tag">Art therapy</span>
-                            <span class="badge badge-dark therapy-tag">Interpersonal therapy</span>
-                            <span class="badge badge-dark therapy-tag">Emotion focused therapy</span>
-                            <span class="badge badge-dark therapy-tag">Family therapy</span>
-                            <span class="badge badge-dark therapy-tag">Others</span>
+
+                    <div class="row">
+                        <div class="col section1" >
+                            <div class="row h-20 appointment_details">
+                               
+                            </div>
+                            <div class="row h-80">
+                             
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="medicationPrescribed">Medication Prescribed</label>
-                        <textarea class="form-control" name="medication_prescribed" id="medicationPrescribed" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="notes">Notes</label>
-                        <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
+                        <div class="col section2">
+                        <div class="form-group">
+                            <label for="keyTherapies">Key Therapies</label>
+                            <div id="keyTherapies" class="mb-3">
+                                <span class="badge badge-dark therapy-tag">Cognitive behavioural therapy</span>
+                                <span class="badge badge-dark therapy-tag">Relaxation therapy</span>
+                                <span class="badge badge-dark therapy-tag">Behavioural therapy</span>
+                                <span class="badge badge-dark therapy-tag">Art therapy</span>
+                                <span class="badge badge-dark therapy-tag">Interpersonal therapy</span>
+                                <span class="badge badge-dark therapy-tag">Emotion focused therapy</span>
+                                <span class="badge badge-dark therapy-tag">Family therapy</span>
+                                <span class="badge badge-dark therapy-tag">Others</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="medicationPrescribed">Medication Prescribed</label>
+                            <textarea class="form-control" name="medication_prescribed" id="medicationPrescribed" rows="5"></textarea>
+                        </div>
+                        </div>
+                        <div class="col section3">
+
+                            <div class="form-group">
+                                    <label for="notes">Notes</label>
+                                    <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
+                                </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -204,11 +219,33 @@ function showCustomAlert(message) {
         });
     });
 
-$(document).ready(function() {
-    // Populate the unique ID search dropdown and handle modal display
+    $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const uniqueId = urlParams.get('unique_id');
     if (uniqueId) {
+        // Fetch appointment details
+        fetch(`get_appointment_details.php?unique_id=${uniqueId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    console.error('Appointment not found');
+                } else {
+                    $('.appointment_details').html(`
+                        <div class="row">
+                        <div class="col-3">
+                        <p><strong>Age:</strong> ${data.age}</p> </div>
+                        <div class="col-9">
+                        <p><strong>Gender:</strong> ${data.gender}</p> </div>
+                        <p><strong>Profession:</strong> ${data.profession}</p>
+                        <p><strong>Phone Number:</strong> ${data.phone_number}</p>
+                        </div>
+                        
+                    `);
+                }
+            })
+            .catch(error => console.error('Error fetching appointment details:', error));
+
+        // Fetch prescription details
         $.ajax({
             url: 'p_fetch_patient_details.php',
             type: 'GET',
@@ -256,6 +293,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 </script>
    
