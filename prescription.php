@@ -63,7 +63,17 @@ if (!isset($_SESSION['username'])) {
         .container {
             max-width: 90vw;
             margin-top: 50px;
-        }      
+        }    
+        
+        .badge-container {
+            margin-top: 10px;
+        }
+        .badge {
+            margin: 2px;
+        }
+        .table td, .table th {
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -120,8 +130,8 @@ if (!isset($_SESSION['username'])) {
 
 <!-- Prescription Modal -->
 <div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" style="max-width: 90%;margin-left:5%;">
-        <div class="modal-content" style="height: 95vh;">
+    <div class="modal-dialog modal-lg" style="max-width: 90%;margin-left:5%;height: 95vh;">
+        <div class="modal-content" style="">
             <div class="modal-header">
                 <h5 class="modal-title" id="prescriptionModalLabel">Prescription for <span id="modalUniqueId"></span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -134,35 +144,84 @@ if (!isset($_SESSION['username'])) {
                     <p><strong>Name: </strong><span id="patientName"></span></p>
 
                     <div class="row">
-                        <div class="col section1" >
+                        <div class="col-3 section1" >
                             <div class="row h-20 appointment_details">
-                               
+                               <!--- AAppointment details automatic render bruh -->
                             </div>
                             <div class="row h-80">
                              
                             </div>
                         </div>
-                        <div class="col section2">
+                        <div class="col-5 section2">
                         <div class="form-group">
-                            <label for="keyTherapies">Key Therapies</label>
-                            <div id="keyTherapies" class="mb-3">
-                                <span class="badge badge-dark therapy-tag">Cognitive behavioural therapy</span>
-                                <span class="badge badge-dark therapy-tag">Relaxation therapy</span>
-                                <span class="badge badge-dark therapy-tag">Behavioural therapy</span>
-                                <span class="badge badge-dark therapy-tag">Art therapy</span>
-                                <span class="badge badge-dark therapy-tag">Interpersonal therapy</span>
-                                <span class="badge badge-dark therapy-tag">Emotion focused therapy</span>
-                                <span class="badge badge-dark therapy-tag">Family therapy</span>
-                                <span class="badge badge-dark therapy-tag">Others</span>
-                            </div>
+                            <label for="key-therapies">Key Therapies</label>
+                            <select id="key-therapies" class="form-control" multiple>
+                                <option>Cognitive behavioural therapy</option>
+                                <option>Relaxation therapy</option>
+                                <option>Behavioural therapy</option>
+                                <option>Art therapy</option>
+                                <option>Interpersonal therapy</option>
+                                <option>Emotion focused therapy</option>
+                                <option>Family therapy</option>
+                            </select>
+                            <div id="key-therapies-badges" class="badge-container"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="medicationPrescribed">Medication Prescribed</label>
-                            <textarea class="form-control" name="medication_prescribed" id="medicationPrescribed" rows="5"></textarea>
-                        </div>
-                        </div>
-                        <div class="col section3">
 
+                        <div class="form-group">
+                            <label for="diseases">Diseases</label>
+                            <select id="diseases" class="form-control" multiple>
+                                <option>Major Depressive Disorder (MDD)</option>
+                                <option>Generalized Anxiety Disorder (GAD)</option>
+                                <option>Panic Disorder</option>
+                                <option>Social Anxiety Disorder</option>
+                                <option>Post-Traumatic Stress Disorder (PTSD)</option>
+                                <option>Obsessive-Compulsive Disorder (OCD)</option>
+                                <option>Acute Stress Disorder</option>
+                                <option>Others</option>
+                            </select>
+                            <div id="diseases-badges" class="badge-container"></div>
+                        </div>
+
+
+                        <h2>Medicine Table</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Medicine Name</th>
+                                        <th>No. of Times</th>
+                                        <th>Quantity (mg)</th>
+                                        <th>Before/After Meal</th>
+                                        <th>SOS (Y/N)</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="medicine-table-body">
+                                    <tr>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td><input type="number" class="form-control"></td>
+                                        <td><input type="number" class="form-control"></td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>Before Meal</option>
+                                                <option>After Meal</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="form-control sos-checkbox">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success save-btn">Save</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                             
+
+                        </div>
+                        <div class="col-4 section3">
+                              <div class="future_appointments">
+
+                              </div>
                             <div class="form-group">
                                     <label for="notes">Notes</label>
                                     <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
@@ -222,7 +281,7 @@ function showCustomAlert(message) {
     $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const uniqueId = urlParams.get('unique_id');
-    if (uniqueId) {
+    if (uniqueId){
         // Fetch appointment details
         fetch(`get_appointment_details.php?unique_id=${uniqueId}`)
             .then(response => response.json())
@@ -232,14 +291,40 @@ function showCustomAlert(message) {
                 } else {
                     $('.appointment_details').html(`
                         <div class="row">
-                        <div class="col-3">
-                        <p><strong>Age:</strong> ${data.age}</p> </div>
-                        <div class="col-9">
-                        <p><strong>Gender:</strong> ${data.gender}</p> </div>
-                        <p><strong>Profession:</strong> ${data.profession}</p>
-                        <p><strong>Phone Number:</strong> ${data.phone_number}</p>
+                            <div class="col-3">
+                                <p><strong>Age:</strong> ${data.age}</p> 
+                            </div>
+                            <div class="col-9">
+                                <p><strong>Gender:</strong> ${data.gender}</p> 
+                            </div>
+                            <p><strong>Profession:</strong> ${data.profession}</p>
+                            <p><strong>Phone Number:</strong> ${data.phone_number}</p>
                         </div>
-                        
+                    `);
+
+                    // Display previous appointments
+                    let previousAppointmentsHtml = '<h5>Previous Appointments</h5>';
+                    if (data.previous_appointments.length > 0) {
+                        data.previous_appointments.forEach(appointment => {
+                            previousAppointmentsHtml += `<p>${appointment.appointment_date} - ${appointment.time_slot}</p>`;
+                        });
+                    } else {
+                        previousAppointmentsHtml += '<p>No previous appointments</p>';
+                    }
+
+                    // Display future appointments
+                    let futureAppointmentsHtml = '<h5>Future Appointments</h5>';
+                    if (data.future_appointments.length > 0) {
+                        data.future_appointments.forEach(appointment => {
+                            futureAppointmentsHtml += `<p>${appointment.appointment_date} - ${appointment.time_slot}</p>`;
+                        });
+                    } else {
+                        futureAppointmentsHtml += '<p>No future appointments</p>';
+                    }
+
+                    $('.future_appointments').html(`
+                        ${previousAppointmentsHtml}
+                        ${futureAppointmentsHtml}
                     `);
                 }
             })
@@ -294,6 +379,67 @@ function showCustomAlert(message) {
     });
 });
 
+
+function updateBadges(selectElementId, badgeContainerId) {
+            const selectedOptions = $(`#${selectElementId} option:selected`);
+            const badgeContainer = $(`#${badgeContainerId}`);
+            badgeContainer.empty();
+
+            selectedOptions.each(function() {
+                const badge = $('<span>').addClass('badge badge-success').text($(this).text());
+                badgeContainer.append(badge);
+            });
+        }
+
+        $('#key-therapies').change(function() {
+            updateBadges('key-therapies', 'key-therapies-badges');
+        });
+
+        $('#diseases').change(function() {
+            updateBadges('diseases', 'diseases-badges');
+        });
+
+
+function createTableRow(data) {
+            const row = $('<tr>');
+            row.append($('<td>').text(data.medicineName));
+            row.append($('<td>').text(data.noOfTimes));
+            row.append($('<td>').text(data.quantity));
+            row.append($('<td>').text(data.meal));
+            const sos = $('<td>').text(data.sos ? 'Yes' : 'No');
+            if (data.sos) {
+                sos.addClass('table-danger');
+            }
+            row.append(sos);
+            const options = $('<td>');
+            const editBtn = $('<button>').addClass('btn btn-warning').text('Edit');
+            const deleteBtn = $('<button>').addClass('btn btn-danger').text('Delete');
+            options.append(editBtn).append(deleteBtn);
+            row.append(options);
+            return row;
+        }
+
+        function clearInputFields() {
+            $('#medicine-table-body input[type="text"], #medicine-table-body input[type="number"]').val('');
+            $('#medicine-table-body select').val('Before Meal');
+            $('#medicine-table-body input[type="checkbox"]').prop('checked', false);
+        }
+
+        $(document).on('click', '.save-btn', function() {
+            const row = $(this).closest('tr');
+            const data = {
+                medicineName: row.find('input[type="text"]').val(),
+                noOfTimes: row.find('input[type="number"]').eq(0).val(),
+                quantity: row.find('input[type="number"]').eq(1).val(),
+                meal: row.find('select').val(),
+                sos: row.find('input[type="checkbox"]').is(':checked')
+            };
+
+            const newRow = createTableRow(data);
+            $('#medicine-table-body').append(newRow);
+
+            clearInputFields();
+        });
 
 </script>
    
