@@ -113,37 +113,7 @@ if (!isset($_SESSION['username'])) {
         <div class="form-group">
             <label for="uniqueIdSearch">Unique ID based Prescription</label>
             <input type="text" class="form-control" id="uniqueIdSearch" name="unique_id" placeholder="Paste Unique ID" onkeyup="this.form.submit()">
-            <div id="uniqueIdDropdown" class="dropdown-menu">
-                <?php
-                // Fetch unique IDs matching the search term
-                if (isset($_GET['unique_id'])) {
-                    $searchTerm = $_GET['unique_id'];
-                    $servername = "localhost";
-                    $username = "root";
-                    $password = "";
-                    $dbname = "bloom";
-
-                    $conn = new mysqli($servername, $username, $password, $dbname);
-
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-
-                    $sql = "SELECT DISTINCT unique_id FROM appointments WHERE unique_id LIKE '%$searchTerm%'";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<a class="dropdown-item" href="?unique_id=' . $row['unique_id'] . '">' . $row['unique_id'] . '</a>';
-                        }
-                    } else {
-                        echo '<a class="dropdown-item">No results</a>';
-                    }
-
-                    $conn->close();
-                }
-                ?>
-            </div>
+         
         </div>
     </form>
 </div>
