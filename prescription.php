@@ -153,7 +153,7 @@ if (!isset($_SESSION['username'])) {
                         <div class="col-5 section2">
                         <div class="form-group">
                             <label for="key-therapies"><h4>Key Therapies</h4></label>
-                            <select id="key-therapies" class="form-control" multiple>
+                            <select id="key-therapies" class="form-control therapy-select" multiple="multiple">
                                 <option>Cognitive behavioural therapy</option>
                                 <option>Relaxation therapy</option>
                                 <option>Behavioural therapy</option>
@@ -167,7 +167,7 @@ if (!isset($_SESSION['username'])) {
 
                         <div class="form-group">
                             <label for="diseases"><h4>Diseases</h4></label>
-                            <select id="diseases" class="form-control" multiple>
+                            <select id="diseases" class="form-control disease-select" multiple="multiple">
                                 <option>Major Depressive Disorder (MDD)</option>
                                 <option>Generalized Anxiety Disorder (GAD)</option>
                                 <option>Panic Disorder</option>
