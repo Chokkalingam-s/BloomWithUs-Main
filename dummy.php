@@ -14,7 +14,20 @@
         <h2 class="mb-4">Disease and Therapy Selection</h2>
 
         <div class="form-group">
-            <label for="diseases">Disease</label>
+            <label for="key-therapies"><h4>Key Therapies</h4></label>
+            <select class="form-control therapy-select" id="key-therapies" multiple="multiple">
+                <option>Cognitive Behavioural Therapy</option>
+                <option>Relaxation Therapy</option>
+                <option>Behavioural Therapy</option>
+                <option>Art Therapy</option>
+                <option>Interpersonal Therapy</option>
+                <option>Emotion Focused Therapy</option>
+                <option>Family Therapy</option>
+            </select>
+            <div id="selected-therapies" class="selected-items mt-2"></div>
+        </div>
+        <div class="form-group">
+            <label for="diseases"><h4>Diseases</h4></label>
             <select class="form-control disease-select" id="diseases" multiple="multiple">
                 <option>Major Depressive Disorder (MDD)</option>
                 <option>Generalized Anxiety Disorder (GAD)</option>
@@ -27,19 +40,7 @@
             <div id="selected-diseases" class="selected-items mt-2"></div>
         </div>
 
-        <div class="form-group">
-            <label for="therapies">Therapy</label>
-            <select class="form-control therapy-select" id="therapies" multiple="multiple">
-                <option>Cognitive Behavioural Therapy</option>
-                <option>Relaxation Therapy</option>
-                <option>Behavioural Therapy</option>
-                <option>Art Therapy</option>
-                <option>Interpersonal Therapy</option>
-                <option>Emotion Focused Therapy</option>
-                <option>Family Therapy</option>
-            </select>
-            <div id="selected-therapies" class="selected-items mt-2"></div>
-        </div>
+      
     </div>
 
     <!-- jQuery -->
