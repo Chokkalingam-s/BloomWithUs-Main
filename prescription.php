@@ -141,14 +141,12 @@ if (!isset($_SESSION['username'])) {
             <form method="POST">
                 <div class="modal-body">
                     <input type="hidden" name="unique_id" id="hiddenUniqueId">
-                    
-
                     <div class="row">
                         <div class="col-3 section1" >
                             <div class="row h-20 appointment_details">
                                <!--- Appointment details automatic render bruh -->
                             </div>
-                            <div class="row h-80">
+                            <div class="row h-80 old_prescription">
                              
                             </div>
                         </div>
@@ -183,7 +181,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
 
 
-                        <h2>Medicine Table</h2>
+                        <h4>Medicine Table</h4>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -282,7 +280,7 @@ function showCustomAlert(message) {
     const urlParams = new URLSearchParams(window.location.search);
     const uniqueId = urlParams.get('unique_id');
     if (uniqueId){
-        // Fetch appointment details
+        // Fetch appointment details for section 1 and 3
         fetch(`get_appointment_details.php?unique_id=${uniqueId}`)
             .then(response => response.json())
             .then(data => {
@@ -333,6 +331,27 @@ function showCustomAlert(message) {
             })
             .catch(error => console.error('Error fetching appointment details:', error));
 
+                // Function to update badges based on selected options
+    function updateBadges(selectElementId, badgeContainerId) {
+        const selectedOptions = $(`#${selectElementId} option:selected`);
+        const badgeContainer = $(`#${badgeContainerId}`);
+        badgeContainer.empty();
+
+        selectedOptions.each(function() {
+            const badge = $('<span>').addClass('badge badge-success').text($(this).text());
+            badgeContainer.append(badge);
+        });
+    }
+
+    // Update badges on change
+    $('#key-therapies').change(function() {
+        updateBadges('key-therapies', 'key-therapies-badges');
+    });
+
+    $('#diseases').change(function() {
+        updateBadges('diseases', 'diseases-badges');
+    });
+
         // Fetch prescription details
         $.ajax({
             url: 'p_fetch_patient_details.php',
@@ -346,61 +365,43 @@ function showCustomAlert(message) {
                 $('#medicationPrescribed').val(patient.medication_prescribed);
                 $('#notes').val(patient.notes);
 
+                // Select key therapies and diseases based on fetched data
                 const selectedTherapies = patient.key_therapies ? patient.key_therapies.split(', ') : [];
-                $('.therapy-tag').each(function() {
-                    const therapy = $(this).text();
-                    if (selectedTherapies.includes(therapy)) {
-                        $(this).removeClass('badge-dark').addClass('badge-success');
-                    } else {
-                        $(this).removeClass('badge-success').addClass('badge-dark');
-                    }
-                });
+                const selectedDiseases = patient.diseases ? patient.diseases.split(', ') : [];
+                $('#key-therapies').val(selectedTherapies);
+                $('#diseases').val(selectedDiseases);
+
+                // Update badges for selected key therapies and diseases
+                updateBadges('key-therapies', 'key-therapies-badges');
+                updateBadges('diseases', 'diseases-badges');
 
                 $('#prescriptionModal').modal('show');
             }
         });
     }
 
-    $('.therapy-tag').on('click', function() {
-        $(this).toggleClass('badge-dark badge-success');
-    });
-
+         // Handle form submission
     $('#prescriptionModal form').on('submit', function(event) {
         event.preventDefault();
 
-        const keyTherapies = [];
-        $('.therapy-tag.badge-success').each(function() {
-            keyTherapies.push($(this).text());
-        });
+        // Serialize form data including key therapies and diseases
+        const keyTherapies = $('#key-therapies').val().join(', ');
+        const diseases = $('#diseases').val().join(', ');
+        const formData = $(this).serialize() + `&key_therapies=${encodeURIComponent(keyTherapies)}&diseases=${encodeURIComponent(diseases)}`;
 
-        const formData = $(this).serialize() + '&key_therapies=' + encodeURIComponent(keyTherapies.join(', '));
-
+        // Send data to save_prescription.php using AJAX
         $.post('save_prescription.php', formData, function(response) {
             showCustomAlert(response);
             $('#prescriptionModal').modal('hide');
         });
     });
+
+          //save_prescription
+   
 });
 
 
-function updateBadges(selectElementId, badgeContainerId) {
-            const selectedOptions = $(`#${selectElementId} option:selected`);
-            const badgeContainer = $(`#${badgeContainerId}`);
-            badgeContainer.empty();
 
-            selectedOptions.each(function() {
-                const badge = $('<span>').addClass('badge badge-success').text($(this).text());
-                badgeContainer.append(badge);
-            });
-        }
-
-        $('#key-therapies').change(function() {
-            updateBadges('key-therapies', 'key-therapies-badges');
-        });
-
-        $('#diseases').change(function() {
-            updateBadges('diseases', 'diseases-badges');
-        });
 
 
 function createTableRow(data) {
@@ -425,7 +426,7 @@ function createTableRow(data) {
         function clearInputFields() {
             $('#medicine-table-body input[type="text"], #medicine-table-body input[type="number"]').val('');
             $('#medicine-table-body select').val('Before Meal');
-            $('#medicine-table-body input[type="checkbox"]').prop('checked', false);
+            $('#medicine-table-body i=nput[type="checkbox"]').prop('checked', false);
         }
 
         $(document).on('click', '.save-btn', function() {

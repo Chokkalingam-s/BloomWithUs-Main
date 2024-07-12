@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 $unique_id = $_GET['unique_id'];
-$sql = "SELECT a.patient_first_name, a.patient_last_name, p.key_therapies, p.medication_prescribed, p.notes
+$sql = "SELECT a.patient_first_name, a.patient_last_name, p.key_therapies,p.diseases, p.medication_prescribed, p.notes
         FROM appointments a
         LEFT JOIN prescription p ON a.unique_id = p.unique_id
         WHERE a.unique_id = '$unique_id'";
@@ -25,6 +25,7 @@ if ($result->num_rows > 0) {
         'patient_first_name' => '',
         'patient_last_name' => '',
         'key_therapies' => '',
+        'diseases'=>'',
         'medication_prescribed' => '',
         'notes' => ''
     ]);
