@@ -74,6 +74,12 @@ if (!isset($_SESSION['username'])) {
         .table td, .table th {
             vertical-align: middle;
         }
+        .section1 ,.section3{
+            background-color: #F7F9F7;
+        }
+        .section2{
+            background-color: #F1F5F2;
+        }
     </style>
 </head>
 
