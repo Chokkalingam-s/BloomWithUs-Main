@@ -375,8 +375,8 @@ function showCustomAlert(message) {
                  // Update key therapies badges
                  updateBadges('key-therapies', 'key-therapies-badges', patient.key_therapies);
 
-// Update diseases badges
-updateBadges('diseases', 'diseases-badges', patient.diseases);
+                    // Update diseases badges
+                    updateBadges('diseases', 'diseases-badges', patient.diseases);
 
                 $('#prescriptionModal').modal('show');
             }
