@@ -29,17 +29,15 @@ if (!isset($_SESSION['username'])) {
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
+     <!-- select2 CSS -->
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-     <style>
+<!-- select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<style>
           body {
             background-color: #f8f9fa;     
         }
@@ -79,6 +77,9 @@ if (!isset($_SESSION['username'])) {
         }
         .section2{
             background-color: #F1F5F2;
+        }
+        .therapy-select , .disease-select{
+            width: 35vw;
         }
     </style>
 </head>
@@ -158,7 +159,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
                         <div class="col-5 section2">
                         <div class="form-group">
-                            <label for="key-therapies"><h4>Key Therapies</h4></label>
+                            <label for="key-therapies"><h4>Therapies</h4></label><br>
                             <select id="key-therapies" class="form-control therapy-select" multiple="multiple">
                                 <option>Cognitive behavioural therapy</option>
                                 <option>Relaxation therapy</option>
@@ -172,7 +173,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
 
                         <div class="form-group">
-                            <label for="diseases"><h4>Diseases</h4></label>
+                            <label for="diseases"><h4>Diseases</h4></label><br>
                             <select id="diseases" class="form-control disease-select" multiple="multiple">
                                 <option>Major Depressive Disorder (MDD)</option>
                                 <option>Generalized Anxiety Disorder (GAD)</option>
@@ -223,10 +224,10 @@ if (!isset($_SESSION['username'])) {
 
                         </div>
                         <div class="col-4 section3">
-                              <div class="future_appointments">
+                              <div class="future_appointments  ">
 
                               </div>
-                            <div class="form-group">
+                            <div class="form-group ">
                                     <label for="notes"><h4>Notes</h4></label>
                                     <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
                                 </div>
@@ -264,6 +265,13 @@ if (!isset($_SESSION['username'])) {
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
     <!-- script -->
+
+       <!-- jQuery -->
+       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <script>
 
@@ -338,15 +346,34 @@ function showCustomAlert(message) {
             .catch(error => console.error('Error fetching appointment details:', error));
 
                 // Function to update badges based on selected options
-                function updateBadges(selectElementId, badgeContainerId, selectedItems) {
-                    const selectedOptions = $(`#${selectElementId} option:selected`);
-                    const badgeContainer = $(`#${badgeContainerId}`);
-                    badgeContainer.empty();
+                        // Initialize select2 for disease
+        $('.disease-select').select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
 
-                    selectedOptions.each(function() {
-                        const badge = $('<span>').addClass('badge badge-success').text($(this).text());
-                        badgeContainer.append(badge);
-                    });
+        // Initialize select2 for therapy
+        $('.therapy-select').select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+        function updateBadges(selectElementId, badgeContainerId, selectedItems) {
+    const selectedOptions = $(`#${selectElementId} option:selected`);
+    const badgeContainer = $(`#${badgeContainerId}`);
+    badgeContainer.empty();
+
+    selectedOptions.each(function() {
+        const badge = $('<span>').addClass('badge badge-success').text($(this).text());
+        badgeContainer.append(badge);
+    });
+
+    // Handle dynamically added items not in options
+    selectedItems.forEach(item => {
+        if (!selectedOptions.filter(function() { return $(this).text() === item; }).length) {
+            const badge = $('<span>').addClass('badge badge-success').text(item);
+            badgeContainer.append(badge);
+        }
+    });
                 }
 
     // Update badges on change
@@ -378,11 +405,11 @@ function showCustomAlert(message) {
                 $('#key-therapies').val(selectedTherapies);
                 $('#diseases').val(selectedDiseases);
 
-                 // Update key therapies badges
-                 updateBadges('key-therapies', 'key-therapies-badges', patient.key_therapies);
+        // Update key therapies badges
+        updateBadges('key-therapies', 'key-therapies-badges', selectedTherapies);
 
-                    // Update diseases badges
-                    updateBadges('diseases', 'diseases-badges', patient.diseases);
+        // Update diseases badges
+        updateBadges('diseases', 'diseases-badges', selectedDiseases);
 
                 $('#prescriptionModal').modal('show');
             }
