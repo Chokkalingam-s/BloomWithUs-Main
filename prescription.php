@@ -332,24 +332,25 @@ function showCustomAlert(message) {
             .catch(error => console.error('Error fetching appointment details:', error));
 
                 // Function to update badges based on selected options
-    function updateBadges(selectElementId, badgeContainerId) {
-        const selectedOptions = $(`#${selectElementId} option:selected`);
-        const badgeContainer = $(`#${badgeContainerId}`);
-        badgeContainer.empty();
+                function updateBadges(selectElementId, badgeContainerId, selectedItems) {
+                    const selectedOptions = $(`#${selectElementId} option:selected`);
+                    const badgeContainer = $(`#${badgeContainerId}`);
+                    badgeContainer.empty();
 
-        selectedOptions.each(function() {
-            const badge = $('<span>').addClass('badge badge-success').text($(this).text());
-            badgeContainer.append(badge);
-        });
-    }
+                    selectedOptions.each(function() {
+                        const badge = $('<span>').addClass('badge badge-success').text($(this).text());
+                        badgeContainer.append(badge);
+                    });
+                }
 
     // Update badges on change
     $('#key-therapies').change(function() {
-        updateBadges('key-therapies', 'key-therapies-badges');
+        updateBadges('key-therapies', 'key-therapies-badges', $(this).val());
     });
 
+    // Event listener for disease selection change
     $('#diseases').change(function() {
-        updateBadges('diseases', 'diseases-badges');
+        updateBadges('diseases', 'diseases-badges', $(this).val());
     });
 
         // Fetch prescription details
@@ -371,9 +372,11 @@ function showCustomAlert(message) {
                 $('#key-therapies').val(selectedTherapies);
                 $('#diseases').val(selectedDiseases);
 
-                // Update badges for selected key therapies and diseases
-                updateBadges('key-therapies', 'key-therapies-badges');
-                updateBadges('diseases', 'diseases-badges');
+                 // Update key therapies badges
+                 updateBadges('key-therapies', 'key-therapies-badges', patient.key_therapies);
+
+// Update diseases badges
+updateBadges('diseases', 'diseases-badges', patient.diseases);
 
                 $('#prescriptionModal').modal('show');
             }
