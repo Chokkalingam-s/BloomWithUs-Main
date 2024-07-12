@@ -130,8 +130,8 @@ if (!isset($_SESSION['username'])) {
 
 <!-- Prescription Modal -->
 <div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" style="max-width: 90%;margin-left:5%;height: 95vh;">
-        <div class="modal-content" style="">
+    <div class="modal-dialog modal-lg" style="max-width: 90%;margin-left:5%;height: 95vh;margin-top:2vh;">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="prescriptionModalLabel">Prescription for <span id="modalUniqueId"></span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -141,12 +141,12 @@ if (!isset($_SESSION['username'])) {
             <form method="POST">
                 <div class="modal-body">
                     <input type="hidden" name="unique_id" id="hiddenUniqueId">
-                    <p><strong>Name: </strong><span id="patientName"></span></p>
+                    
 
                     <div class="row">
                         <div class="col-3 section1" >
                             <div class="row h-20 appointment_details">
-                               <!--- AAppointment details automatic render bruh -->
+                               <!--- Appointment details automatic render bruh -->
                             </div>
                             <div class="row h-80">
                              
@@ -154,7 +154,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
                         <div class="col-5 section2">
                         <div class="form-group">
-                            <label for="key-therapies">Key Therapies</label>
+                            <label for="key-therapies"><h4>Key Therapies</h4></label>
                             <select id="key-therapies" class="form-control" multiple>
                                 <option>Cognitive behavioural therapy</option>
                                 <option>Relaxation therapy</option>
@@ -168,7 +168,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
 
                         <div class="form-group">
-                            <label for="diseases">Diseases</label>
+                            <label for="diseases"><h4>Diseases</h4></label>
                             <select id="diseases" class="form-control" multiple>
                                 <option>Major Depressive Disorder (MDD)</option>
                                 <option>Generalized Anxiety Disorder (GAD)</option>
@@ -187,11 +187,11 @@ if (!isset($_SESSION['username'])) {
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Medicine Name</th>
-                                        <th>No. of Times</th>
-                                        <th>Quantity (mg)</th>
-                                        <th>Before/After Meal</th>
-                                        <th>SOS (Y/N)</th>
+                                        <th>Medicine</th>
+                                        <th>Times/day</th>
+                                        <th>Dose(mg)</th>
+                                        <th>B/A Meal</th>
+                                        <th>SOS</th>
                                         <th>Options</th>
                                     </tr>
                                 </thead>
@@ -223,7 +223,7 @@ if (!isset($_SESSION['username'])) {
 
                               </div>
                             <div class="form-group">
-                                    <label for="notes">Notes</label>
+                                    <label for="notes"><h4>Notes</h4></label>
                                     <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
                                 </div>
                         </div>
@@ -291,10 +291,13 @@ function showCustomAlert(message) {
                 } else {
                     $('.appointment_details').html(`
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-12">
+                                 <p><strong>Name: ${data.patient_first_name} ${data.patient_last_name} </strong></p>
+                            </div>
+                            <div class="col-4">
                                 <p><strong>Age:</strong> ${data.age}</p> 
                             </div>
-                            <div class="col-9">
+                            <div class="col-8">
                                 <p><strong>Gender:</strong> ${data.gender}</p> 
                             </div>
                             <p><strong>Profession:</strong> ${data.profession}</p>
@@ -313,7 +316,7 @@ function showCustomAlert(message) {
                     }
 
                     // Display future appointments
-                    let futureAppointmentsHtml = '<h5>Future Appointments</h5>';
+                    let futureAppointmentsHtml = '<h5>Upcoming Appointments</h5>';
                     if (data.future_appointments.length > 0) {
                         data.future_appointments.forEach(appointment => {
                             futureAppointmentsHtml += `<p>${appointment.appointment_date} - ${appointment.time_slot}</p>`;
