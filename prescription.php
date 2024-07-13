@@ -203,7 +203,7 @@ if (!isset($_SESSION['username'])) {
                                 <tbody id="medicine-table-body">
                                     <tr>
                                         <td><input type="text" class="form-control"></td>
-                                        <td><input type="number" class="form-control"></td>
+                                        <td><input type="text" class="form-control"></td>
                                         <td><input type="number" class="form-control"></td>
                                         <td>
                                             <select class="form-control">
@@ -264,6 +264,7 @@ if (!isset($_SESSION['username'])) {
 
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/customAlert.js"></script>
     <!-- script -->
 
        <!-- jQuery -->
@@ -275,22 +276,7 @@ if (!isset($_SESSION['username'])) {
 
     <script>
 
-function showCustomAlert(message) {
-            const alertMessageElement = document.getElementById('customAlertMessage');
-            alertMessageElement.innerText = message;
-
-            const customAlertModal = new bootstrap.Modal(document.getElementById('customAlertModal'));
-            customAlertModal.show();
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-        const customAlertModal = document.getElementById('customAlertModal');
-
-        customAlertModal.addEventListener('hidden.bs.modal', function() {
-            location.reload();
-        });
-    });
-
-    $(document).ready(function() {
+   $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const uniqueId = urlParams.get('unique_id');
     if (uniqueId){
@@ -347,33 +333,33 @@ function showCustomAlert(message) {
 
                 // Function to update badges based on selected options
                         // Initialize select2 for disease
-        $('.disease-select').select2({
-            tags: true,
-            tokenSeparators: [',', ' ']
-        });
+                        $('.disease-select').select2({
+                            tags: true,
+                            tokenSeparators: [',', ' ']
+                        });
 
-        // Initialize select2 for therapy
-        $('.therapy-select').select2({
-            tags: true,
-            tokenSeparators: [',', ' ']
-        });
+                        // Initialize select2 for therapy
+                        $('.therapy-select').select2({
+                            tags: true,
+                            tokenSeparators: [',', ' ']
+                        });
         function updateBadges(selectElementId, badgeContainerId, selectedItems) {
-    const selectedOptions = $(`#${selectElementId} option:selected`);
-    const badgeContainer = $(`#${badgeContainerId}`);
-    badgeContainer.empty();
+                const selectedOptions = $(`#${selectElementId} option:selected`);
+                const badgeContainer = $(`#${badgeContainerId}`);
+                badgeContainer.empty();
 
-    selectedOptions.each(function() {
-        const badge = $('<span>').addClass('badge badge-success').text($(this).text());
-        badgeContainer.append(badge);
-    });
+                selectedOptions.each(function() {
+                    const badge = $('<span>').addClass('badge badge-success').text($(this).text());
+                    badgeContainer.append(badge);
+                });
 
-    // Handle dynamically added items not in options
-    selectedItems.forEach(item => {
-        if (!selectedOptions.filter(function() { return $(this).text() === item; }).length) {
-            const badge = $('<span>').addClass('badge badge-success').text(item);
-            badgeContainer.append(badge);
-        }
-    });
+                // Handle dynamically added items not in options
+                selectedItems.forEach(item => {
+                    if (!selectedOptions.filter(function() { return $(this).text() === item; }).length) {
+                        const badge = $('<span>').addClass('badge badge-success').text(item);
+                        badgeContainer.append(badge);
+                    }
+                });
                 }
 
     // Update badges on change
@@ -431,9 +417,7 @@ function showCustomAlert(message) {
             $('#prescriptionModal').modal('hide');
         });
     });
-
-          //save_prescription
-   
+  
 });
 
 
@@ -468,9 +452,9 @@ function createTableRow(data) {
         $(document).on('click', '.save-btn', function() {
             const row = $(this).closest('tr');
             const data = {
-                medicineName: row.find('input[type="text"]').val(),
-                noOfTimes: row.find('input[type="number"]').eq(0).val(),
-                quantity: row.find('input[type="number"]').eq(1).val(),
+                medicineName: row.find('input[type="text"]').eq(0).val(),
+                noOfTimes: row.find('input[type="text"]').eq(1).val(),
+                quantity: row.find('input[type="number"]').eq(0).val(),
                 meal: row.find('select').val(),
                 sos: row.find('input[type="checkbox"]').is(':checked')
             };
