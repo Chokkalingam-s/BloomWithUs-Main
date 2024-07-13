@@ -155,7 +155,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
                             <div class="row h-80 old_prescription">
                                 <div class="form-check ml-4 ">
-                                    <input class="form-check-input  border-success " type="checkbox" id="oldPrescriptionAvailable">
+                                    <input class="form-check-input  border-success " type="checkbox" name="oldPrescriptionAvailable" id="oldPrescriptionAvailable">
                                     <label class="form-check-label" for="oldPrescriptionAvailable">
                                         Old Prescription Available 
                                         
@@ -165,19 +165,19 @@ if (!isset($_SESSION['username'])) {
                                     
                                         <div class="mb-3">
                                             <label for="doctorName" class="form-label">Doctor Name</label>
-                                            <input type="text" class="form-control" id="doctorName" placeholder="Past Doctor's name">
+                                            <input type="text" class="form-control" id="doctorName" name="doctorName" placeholder="Past Doctor's name">
                                         </div>
                                         <div class="mb-3">
                                             <label for="timeDuration" class="form-label">Time Duration Treated</label>
-                                            <input type="text" class="form-control" id="timeDuration" placeholder="Time duration treated">
+                                            <input type="text" class="form-control" id="timeDuration" name="timeDuration" placeholder="Time duration treated">
                                         </div>
                                         <div class="mb-3">
                                             <label for="medicineTook" class="form-label">Medicine Took</label>
-                                            <textarea class="form-control" id="medicineTook"  rows="2" placeholder="Previous Medication"></textarea>
+                                            <textarea class="form-control" id="medicineTook"  rows="2" name="medicineTook" placeholder="Previous Medication"></textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label for="prescriptionImage" class="form-label">Attachment of Image (old prescription image)</label>
-                                            <input type="file" class="form-control" id="prescriptionImage">
+                                            <input type="file" class="form-control" name="prescriptionImage" id="prescriptionImage">
                                         </div>
                                         <button type="button" class="btn btn-primary mb-3">View Image</button>
                                     
