@@ -454,16 +454,16 @@ if (!isset($_SESSION['username'])) {
         // Handle form submission
         $('#prescriptionModal form').on('submit', function(event) {
             event.preventDefault();
-// Serialize form data for key therapies and diseases
-const keyTherapies = $('#key-therapies').val().join(', ');
-    const diseases = $('#diseases').val().join(', ');
+            // Serialize form data for key therapies and diseases
+            const keyTherapies = $('#key-therapies').val().join(', ');
+                const diseases = $('#diseases').val().join(', ');
 
-    // Create a new FormData object
-    const formData = new FormData(this);
+                // Create a new FormData object
+                const formData = new FormData(this);
 
-    // Append key therapies and diseases to the FormData object
-    formData.append('key_therapies', keyTherapies);
-    formData.append('diseases', diseases);
+                // Append key therapies and diseases to the FormData object
+                formData.append('key_therapies', keyTherapies);
+                formData.append('diseases', diseases);
 
             $.ajax({
                 url: 'save_prescription.php',
