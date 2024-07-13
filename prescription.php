@@ -154,7 +154,34 @@ if (!isset($_SESSION['username'])) {
                                <!--- Appointment details automatic render bruh -->
                             </div>
                             <div class="row h-80 old_prescription">
-                             
+                                <div class="form-check ml-4 ">
+                                    <input class="form-check-input  border-success " type="checkbox" id="oldPrescriptionAvailable">
+                                    <label class="form-check-label" for="oldPrescriptionAvailable">
+                                        Old Prescription Available 
+                                        
+                                    </label>
+                                </div>
+                                <div class="mt-3 d-none" id="oldPrescriptionForm">
+                                    
+                                        <div class="mb-3">
+                                            <label for="doctorName" class="form-label">Doctor Name</label>
+                                            <input type="text" class="form-control" id="doctorName" placeholder="Past Doctor's name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="timeDuration" class="form-label">Time Duration Treated</label>
+                                            <input type="text" class="form-control" id="timeDuration" placeholder="Time duration treated">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="medicineTook" class="form-label">Medicine Took</label>
+                                            <textarea class="form-control" id="medicineTook"  rows="2" placeholder="Previous Medication"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="prescriptionImage" class="form-label">Attachment of Image (old prescription image)</label>
+                                            <input type="file" class="form-control" id="prescriptionImage">
+                                        </div>
+                                        <button type="button" class="btn btn-primary mb-3">View Image</button>
+                                    
+                                </div>
                             </div>
                         </div>
                         <div class="col-5 section2">
@@ -280,6 +307,13 @@ if (!isset($_SESSION['username'])) {
     const urlParams = new URLSearchParams(window.location.search);
     const uniqueId = urlParams.get('unique_id');
     if (uniqueId){
+        $('#oldPrescriptionAvailable').change(function() {
+            if ($(this).is(':checked')) {
+                $('#oldPrescriptionForm').removeClass('d-none');
+            } else {
+                $('#oldPrescriptionForm').addClass('d-none');
+            }
+        });
         // Fetch appointment details for section 1 and 3
         fetch(`get_appointment_details.php?unique_id=${uniqueId}`)
             .then(response => response.json())
@@ -436,8 +470,8 @@ function createTableRow(data) {
             }
             row.append(sos);
             const options = $('<td>');
-            const editBtn = $('<button>').addClass('btn btn-warning').text('Edit');
-            const deleteBtn = $('<button>').addClass('btn btn-danger').text('Delete');
+            const editBtn = $('<button>').addClass('btn btn-warning edit').text('Edit');
+            const deleteBtn = $('<button>').addClass('btn btn-danger delete').text('Delete');
             options.append(editBtn).append(deleteBtn);
             row.append(options);
             return row;
