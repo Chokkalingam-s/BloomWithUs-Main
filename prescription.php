@@ -436,8 +436,12 @@ if (!isset($_SESSION['username'])) {
                 <p><strong>Doctor Name:</strong> ${oldPrescription.doctor_name}</p>
                 <p><strong>Time Duration Treated:</strong> ${oldPrescription.time_duration}</p>
                 <p><strong>Medicine Took:</strong> ${oldPrescription.medicine_took}</p>
-                <p><strong>Prescription Image:</strong> <a href="${oldPrescription.prescription_image}" target="_blank">View Image</a></p>
-            `;
+                    <p><strong>Prescription Image:</strong> 
+        <a href="${oldPrescription.prescription_image}" target="_blank" class="btn btn-light" style="background-color: #765341; color: white;">
+            View Image
+        </a>
+    </p>
+              `;
             $('#oldPrescriptionDetails').html(oldPrescriptionHtml);
         }
     },
