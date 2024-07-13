@@ -18,6 +18,18 @@ $medication_prescribed = isset($_POST['medication_prescribed']) ? $_POST['medica
 $notes = isset($_POST['notes']) ? $_POST['notes'] : '';
 $key_therapies = isset($_POST['key_therapies']) ? $_POST['key_therapies'] : '';
 $diseases = isset($_POST['diseases']) ? $_POST['diseases'] : '';
+$doctor_name = $_POST['doctor_name'];
+$time_duration = $_POST['time_duration'];
+$medicine_took = $_POST['medicine_took'];
+
+if (!empty($_FILES['prescription_image']['name'])) {
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["prescription_image"]["name"]);
+    move_uploaded_file($_FILES["prescription_image"]["tmp_name"], $target_file);
+    $prescription_image = $target_file;
+} else {
+    $prescription_image = NULL;
+}
 
 // Check if prescription exists for the unique_id
 $sql_check = "SELECT * FROM prescription WHERE unique_id = '$unique_id'";
@@ -52,5 +64,17 @@ if ($result_check->num_rows > 0) {
     }
 }
 
+$query = "INSERT INTO old_prescriptions (unique_id, doctor_name, time_duration, medicine_took, prescription_image) VALUES (?, ?, ?, ?, ?)";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("sssss", $unique_id, $doctor_name, $time_duration, $medicine_took, $prescription_image);
+$stmt->execute();
+
+if ($stmt->affected_rows > 0) {
+    echo "Old prescription saved successfully";
+} else {
+    echo "Error saving old prescription";
+}
+
+$stmt->close();
 $conn->close();
 ?>

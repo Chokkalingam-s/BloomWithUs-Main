@@ -149,38 +149,43 @@ if (!isset($_SESSION['username'])) {
                 <div class="modal-body">
                     <input type="hidden" name="unique_id" id="hiddenUniqueId">
                     <div class="row">
-                        <div class="col-3 section1" >
+                        <div class="col-3 section1">
                             <div class="row h-20 appointment_details">
-                               <!--- Appointment details automatic render bruh -->
+                                <!-- Appointment details automatic render -->
                             </div>
                             <div class="row h-80 old_prescription">
                                 <div class="form-check ml-4 ">
-                                    <input class="form-check-input  border-success " type="checkbox" name="oldPrescriptionAvailable" id="oldPrescriptionAvailable">
+                                    <input class="form-check-input  border-success " type="checkbox" id="oldPrescriptionAvailable">
                                     <label class="form-check-label" for="oldPrescriptionAvailable">
-                                        Old Prescription Available 
-                                        
+                                        Old Prescription Available
                                     </label>
                                 </div>
                                 <div class="mt-3 d-none" id="oldPrescriptionForm">
-                                    
-                                        <div class="mb-3">
-                                            <label for="doctorName" class="form-label">Doctor Name</label>
-                                            <input type="text" class="form-control" id="doctorName" name="doctorName" placeholder="Past Doctor's name">
+                                    <div class="mb-3">
+                                        <label for="doctorName" class="form-label">Doctor Name</label>
+                                        <input type="text" class="form-control" id="doctorName" name="doctor_name" placeholder="Past Doctor's name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="timeDuration" class="form-label">Time Duration Treated</label>
+                                        <input type="text" class="form-control" id="timeDuration" name="time_duration" placeholder="Time duration treated">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="medicineTook" class="form-label">Medicine Took</label>
+                                        <textarea class="form-control" id="medicineTook" name="medicine_took" rows="2" placeholder="Previous Medication"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="prescriptionImage" class="form-label">Attachment of Image (old prescription image)</label>
+                                        <input type="file" class="form-control" id="prescriptionImage" name="prescription_image">
+                                    </div>
+                                    <button type="button" class="btn btn-primary mb-3">View Image</button>
+                                </div>
+                                <!-- Display Old Prescription Details -->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12" id="oldPrescriptionDetails">
+                                            <!-- Old prescription details will be injected here if available -->
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="timeDuration" class="form-label">Time Duration Treated</label>
-                                            <input type="text" class="form-control" id="timeDuration" name="timeDuration" placeholder="Time duration treated">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="medicineTook" class="form-label">Medicine Took</label>
-                                            <textarea class="form-control" id="medicineTook"  rows="2" name="medicineTook" placeholder="Previous Medication"></textarea>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="prescriptionImage" class="form-label">Attachment of Image (old prescription image)</label>
-                                            <input type="file" class="form-control" name="prescriptionImage" id="prescriptionImage">
-                                        </div>
-                                        <button type="button" class="btn btn-primary mb-3">View Image</button>
-                                    
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -396,6 +401,81 @@ if (!isset($_SESSION['username'])) {
                 });
                 }
 
+                $(document).ready(function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const uniqueId = urlParams.get('unique_id');
+
+    if (uniqueId) {
+        $('#oldPrescriptionAvailable').change(function() {
+            if ($(this).is(':checked')) {
+                $('#oldPrescriptionForm').removeClass('d-none');
+            } else {
+                $('#oldPrescriptionForm').addClass('d-none');
+            }
+        });
+
+        // Fetch old prescription details
+        $.ajax({
+    url: 'get_old_prescription.php',
+    type: 'GET',
+    data: { unique_id: uniqueId },
+    success: function(data) {
+        console.log('Response from server:', data); // Add this line
+        const oldPrescription = JSON.parse(data);
+        console.log('Parsed data:', oldPrescription); // Add this line
+
+        if (oldPrescription.message) {
+            console.error('Old prescription not found');
+        } else {
+            $('#doctorName').val(oldPrescription.doctor_name);
+            $('#timeDuration').val(oldPrescription.time_duration);
+            $('#medicineTook').val(oldPrescription.medicine_took);
+
+            const oldPrescriptionHtml = `
+                <h5>Old Prescription Details</h5>
+                <p><strong>Doctor Name:</strong> ${oldPrescription.doctor_name}</p>
+                <p><strong>Time Duration Treated:</strong> ${oldPrescription.time_duration}</p>
+                <p><strong>Medicine Took:</strong> ${oldPrescription.medicine_took}</p>
+                <p><strong>Prescription Image:</strong> <a href="${oldPrescription.prescription_image}" target="_blank">View Image</a></p>
+            `;
+            $('#oldPrescriptionDetails').html(oldPrescriptionHtml);
+        }
+    },
+    error: function(error) {
+        console.error('Error fetching old prescription details:', error);
+    }
+});
+
+
+// Handle form submission
+$('#prescriptionModal form').on('submit', function(event) {
+    event.preventDefault();
+
+    // Serialize form data including key therapies and diseases
+    const keyTherapies = $('#key-therapies').val().join(', ');
+    const diseases = $('#diseases').val().join(', ');
+    const serializedFormData = $(this).serialize();
+    const formData = `${serializedFormData}&key_therapies=${encodeURIComponent(keyTherapies)}&diseases=${encodeURIComponent(diseases)}`;
+
+    $.ajax({
+        url: 'save_prescription.php',
+        type: 'POST',
+        data: formData,
+        success: function(response) {
+            showCustomAlert(response);
+            $('#prescriptionModal').modal('hide');
+        },
+        error: function(error) {
+            console.error('Error saving prescription:', error);
+        }
+    });
+});
+
+    }
+});
+
+
+
     // Update badges on change
     $('#key-therapies').change(function() {
         updateBadges('key-therapies', 'key-therapies-badges', $(this).val());
@@ -437,20 +517,7 @@ if (!isset($_SESSION['username'])) {
     }
 
          // Handle form submission
-    $('#prescriptionModal form').on('submit', function(event) {
-        event.preventDefault();
 
-        // Serialize form data including key therapies and diseases
-        const keyTherapies = $('#key-therapies').val().join(', ');
-        const diseases = $('#diseases').val().join(', ');
-        const formData = $(this).serialize() + `&key_therapies=${encodeURIComponent(keyTherapies)}&diseases=${encodeURIComponent(diseases)}`;
-
-        // Send data to save_prescription.php using AJAX
-        $.post('save_prescription.php', formData, function(response) {
-            showCustomAlert(response);
-            $('#prescriptionModal').modal('hide');
-        });
-    });
   
 });
 
