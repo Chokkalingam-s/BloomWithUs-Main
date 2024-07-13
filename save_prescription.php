@@ -64,17 +64,45 @@ if ($result_check->num_rows > 0) {
     }
 }
 
-$query = "INSERT INTO old_prescriptions (unique_id, doctor_name, time_duration, medicine_took, prescription_image) VALUES (?, ?, ?, ?, ?)";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("sssss", $unique_id, $doctor_name, $time_duration, $medicine_took, $prescription_image);
-$stmt->execute();
+// Check if a row with the unique_id already exists
+$sql_check = "SELECT unique_id FROM old_prescriptions WHERE unique_id = ?";
+$stmt_check = $conn->prepare($sql_check);
+$stmt_check->bind_param("s", $unique_id);
+$stmt_check->execute();
+$result_check = $stmt_check->get_result();
 
-if ($stmt->affected_rows > 0) {
-    echo "Old prescription saved successfully";
+if ($result_check->num_rows > 0) {
+    // Update existing prescription
+    $sql_update = "UPDATE old_prescriptions SET 
+                    doctor_name = ?, 
+                    time_duration = ?, 
+                    medicine_took = ?, 
+                    prescription_image = ?
+                   WHERE unique_id = ?";
+    $stmt_update = $conn->prepare($sql_update);
+    $stmt_update->bind_param("sssss", $doctor_name, $time_duration, $medicine_took, $prescription_image, $unique_id);
+
+    if ($stmt_update->execute()) {
+        echo "!";
+    } else {
+
+    }
 } else {
-    echo "Error saving old prescription";
+    // Insert new prescription
+    $sql_insert = "INSERT INTO old_prescriptions (unique_id, doctor_name, time_duration, medicine_took, prescription_image)
+                   VALUES (?, ?, ?, ?, ?)";
+    $stmt_insert = $conn->prepare($sql_insert);
+    $stmt_insert->bind_param("sssss", $unique_id, $doctor_name, $time_duration, $medicine_took, $prescription_image);
+
+    if ($stmt_insert->execute()) {
+        echo "!";
+    } else {
+
+    }
 }
 
-$stmt->close();
-$conn->close();
+// Close the statements
+$stmt_check->close();
+if (isset($stmt_update)) $stmt_update->close();
+if (isset($stmt_insert)) $stmt_insert->close();
 ?>

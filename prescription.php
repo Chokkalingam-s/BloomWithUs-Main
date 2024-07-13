@@ -447,30 +447,35 @@ if (!isset($_SESSION['username'])) {
 });
 
 
-// Handle form submission
-$('#prescriptionModal form').on('submit', function(event) {
-    event.preventDefault();
-
-    // Serialize form data including key therapies and diseases
-    const keyTherapies = $('#key-therapies').val().join(', ');
+        // Handle form submission
+        $('#prescriptionModal form').on('submit', function(event) {
+            event.preventDefault();
+// Serialize form data for key therapies and diseases
+const keyTherapies = $('#key-therapies').val().join(', ');
     const diseases = $('#diseases').val().join(', ');
-    const serializedFormData = $(this).serialize();
-    const formData = `${serializedFormData}&key_therapies=${encodeURIComponent(keyTherapies)}&diseases=${encodeURIComponent(diseases)}`;
 
-    $.ajax({
-        url: 'save_prescription.php',
-        type: 'POST',
-        data: formData,
-        success: function(response) {
-            showCustomAlert(response);
-            $('#prescriptionModal').modal('hide');
-        },
-        error: function(error) {
-            console.error('Error saving prescription:', error);
-        }
-    });
-});
+    // Create a new FormData object
+    const formData = new FormData(this);
 
+    // Append key therapies and diseases to the FormData object
+    formData.append('key_therapies', keyTherapies);
+    formData.append('diseases', diseases);
+
+            $.ajax({
+                url: 'save_prescription.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    showCustomAlert(response);
+                    $('#prescriptionModal').modal('hide');
+                },
+                error: function(error) {
+                    console.error('Error saving prescription:', error);
+                }
+            });
+        });
     }
 });
 
@@ -515,10 +520,7 @@ $('#prescriptionModal form').on('submit', function(event) {
             }
         });
     }
-
-         // Handle form submission
-
-  
+ 
 });
 
 
