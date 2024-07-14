@@ -22,6 +22,30 @@ $doctor_name = $_POST['doctor_name'];
 $time_duration = $_POST['time_duration'];
 $medicine_took = $_POST['medicine_took'];
 
+$medicine_table_data = isset($_POST['medicineData']) ? json_decode($_POST['medicineData'], true) : [];
+
+foreach ($medicine_table_data as $medicine) {
+    $medicine_name = $medicine['medicineName'];
+    $times_per_day = $medicine['noOfTimes'];
+    $dose_mg = intval($medicine['quantity']);
+    $meal = $medicine['meal'];
+    $sos = $medicine['sos'] ? 1 : 0;
+
+    $stmt = $conn->prepare("INSERT INTO medicines (unique_id, medicine_name, times_per_day, dose_mg, before_after_meal, sos) 
+                            VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssisss", $unique_id, $medicine_name, $times_per_day, $dose_mg, $meal, $sos);
+
+    // Execute the query
+    if ($stmt->execute()) {
+        echo "";
+    } else {
+        echo json_encode(array('message' => 'Error: ' . $stmt->error));
+    }
+
+    // Close statement
+    $stmt->close();
+}
+
 if (!empty($_FILES['prescription_image']['name'])) {
     $target_dir = "uploads/";
     $target_file = $target_dir . basename($_FILES["prescription_image"]["name"]);
@@ -64,45 +88,17 @@ if ($result_check->num_rows > 0) {
     }
 }
 
-// Check if a row with the unique_id already exists
-$sql_check = "SELECT unique_id FROM old_prescriptions WHERE unique_id = ?";
-$stmt_check = $conn->prepare($sql_check);
-$stmt_check->bind_param("s", $unique_id);
-$stmt_check->execute();
-$result_check = $stmt_check->get_result();
+$query = "INSERT INTO old_prescriptions (unique_id, doctor_name, time_duration, medicine_took, prescription_image) VALUES (?, ?, ?, ?, ?)";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("sssss", $unique_id, $doctor_name, $time_duration, $medicine_took, $prescription_image);
+$stmt->execute();
 
-if ($result_check->num_rows > 0) {
-    // Update existing prescription
-    $sql_update = "UPDATE old_prescriptions SET 
-                    doctor_name = ?, 
-                    time_duration = ?, 
-                    medicine_took = ?, 
-                    prescription_image = ?
-                   WHERE unique_id = ?";
-    $stmt_update = $conn->prepare($sql_update);
-    $stmt_update->bind_param("sssss", $doctor_name, $time_duration, $medicine_took, $prescription_image, $unique_id);
-
-    if ($stmt_update->execute()) {
-        echo "!";
-    } else {
-
-    }
+if ($stmt->affected_rows > 0) {
+    echo "!";
 } else {
-    // Insert new prescription
-    $sql_insert = "INSERT INTO old_prescriptions (unique_id, doctor_name, time_duration, medicine_took, prescription_image)
-                   VALUES (?, ?, ?, ?, ?)";
-    $stmt_insert = $conn->prepare($sql_insert);
-    $stmt_insert->bind_param("sssss", $unique_id, $doctor_name, $time_duration, $medicine_took, $prescription_image);
-
-    if ($stmt_insert->execute()) {
-        echo "!";
-    } else {
-
-    }
+    echo "Error saving old prescription";
 }
 
-// Close the statements
-$stmt_check->close();
-if (isset($stmt_update)) $stmt_update->close();
-if (isset($stmt_insert)) $stmt_insert->close();
+$stmt->close();
+$conn->close();
 ?>

@@ -235,20 +235,20 @@ if (!isset($_SESSION['username'])) {
                                 </thead>
                                 <tbody id="medicine-table-body">
                                     <tr>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="number" class="form-control"></td>
+                                        <td><input type="text" name="medicine" class="form-control"></td>
+                                        <td><input type="text" name="times_per_day" class="form-control"></td>
+                                        <td><input type="number" name="dose" class="form-control"></td>
                                         <td>
-                                            <select class="form-control">
+                                            <select name="before_after_meal" class="form-control">
                                                 <option>Before Meal</option>
                                                 <option>After Meal</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="checkbox" class="form-control sos-checkbox">
+                                            <input type="checkbox" name="sos" class="form-control sos-checkbox">
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-success save-btn">Save</button>
+                                            <button type="button" id="save-medicine-btn" class="btn btn-success save-btn">Save</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -461,6 +461,10 @@ if (!isset($_SESSION['username'])) {
                 // Create a new FormData object
                 const formData = new FormData(this);
 
+                console.log('Medicine Data Array:', medicineDataArray);
+        // // Serialize the medicineDataArray to a JSON string and append it to the FormData object
+        formData.append('medicineData', JSON.stringify(medicineDataArray));
+
                 // Append key therapies and diseases to the FormData object
                 formData.append('key_therapies', keyTherapies);
                 formData.append('diseases', diseases);
@@ -553,9 +557,10 @@ function createTableRow(data) {
         function clearInputFields() {
             $('#medicine-table-body input[type="text"], #medicine-table-body input[type="number"]').val('');
             $('#medicine-table-body select').val('Before Meal');
-            $('#medicine-table-body i=nput[type="checkbox"]').prop('checked', false);
+            $('#medicine-table-body input[type="checkbox"]').prop('checked', false);
         }
 
+        const medicineDataArray = [];
         $(document).on('click', '.save-btn', function() {
             const row = $(this).closest('tr');
             const data = {
@@ -565,10 +570,10 @@ function createTableRow(data) {
                 meal: row.find('select').val(),
                 sos: row.find('input[type="checkbox"]').is(':checked')
             };
+            medicineDataArray.push(data);
 
             const newRow = createTableRow(data);
             $('#medicine-table-body').append(newRow);
-
             clearInputFields();
         });
 
