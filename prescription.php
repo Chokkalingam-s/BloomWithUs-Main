@@ -297,6 +297,7 @@ if (!isset($_SESSION['username'])) {
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/customAlert.js"></script>
+    <script src="assets/js/customAlert1.js"></script>
     <!-- script -->
 
        <!-- jQuery -->
@@ -401,18 +402,87 @@ if (!isset($_SESSION['username'])) {
                 });
                 }
 
-                $(document).ready(function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const uniqueId = urlParams.get('unique_id');
+ 
 
-    if (uniqueId) {
-        $('#oldPrescriptionAvailable').change(function() {
-            if ($(this).is(':checked')) {
-                $('#oldPrescriptionForm').removeClass('d-none');
-            } else {
-                $('#oldPrescriptionForm').addClass('d-none');
+    
+        // AJAX request to fetch medicine data
+        $.ajax({
+            url: 'fetch_medicine.php',
+            type: 'GET',
+            data: { unique_id: uniqueId }, // Send unique_id as parameter if needed
+            dataType: 'json', // Expect JSON response
+            success: function(response) {
+                if (response.success) {
+                    const medicines = response.data;
+         
+                    // Append new rows
+                    medicines.forEach(medicine => {
+                        const rowHtml = `
+                            <tr data-id="${medicine.unique_id}"
+            data-name="${medicine.medicine_name}"
+            data-times="${medicine.times_per_day}"
+            data-dose="${medicine.dose_mg}"
+            data-sos="${medicine.sos ? '1' : '0'}">
+                                <td>${medicine.medicine_name}</td>
+                                <td>${medicine.times_per_day}</td>
+                                <td>${medicine.dose_mg}</td>
+                                <td>${medicine.before_after_meal}</td>
+                                <td>${medicine.sos ? 'Yes' : 'No'}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger delete-medicine-btn">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+                        $('#medicine-table-body').append(rowHtml);
+                    });
+                } else {
+                    console.error('Failed to fetch medicine data:', response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching medicine data:', error);
             }
         });
+
+
+        $('#medicine-table-body').on('click', '.delete-medicine-btn', function() {
+    var medicineRow = $(this).closest('tr');
+    var medicineId = medicineRow.data('id');
+    var medicineName = medicineRow.data('name');
+    var timesPerDay = medicineRow.data('times');
+    var doseMg = medicineRow.data('dose');
+    var sos = medicineRow.data('sos');
+    var unique_Id = uniqueId;
+
+    // Confirm deletion
+    if (confirm('Are you sure you want to delete ' + medicineName+'?')) {
+        // AJAX call to delete from database
+        $.ajax({
+            url: 'delete_medicine.php',
+            method: 'POST',
+            data: {
+                unique_id: unique_Id ,
+                medicine_name: medicineName,
+                times_per_day: timesPerDay,
+                dose_mg: doseMg,
+                sos: sos
+            },
+            success: function(response) {
+                // Remove the row from the table if deletion is successful
+                if (response == 'success') {
+                    medicineRow.remove();
+                    showCustomAlert('Medicine deleted successfully.');
+                } else {
+                    showCustomAlert('Failed to delete medicine.');
+                }
+            },
+            error: function() {
+                alert('Error deleting medicine.');
+            }
+        });
+    }
+});
+
 
         // Fetch old prescription details
         $.ajax({
@@ -460,9 +530,6 @@ if (!isset($_SESSION['username'])) {
 
                 // Create a new FormData object
                 const formData = new FormData(this);
-
-                console.log('Medicine Data Array:', medicineDataArray);
-        // // Serialize the medicineDataArray to a JSON string and append it to the FormData object
         formData.append('medicineData', JSON.stringify(medicineDataArray));
 
                 // Append key therapies and diseases to the FormData object
@@ -484,8 +551,8 @@ if (!isset($_SESSION['username'])) {
                 }
             });
         });
-    }
-});
+    
+
 
 
 
@@ -547,9 +614,8 @@ function createTableRow(data) {
             }
             row.append(sos);
             const options = $('<td>');
-            const editBtn = $('<button>').addClass('btn btn-warning edit').text('Edit');
             const deleteBtn = $('<button>').addClass('btn btn-danger delete').text('Delete');
-            options.append(editBtn).append(deleteBtn);
+            options.append(deleteBtn);
             row.append(options);
             return row;
         }
@@ -575,6 +641,15 @@ function createTableRow(data) {
             const newRow = createTableRow(data);
             $('#medicine-table-body').append(newRow);
             clearInputFields();
+        });
+
+                $(document).on('click', '.delete', function() {
+            const row = $(this).closest('tr');
+            const index = row.index(); // Get the index of the row
+            row.remove(); // Remove the row from the DOM
+
+            // Optionally remove from the medicineDataArray based on index
+            medicineDataArray.splice(index, 1);
         });
 
 </script>
