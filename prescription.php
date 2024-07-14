@@ -35,9 +35,9 @@ if (!isset($_SESSION['username'])) {
    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<!-- select2 CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-<style>
+    <!-- select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <style>
           body {
             background-color: #f8f9fa;     
         }
@@ -137,7 +137,7 @@ if (!isset($_SESSION['username'])) {
 
 <!-- Prescription Modal -->
 <div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" style="max-width: 90%;margin-left:5%;height: 95vh;margin-top:2vh;">
+    <div class="modal-dialog modal-lg" style="max-width: 97%;margin-left:1.5%;height: 95vh;margin-top:2vh;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="prescriptionModalLabel">Prescription for <span id="modalUniqueId"></span></h5>
@@ -177,7 +177,6 @@ if (!isset($_SESSION['username'])) {
                                         <label for="prescriptionImage" class="form-label">Attachment of Image (old prescription image)</label>
                                         <input type="file" class="form-control" id="prescriptionImage" name="prescription_image">
                                     </div>
-                                    <button type="button" class="btn btn-primary mb-3">View Image</button>
                                 </div>
                                 <!-- Display Old Prescription Details -->
                                 <div class="modal-body">
@@ -329,7 +328,7 @@ if (!isset($_SESSION['username'])) {
                     $('.appointment_details').html(`
                         <div class="row">
                             <div class="col-12">
-                                 <p><strong>Name: ${data.patient_first_name} ${data.patient_last_name} </strong></p>
+                                 <p style="font-size:1.2em;"><strong>Name: ${data.patient_first_name} ${data.patient_last_name} </strong></p>
                             </div>
                             <div class="col-4">
                                 <p><strong>Age:</strong> ${data.age}</p> 
@@ -436,7 +435,7 @@ if (!isset($_SESSION['username'])) {
                 <p><strong>Doctor Name:</strong> ${oldPrescription.doctor_name}</p>
                 <p><strong>Time Duration Treated:</strong> ${oldPrescription.time_duration}</p>
                 <p><strong>Medicine Took:</strong> ${oldPrescription.medicine_took}</p>
-                    <p><strong>Prescription Image:</strong> 
+                    <p><strong>Image:</strong> 
         <a href="${oldPrescription.prescription_image}" target="_blank" class="btn btn-light" style="background-color: #765341; color: white;">
             View Image
         </a>
