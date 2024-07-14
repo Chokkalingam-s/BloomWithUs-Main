@@ -342,7 +342,7 @@ if (!isset($_SESSION['username'])) {
                     `);
 
                     // Display previous appointments
-                    let previousAppointmentsHtml = '<h5>Previous Appointments</h5>';
+                    let previousAppointmentsHtml = '<h4>Previous Appointments</h4>';
                     if (data.previous_appointments.length > 0) {
                         data.previous_appointments.forEach(appointment => {
                             previousAppointmentsHtml += `<p>${appointment.appointment_date} - ${appointment.time_slot}</p>`;
@@ -352,7 +352,7 @@ if (!isset($_SESSION['username'])) {
                     }
 
                     // Display future appointments
-                    let futureAppointmentsHtml = '<h5>Upcoming Appointments</h5>';
+                    let futureAppointmentsHtml = '<h4>Upcoming Appointments</h4>';
                     if (data.future_appointments.length > 0) {
                         data.future_appointments.forEach(appointment => {
                             futureAppointmentsHtml += `<p>${appointment.appointment_date} - ${appointment.time_slot}</p>`;
