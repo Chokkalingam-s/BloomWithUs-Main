@@ -39,7 +39,8 @@ if (!isset($_SESSION['username'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <style>
           body {
-            background-color: #f8f9fa;     
+            background-color: #f8f9fa;
+        
         }
         .container-wrapper {
             display: flex;
@@ -73,10 +74,11 @@ if (!isset($_SESSION['username'])) {
             vertical-align: middle;
         }
         .section1 ,.section3{
-            background-color: #F7F9F7;
+            background-color: #D4DBD3;
         }
         .section2{
-            background-color: #F1F5F2;
+            background-color: #DAE0DA ;
+
         }
         .therapy-select , .disease-select{
             width: 35vw;
@@ -146,7 +148,7 @@ if (!isset($_SESSION['username'])) {
                 </button>
             </div>
             <form method="POST">
-                <div class="modal-body">
+                <div class="modal-body" style="background-color: #E7EBE6;">
                     <input type="hidden" name="unique_id" id="hiddenUniqueId">
                     <div class="row">
                         <div class="col-3 section1">
@@ -259,15 +261,14 @@ if (!isset($_SESSION['username'])) {
 
                               </div>
                             <div class="form-group ">
-                                    <label for="notes"><h4>Notes</h4></label>
+                                    <label for="notes"><h4 style="color:#282924;">Notes</h4></label>
                                     <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
                                 </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-dark w-50 mx-auto" >Save</button>
                 </div>
             </form>
         </div>
@@ -342,7 +343,7 @@ if (!isset($_SESSION['username'])) {
                     `);
 
                     // Display previous appointments
-                    let previousAppointmentsHtml = '<h4>Previous Appointments</h4>';
+                    let previousAppointmentsHtml = '<h4 style="color:#282924;">Previous Appointments</h4>';
                     if (data.previous_appointments.length > 0) {
                         data.previous_appointments.forEach(appointment => {
                             previousAppointmentsHtml += `<p>${appointment.appointment_date} - ${appointment.time_slot}</p>`;
@@ -352,7 +353,7 @@ if (!isset($_SESSION['username'])) {
                     }
 
                     // Display future appointments
-                    let futureAppointmentsHtml = '<h4>Upcoming Appointments</h4>';
+                    let futureAppointmentsHtml = '<h4 style="color:#282924;">Upcoming Appointments</h4>';
                     if (data.future_appointments.length > 0) {
                         data.future_appointments.forEach(appointment => {
                             futureAppointmentsHtml += `<p>${appointment.appointment_date} - ${appointment.time_slot}</p>`;
