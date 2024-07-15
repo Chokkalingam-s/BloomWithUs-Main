@@ -1,9 +1,6 @@
 <?php
 // get_old_prescription.php
-$servername = "localhost";
-$db_username = "root";
-$db_password = "";
-$dbname = "bloom";
+include 'db_connection.php';
 
 if (isset($_GET['unique_id'])) {
     $unique_id = $_GET['unique_id'];

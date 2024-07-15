@@ -1,8 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloom";
+include 'db_connection.php';
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

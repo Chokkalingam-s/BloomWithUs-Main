@@ -5,6 +5,10 @@ $db_username = "root";
 $db_password = "";
 $dbname = "bloom";
 
+$username = "root";
+$password = "";
+
+
 // Function to open a connection to the database
 function openConnection() {
     global $servername, $db_username, $db_password, $dbname;

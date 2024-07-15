@@ -3,9 +3,7 @@ session_start();
 
 // Database connection logic (adjust as per your setup)
 $host = 'localhost';
-$dbname = 'bloom';
-$username = 'root';
-$password = '';
+include 'db_connection.php';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

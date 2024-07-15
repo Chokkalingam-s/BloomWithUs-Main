@@ -8,11 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $doseMg = $_POST['dose_mg'];
     $sos = $_POST['sos'];
 
-    // Connect to your database
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "bloom";
+    include 'db_connection.php';
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);

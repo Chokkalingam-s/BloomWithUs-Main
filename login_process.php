@@ -1,11 +1,7 @@
 <?php
 session_start();
 
-// Database connection
-$servername = "localhost"; // Adjust if necessary
-$db_username = "root";     // Adjust if necessary
-$db_password = "";         // Adjust if necessary
-$dbname = "bloom";         // Your database name
+include 'db_connection.php';
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
