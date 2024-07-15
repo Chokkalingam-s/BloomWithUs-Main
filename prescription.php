@@ -84,20 +84,20 @@ if (!isset($_SESSION['username'])) {
             width: 35vw;
         }
         .sos-checkbox-cell {
-        text-align: center; /* Center the checkbox horizontally */
-        vertical-align: middle; /* Center the checkbox vertically */
-        padding: 0; /* Remove any default padding */
+        text-align: center; 
+        vertical-align: middle; 
+        padding: 0; 
         }
 
         .sos-checkbox-wrapper {
         display: flex;
-        justify-content: center; /* Center horizontally */
-        align-items: center; /* Center vertically */
+        justify-content: center; 
+        align-items: center; 
         height: 100%;
         }
 
         .sos-checkbox {
-        width: 8%; /* Make the checkbox occupy 80% of the available space in the cell */
+        width: 8%; 
         height: 6.5%;
         margin-left: 0.5%;
         }
