@@ -175,7 +175,7 @@ if (!isset($_SESSION['username'])) {
                     <input type="hidden" name="unique_id" id="hiddenUniqueId">
                     <div class="row">
                         <div class="col-3 section1">
-                            <div class="row h-20 appointment_details">
+                            <div class="row h-20 appointment_details pt-1">
                                 <!-- Appointment details automatic render -->
                             </div>
                             <div class="row h-80 old_prescription">
@@ -214,7 +214,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
                         </div>
                         <div class="col-5 section2">
-                        <div class="form-group">
+                        <div class="form-group pt-1">
                             <label for="key-therapies"><h4>Therapies</h4></label><br>
                             <select id="key-therapies" class="form-control therapy-select" multiple="multiple">
                                 <option>Cognitive behavioural therapy</option>
@@ -268,10 +268,10 @@ if (!isset($_SESSION['username'])) {
                                             </select>
                                         </td>
                                         <td class="sos-checkbox-cell">
-  <div class="sos-checkbox-wrapper">
-    <input type="checkbox" name="sos" class="form-check-input sos-checkbox">
-  </div>
-</td>
+                                        <div class="sos-checkbox-wrapper">
+                                            <input type="checkbox" name="sos" class="form-check-input sos-checkbox">
+                                        </div>
+                                        </td>
                                         <td>
                                             <button type="button" id="save-medicine-btn" class="btn btn-success save-btn">Save</button>
                                         </td>
@@ -282,7 +282,7 @@ if (!isset($_SESSION['username'])) {
 
                         </div>
                         <div class="col-4 section3">
-                              <div class="future_appointments  ">
+                              <div class="future_appointments pt-1 ">
 
                               </div>
                             <div class="form-group ">
