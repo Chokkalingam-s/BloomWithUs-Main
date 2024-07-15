@@ -525,14 +525,11 @@ if (!isset($_SESSION['username'])) {
         $('#prescriptionModal form').on('submit', function(event) {
             event.preventDefault();
             // Serialize form data for key therapies and diseases
-            const keyTherapies = $('#key-therapies').val().join(', ');
+                const keyTherapies = $('#key-therapies').val().join(', ');
                 const diseases = $('#diseases').val().join(', ');
 
-                // Create a new FormData object
                 const formData = new FormData(this);
-        formData.append('medicineData', JSON.stringify(medicineDataArray));
-
-                // Append key therapies and diseases to the FormData object
+                formData.append('medicineData', JSON.stringify(medicineDataArray));
                 formData.append('key_therapies', keyTherapies);
                 formData.append('diseases', diseases);
 
