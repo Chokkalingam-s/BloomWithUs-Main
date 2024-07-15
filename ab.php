@@ -481,8 +481,12 @@
             .then(data => {
                 if (data.success) {
                     const appointmentID = data.appointmentID;
-                    showCustomAlert(`Appointment booked successfully! Your Appointment ID is: ${appointmentID}. Please note it down.`);
-                    const appointmentModal = bootstrap.Modal.getInstance(document.getElementById('appointmentModal'));
+                    showCustomAlert(`🎉 Appointment booked successfully! 🎉
+
+Your Appointment ID is: ${appointmentID}. Please note it down for future reference.
+
+📋 Kindly bring any previous prescriptions if you have consulted another doctor regarding any psychological issues. This will help us provide you with the best care possible. 😊`);
+ const appointmentModal = bootstrap.Modal.getInstance(document.getElementById('appointmentModal'));
                     appointmentModal.hide();
                     renderCalendar();
                 } else {
