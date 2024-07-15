@@ -83,6 +83,25 @@ if (!isset($_SESSION['username'])) {
         .therapy-select , .disease-select{
             width: 35vw;
         }
+        .sos-checkbox-cell {
+        text-align: center; /* Center the checkbox horizontally */
+        vertical-align: middle; /* Center the checkbox vertically */
+        padding: 0; /* Remove any default padding */
+        }
+
+        .sos-checkbox-wrapper {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        height: 100%;
+        }
+
+        .sos-checkbox {
+        width: 8%; /* Make the checkbox occupy 80% of the available space in the cell */
+        height: 6.5%;
+        margin-left: 0.5%;
+        }
+
     </style>
 </head>
 
@@ -244,9 +263,11 @@ if (!isset($_SESSION['username'])) {
                                                 <option>After Meal</option>
                                             </select>
                                         </td>
-                                        <td>
-                                            <input type="checkbox" name="sos" class="form-control sos-checkbox">
-                                        </td>
+                                        <td class="sos-checkbox-cell">
+  <div class="sos-checkbox-wrapper">
+    <input type="checkbox" name="sos" class="form-check-input sos-checkbox">
+  </div>
+</td>
                                         <td>
                                             <button type="button" id="save-medicine-btn" class="btn btn-success save-btn">Save</button>
                                         </td>
