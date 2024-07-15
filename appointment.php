@@ -101,21 +101,21 @@ if (!isset($_SESSION['username'])) {
             background-color:#FF9ACD;
             color: #fff;
             font-size: 0.5rem;
-            margin-top: 0.2rem; /* Space between appointments */
-            border-radius: 0.5rem; /* Slightly rounded corners */
-            text-align: left; /* Align text to the left */
-            white-space: nowrap; /* Prevent wrapping */
-            overflow: hidden; /* Hide overflow */
+            margin-top: 0.2rem; 
+            border-radius: 0.5rem; 
+            text-align: left; 
+            white-space: nowrap; 
+            overflow: hidden; 
             display: flex;
             flex-direction: column;
         }
 
         .calendar .booked .appointment-time {
-            font-weight: bold; /* Bold for emphasis */
-            font-size: 0.7rem; /* Larger font size for time */
-            display: block; /* Ensure single-line display */
-            overflow: hidden; /* Ensure it stays on one line */
-            text-overflow: ellipsis; /* Add ellipsis if it overflows */
+            font-weight: bold; 
+            font-size: 0.7rem; 
+            display: block; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
             background-color: #EA3666;
         }
 
