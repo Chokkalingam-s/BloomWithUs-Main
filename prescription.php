@@ -440,10 +440,10 @@ if (!isset($_SESSION['username'])) {
                     medicines.forEach(medicine => {
                         const rowHtml = `
                             <tr data-id="${medicine.unique_id}"
-            data-name="${medicine.medicine_name}"
-            data-times="${medicine.times_per_day}"
-            data-dose="${medicine.dose_mg}"
-            data-sos="${medicine.sos ? '1' : '0'}">
+                                data-name="${medicine.medicine_name}"
+                                data-times="${medicine.times_per_day}"
+                                data-dose="${medicine.dose_mg}"
+                                data-sos="${medicine.sos ? '1' : '0'}">
                                 <td>${medicine.medicine_name}</td>
                                 <td>${medicine.times_per_day}</td>
                                 <td>${medicine.dose_mg}</td>
