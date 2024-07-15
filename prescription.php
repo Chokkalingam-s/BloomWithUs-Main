@@ -102,6 +102,10 @@ if (!isset($_SESSION['username'])) {
         margin-left: 0.5%;
         }
 
+        .sos-highlight td {
+            background-color:  #f8c4cc;
+        }
+
     </style>
 </head>
 
@@ -443,7 +447,8 @@ if (!isset($_SESSION['username'])) {
                                 data-name="${medicine.medicine_name}"
                                 data-times="${medicine.times_per_day}"
                                 data-dose="${medicine.dose_mg}"
-                                data-sos="${medicine.sos ? '1' : '0'}">
+                                data-sos="${medicine.sos ? '1' : '0'}"
+                                class="${medicine.sos ? 'sos-highlight' : ''}">
                                 <td>${medicine.medicine_name}</td>
                                 <td>${medicine.times_per_day}</td>
                                 <td>${medicine.dose_mg}</td>
@@ -628,7 +633,7 @@ function createTableRow(data) {
             row.append($('<td>').text(data.meal));
             const sos = $('<td>').text(data.sos ? 'Yes' : 'No');
             if (data.sos) {
-                sos.addClass('table-danger');
+                row.addClass('table-danger');
             }
             row.append(sos);
             const options = $('<td>');
