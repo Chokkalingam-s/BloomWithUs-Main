@@ -325,9 +325,6 @@ if (!isset($_SESSION['username'])) {
         </div>
     </div>
 </div>
-
-
-
     </div>
 
     </main>
@@ -361,28 +358,26 @@ if (!isset($_SESSION['username'])) {
 
             const customAlertModal = new bootstrap.Modal(document.getElementById('customAlertModal'));
             customAlertModal.show();
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-        const customAlertModal = document.getElementById('customAlertModal');
+                }
+                document.addEventListener('DOMContentLoaded', function() {
+                const customAlertModal = document.getElementById('customAlertModal');
 
-        customAlertModal.addEventListener('hidden.bs.modal', function() {
-            location.reload();
-        });
-    });
-    // Ensure modal hides completely when the close button or close icon is clicked
+                customAlertModal.addEventListener('hidden.bs.modal', function() {
+                    location.reload();
+                });
+            });
+            
     document.getElementById('appointmentDetailsModal').addEventListener('hidden.bs.modal', function () {
         document.body.classList.remove('modal-open');
         document.querySelector('.modal-backdrop').remove();
     });
 
-    // Ensure any remaining backdrop elements are removed
     document.addEventListener('hidden.bs.modal', function (event) {
         var backdrop = document.querySelector('.modal-backdrop');
         if (backdrop) {
             backdrop.remove();
         }
     });
-        // Function to copy text to clipboard
         function copyToClipboard(text) {
                 var hiddenInput = document.getElementById('hiddenInput')
                 hiddenInput.value = text;
