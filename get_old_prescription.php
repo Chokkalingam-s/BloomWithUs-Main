@@ -5,7 +5,7 @@ include 'db_connection.php';
 if (isset($_GET['unique_id'])) {
     $unique_id = $_GET['unique_id'];
     $conn = new mysqli($servername, $db_username, $db_password, $dbname);
-    // Query to fetch old prescription details
+
     $query = "SELECT * FROM old_prescriptions WHERE unique_id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param('s', $unique_id);

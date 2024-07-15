@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Database connection logic (adjust as per your setup)
+
 $host = 'localhost';
 include 'db_connection.php';
 
@@ -9,8 +9,7 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Assuming you have a table named 'medicine' with fields 'medicine_name', 'times_per_day', 'dose', 'before_after_meal', 'sos'
-    $uniqueId = $_GET['unique_id']; // Adjust as per your data flow
+    $uniqueId = $_GET['unique_id']; 
 
     // Fetch medicine data for a specific unique_id
     $stmt = $pdo->prepare("SELECT * FROM medicines WHERE unique_id = :unique_id");

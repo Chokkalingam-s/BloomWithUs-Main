@@ -3,8 +3,6 @@ header('Content-Type: application/json');
 
 include 'db_connection.php';
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -46,10 +44,8 @@ if (isset($_GET['unique_id'])) {
         echo json_encode(array('message' => 'Appointment not found'));
     }
 
-    // Free result set
     mysqli_free_result($result);
 
-    // Close connection
     mysqli_close($conn);
 } else {
     echo json_encode(array('message' => 'Unique ID parameter is missing'));

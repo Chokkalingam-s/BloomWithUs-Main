@@ -6,7 +6,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch all posts
 $sql = "SELECT * FROM events ORDER BY id ASC";
 $result = $conn->query($sql);
 ?>
@@ -15,6 +14,7 @@ $result = $conn->query($sql);
 <html lang="en">
 
 <head>
+  <!-- Developed By Chokkalingam S ( linkedin.com/in/chokkalingam2005 )-->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>BloomWithUs</title>
@@ -43,7 +43,7 @@ $result = $conn->query($sql);
 </head>
 
 <body class="index-page">
-
+  <!-- Developed By Chokkalingam S ( linkedin.com/in/chokkalingam2005 )-->
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 

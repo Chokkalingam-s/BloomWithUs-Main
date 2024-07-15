@@ -4,16 +4,11 @@ header('Content-Type: application/json');
 include 'db_connection.php';
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
-// Check if date parameter is set
 if (isset($_GET['date'])) {
     $date = $_GET['date'];
-
-    // Query to fetch appointments for the specified date
     $query = "SELECT *,
        CASE
            WHEN time_slot LIKE '10:00 AM%' THEN 1
