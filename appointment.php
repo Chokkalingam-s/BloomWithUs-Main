@@ -333,7 +333,7 @@ if (!isset($_SESSION['username'])) {
     </main>
     <footer id="footer" class="footer position-relative light-background">
     <div class="container copyright text-center mt-4">
-      <p style="display: flex; justify-content: center;">©<span>Copyright</span> <strong class="px-1 sitename">BloomWithUs</strong><span>All Rights Reserved</span></p>
+      <p style="display: flex; justify-content: center;">©<span>Copyright</span> <strong class="px-1 sitename">BloomWithUs</strong><span>All Right's Reserved</span></p>
       <div class="credits">
         Designed From <a href="https://rudraksha.org.in/" target="_blank"> Rudraksha Welfare Foundation <a href="https://www.linkedin.com/in/chokkalingam2005/" target="_blank"><i class="bi bi-person-workspace"></i></a></a>
       </div>
@@ -598,11 +598,9 @@ if (!isset($_SESSION['username'])) {
             });
         })
         .catch(error => console.error('Error fetching time slots:', error));
-    // Clear patient details
     document.getElementById('reservationPatientId').value = '';
     document.getElementById('patientDetails').style.display = 'none';
 }
-
 
 
 // Event listener for patient ID input
@@ -639,10 +637,8 @@ document.getElementById('reservationPatientId').addEventListener('input', functi
 // Handle form submission on admin side
 const reservationForm = document.getElementById('reservationForm');
 reservationForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
+    e.preventDefault();   
     const formData = new FormData(reservationForm);
-
     fetch('save_reservation.php', {
         method: 'POST',
         body: formData
@@ -664,7 +660,7 @@ reservationForm.addEventListener('submit', function(e) {
             reservationModalElement.style.display = 'none';
             document.body.classList.remove('modal-open');
             document.body.style.paddingRight = '';
-            showCustomAlert(`Appointment for ${appointmentID} Reserved successfully on ${reservationDate}!`);
+            showCustomAlert(`🎉 Appointment for ${appointmentID} Reserved successfully on ${reservationDate}!`);
             renderCalendar(currentDisplayedDate);
         } else {
             showCustomAlert('Failed to reserve appointment. Please try again.');
