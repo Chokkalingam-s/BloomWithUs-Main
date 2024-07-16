@@ -13,6 +13,7 @@ if ($conn->connect_error) {
 $unique_id = $_POST['unique_id'];
 $medication_prescribed = isset($_POST['medication_prescribed']) ? $_POST['medication_prescribed'] : '';
 $notes = isset($_POST['notes']) ? $_POST['notes'] : '';
+$notes2 = isset($_POST['notes2']) ? $_POST['notes2'] : '';
 $key_therapies = isset($_POST['key_therapies']) ? $_POST['key_therapies'] : '';
 $diseases = isset($_POST['diseases']) ? $_POST['diseases'] : '';
 $doctor_name = $_POST['doctor_name'];
@@ -31,6 +32,29 @@ foreach ($medicine_table_data as $medicine) {
     $stmt = $conn->prepare("INSERT INTO medicines (unique_id, medicine_name, times_per_day, dose_mg, before_after_meal, sos) 
                             VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssisss", $unique_id, $medicine_name, $times_per_day, $dose_mg, $meal, $sos);
+
+    // Execute the query
+    if ($stmt->execute()) {
+        echo "";
+    } else {
+        echo json_encode(array('message' => 'Error: ' . $stmt->error));
+    }
+
+    // Close statement
+    $stmt->close();
+}
+
+$therapies_table_data = isset($_POST['therapiesData']) ? json_decode($_POST['therapiesData'], true) : [];
+
+foreach ($therapies_table_data as $therapies) {
+    $therapies_name = $therapies['therapiesName'];
+    $times_per_day = $therapies['noOfTimes'];
+    $meal = $therapies['meal'];
+    $sos = $therapies['sos'] ? 1 : 0;
+
+    $stmt = $conn->prepare("INSERT INTO therapies (unique_id, therapies_name, times_per_day, before_after_meal, sos) 
+                            VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssiss", $unique_id, $therapies_name, $times_per_day, $meal, $sos);
 
     // Execute the query
     if ($stmt->execute()) {
@@ -62,6 +86,7 @@ if ($result_check->num_rows > 0) {
                     key_therapies = '$key_therapies', 
                     medication_prescribed = '$medication_prescribed', 
                     notes = '$notes',
+                    notes2 = '$notes2',
                     diseases = '$diseases'
                    WHERE unique_id = '$unique_id'";
 
@@ -72,11 +97,11 @@ if ($result_check->num_rows > 0) {
     }
 } else {
     // Insert new prescription
-    $sql_insert = "INSERT INTO prescription (unique_id, patient_first_name, patient_last_name, key_therapies, medication_prescribed, notes, diseases)
+    $sql_insert = "INSERT INTO prescription (unique_id, patient_first_name, patient_last_name, key_therapies, medication_prescribed, notes, diseases ,notes2)
                    VALUES ('$unique_id', 
                            (SELECT patient_first_name FROM appointments WHERE unique_id = '$unique_id' LIMIT 1), 
                            (SELECT patient_last_name FROM appointments WHERE unique_id = '$unique_id' LIMIT 1), 
-                           '$key_therapies', '$medication_prescribed', '$notes', '$diseases')";
+                           '$key_therapies', '$medication_prescribed', '$notes', '$diseases' , '$notes2')";
 
     if ($conn->query($sql_insert) === TRUE) {
         echo "New prescription saved successfully";
