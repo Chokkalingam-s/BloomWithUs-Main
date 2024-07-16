@@ -77,7 +77,6 @@ if (!isset($_SESSION['username'])) {
         }
         .section2{
             background-color: #DAE0DA ;
-
         }
         .disease-select{
             width: 50vw;
@@ -145,7 +144,6 @@ if (!isset($_SESSION['username'])) {
             opacity: 0;
             cursor: pointer;
         }
-
         .passport-photo {
             width: 100px;
             height: 100px;
@@ -230,7 +228,7 @@ if (!isset($_SESSION['username'])) {
                                 <div class="col-md-6 d-flex justify-content-center align-items-center mt-2">
                                     <div class="add-photo-btn">
                                         +
-                                        <input type="file" id="upload-photo" accept="image/*" onchange="displayPhoto(event)">
+                                        <input type="file" id="upload-photo" accept="image/*" name="patient_image" onchange="displayPhoto(event)">
                                     </div>
                                     <img id="patient-photo" class="passport-photo" alt="Patient Photo">
                                 </div>
@@ -740,6 +738,9 @@ if (!isset($_SESSION['username'])) {
                         formData.append('therapiesData', JSON.stringify(therapiesDataArray));
                         formData.append('key_therapies', keyTherapies);
                         formData.append('diseases', diseases);
+
+                        formData.append('patient_image', $('#upload-photo')[0].files[0]); // Add prescription image file
+
 
                     $.ajax({
                         url: 'save_prescription.php',

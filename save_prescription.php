@@ -76,6 +76,30 @@ if (!empty($_FILES['prescription_image']['name'])) {
     $prescription_image = NULL;
 }
 
+$targetDir = "uploads/"; // Directory where images will be uploaded
+$patientImage = ''; // Variable to store the image file name
+
+if (!empty($_FILES['patient_image']['name'])) {
+    $fileName = basename($_FILES['patient_image']['name']);
+    $targetFilePath = $targetDir . $fileName;
+    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+    // Allow certain file formats
+    $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+    if (in_array($fileType, $allowTypes)) {
+        // Upload file to server
+        if (move_uploaded_file($_FILES['patient_image']['tmp_name'], $targetFilePath)) {
+            $patientImage = $fileName;
+        } else {
+            echo "Error uploading file.";
+            exit();
+        }
+    } else {
+        echo "File format not supported.";
+        exit();
+    }
+}
+
 // Check if prescription exists for the unique_id
 $sql_check = "SELECT * FROM prescription WHERE unique_id = '$unique_id'";
 $result_check = $conn->query($sql_check);
@@ -87,7 +111,8 @@ if ($result_check->num_rows > 0) {
                     medication_prescribed = '$medication_prescribed', 
                     notes = '$notes',
                     notes2 = '$notes2',
-                    diseases = '$diseases'
+                    diseases = '$diseases',
+                    patient_image = '$patientImage'
                    WHERE unique_id = '$unique_id'";
 
     if ($conn->query($sql_update) === TRUE) {
@@ -97,11 +122,11 @@ if ($result_check->num_rows > 0) {
     }
 } else {
     // Insert new prescription
-    $sql_insert = "INSERT INTO prescription (unique_id, patient_first_name, patient_last_name, key_therapies, medication_prescribed, notes, diseases ,notes2)
+    $sql_insert = "INSERT INTO prescription (unique_id, patient_first_name, patient_last_name, key_therapies, medication_prescribed, notes, diseases, notes2, patient_image)
                    VALUES ('$unique_id', 
                            (SELECT patient_first_name FROM appointments WHERE unique_id = '$unique_id' LIMIT 1), 
                            (SELECT patient_last_name FROM appointments WHERE unique_id = '$unique_id' LIMIT 1), 
-                           '$key_therapies', '$medication_prescribed', '$notes', '$diseases' , '$notes2')";
+                           '$key_therapies', '$medication_prescribed', '$notes', '$diseases', '$notes2', '$patientImage')";
 
     if ($conn->query($sql_insert) === TRUE) {
         echo "New prescription saved successfully";
