@@ -31,9 +31,8 @@ if (!isset($_SESSION['username'])) {
     <link href="assets/css/main.css" rel="stylesheet">
 
 
-   <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+    <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- select2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <style>
@@ -53,6 +52,7 @@ if (!isset($_SESSION['username'])) {
             justify-content: center;
             
         }
+        ::-webkit-scrollbar { width: 0 !important }
         footer {
             flex-shrink: 0;
             background: #f8f9fa;
@@ -237,7 +237,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
 
                             <div class="row  old_prescription"  >
-                                <div class="form-check ml-4 " style="margin-top:16%;">
+                                <div class="form-check ml-4 " style="margin-top:18%;">
                                     <input class="form-check-input  border-success " type="checkbox" id="oldPrescriptionAvailable">
                                     <label class="form-check-label" for="oldPrescriptionAvailable">
                                         Old Prescription Available
@@ -461,7 +461,6 @@ if (!isset($_SESSION['username'])) {
                         <div class="row" >
                             <div class="col-12" style="margin-top: 5%;">
                                  <p style="font-size:1.2em;"><strong>Name: ${data.patient_first_name} ${data.patient_last_name} </strong></p>
-                                 <p>${uniqueId}</p>
                             </div>
                             <div class="col-4">
                                 <p><strong>Age:</strong> ${data.age}</p> 
