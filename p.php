@@ -801,9 +801,7 @@ function displayPhoto(event) {
 
         // Check if patient photo exists and display accordingly
         if (patient.patient_image) {
-            $('#add-photo-btn').hide(); // Hide the "Add Photo" button
-            $('#patient-photo').attr('src', patient.patient_image); // Set the source of the patient photo
-            $('#patient-photo').show(); // Show the patient photo
+            displayPhoto1(patient.patient_image);
         } else {
             $('#patient-photo').hide(); // Hide patient photo element if no image
             $('#add-photo-btn').show(); // Show the "Add Photo" button
@@ -812,6 +810,14 @@ function displayPhoto(event) {
                         $('#prescriptionModal').modal('show');
                     }
                 });
+
+                function displayPhoto1(photoUrl) {
+                    const photo = document.getElementById('patient-photo');
+                    const addButton = document.querySelector('.add-photo-btn');
+                    photo.src = photoUrl; // Set the source of the patient photo
+                    photo.style.display = 'block'; // Show the patient photo
+                    addButton.style.display = 'none'; // Hide the "Add Photo" button
+                }
                 
             }
             
