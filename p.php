@@ -29,8 +29,7 @@ if (!isset($_SESSION['username'])) {
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
-     <!-- select2 CSS -->
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
 
    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -114,6 +113,46 @@ if (!isset($_SESSION['username'])) {
             margin-bottom: -1.1% !important;
         }
 
+        .patient-photo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 200px;
+        }
+
+        .add-photo-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            border: 2px dashed #007bff;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 24px;
+            background-color: white;
+            position: relative;
+        }
+
+        .add-photo-btn input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .passport-photo {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            display: none;
+        }
+
     </style>
 </head>
 
@@ -182,12 +221,23 @@ if (!isset($_SESSION['username'])) {
                 <div class="modal-body" style="background-color: #E7EBE6;">
                     <input type="hidden" name="unique_id" id="hiddenUniqueId">
                     <div class="row">
-                        <div class="col-3 section1">
-                            <div class="row h-20 appointment_details pt-1">
+                        <div class="col-md-3 section1">
+                            <div class="row appointment_details pt-1">
                                 <!-- Appointment details automatic render -->
                             </div>
-                            <div class="row h-80 old_prescription"  >
-                                <div class="form-check ml-4 " style="margin-top: 40%;">
+
+                            <div class="patient_photo row">
+                                <div class="col-md-6 d-flex justify-content-center align-items-center mt-2">
+                                    <div class="add-photo-btn">
+                                        +
+                                        <input type="file" id="upload-photo" accept="image/*" onchange="displayPhoto(event)">
+                                    </div>
+                                    <img id="patient-photo" class="passport-photo" alt="Patient Photo">
+                                </div>
+                            </div>
+
+                            <div class="row  old_prescription"  >
+                                <div class="form-check ml-4 " style="margin-top:16%;">
                                     <input class="form-check-input  border-success " type="checkbox" id="oldPrescriptionAvailable">
                                     <label class="form-check-label" for="oldPrescriptionAvailable">
                                         Old Prescription Available
@@ -221,7 +271,7 @@ if (!isset($_SESSION['username'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-9 section2">
+                        <div class="col-md-9 section2">
                             <h2 class="my-3"> <strong> Diagnosis </strong></h2>
                         <div class="form-group">
                             <label for="diseases"><h4>Diseases</h4></label><br>
@@ -381,6 +431,13 @@ if (!isset($_SESSION['username'])) {
        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <script>
+        function displayPhoto(event) {
+            const photo = document.getElementById('patient-photo');
+            const addButton = document.querySelector('.add-photo-btn');
+            photo.src = URL.createObjectURL(event.target.files[0]);
+            photo.style.display = 'block';
+            addButton.style.display = 'none';
+        }
 
    $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
