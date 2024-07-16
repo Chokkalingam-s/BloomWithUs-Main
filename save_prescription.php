@@ -89,7 +89,7 @@ if (!empty($_FILES['patient_image']['name'])) {
     if (in_array($fileType, $allowTypes)) {
         // Upload file to server
         if (move_uploaded_file($_FILES['patient_image']['tmp_name'], $targetFilePath)) {
-            $patientImage = $fileName;
+            $patientImage = $targetFilePath;
         } else {
             echo "Error uploading file.";
             exit();

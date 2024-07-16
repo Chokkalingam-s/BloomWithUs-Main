@@ -17,13 +17,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
 
-    // Base URL for images
-    $baseURL = 'http://localhost/BloomWithUs/uploads/'; // Replace with your actual base URL
 
-    // Append image URL to the result if an image exists
-    if (!empty($row['patient_image'])) {
-        $row['patient_image'] = $baseURL . $row['patient_image'];
-    }
 
     echo json_encode($row);
 } else {
