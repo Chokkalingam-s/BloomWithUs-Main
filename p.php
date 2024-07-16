@@ -429,14 +429,14 @@ if (!isset($_SESSION['username'])) {
        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <script>
-        function displayPhoto(event) {
+
+function displayPhoto(event) {
             const photo = document.getElementById('patient-photo');
             const addButton = document.querySelector('.add-photo-btn');
             photo.src = URL.createObjectURL(event.target.files[0]);
             photo.style.display = 'block';
             addButton.style.display = 'none';
         }
-
    $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const uniqueId = urlParams.get('unique_id');
@@ -798,12 +798,26 @@ if (!isset($_SESSION['username'])) {
                 // Update diseases badges
                 updateBadges('diseases', 'diseases-badges', selectedDiseases);
 
+
+        // Check if patient photo exists and display accordingly
+        if (patient.patient_image) {
+            $('#add-photo-btn').hide(); // Hide the "Add Photo" button
+            $('#patient-photo').attr('src', patient.patient_image); // Set the source of the patient photo
+            $('#patient-photo').show(); // Show the patient photo
+        } else {
+            $('#patient-photo').hide(); // Hide patient photo element if no image
+            $('#add-photo-btn').show(); // Show the "Add Photo" button
+        }
+
                         $('#prescriptionModal').modal('show');
                     }
                 });
+                
             }
+            
         
         });
+
 
         function createTableRow(data) {
                     const row = $('<tr>');
