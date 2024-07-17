@@ -287,7 +287,10 @@ if (!isset($_SESSION['username'])) {
                             </select>
                             <div id="diseases-badges" class="badge-container"></div>
                         </div>
+                        <input type="checkbox" id="optTherapy" onchange="toggleTable('therapyTable')"> Opt for Therapy
+                        <input type="checkbox" id="optMedicine" onchange="toggleTable('medicineTable')"> Opt for Medicine
 
+                        <div id="medicineTable" style="display: none;">
                         <h4><strong>Medicine</strong></h4>
                             <table class="table">
                                 <thead>
@@ -322,7 +325,9 @@ if (!isset($_SESSION['username'])) {
                                     </tr>
                                 </tbody>
                             </table>
-
+                            </div>
+                             
+                            <div id="therapyTable" style="display: none;">
                             <h4><strong>Therapies</strong></h4>
                             <table class="table mt-2">
                                 <thead>
@@ -365,6 +370,7 @@ if (!isset($_SESSION['username'])) {
                                     </tr>
                                 </tbody>
                             </table>
+                            </div>
 
                         
                                <div class="row "> 
@@ -438,6 +444,16 @@ function displayPhoto(event) {
             photo.style.display = 'block';
             addButton.style.display = 'none';
         }
+        function toggleTable(tableId) {
+        var checkbox = document.getElementById(tableId == 'therapyTable' ? 'optTherapy' : 'optMedicine');
+        var table = document.getElementById(tableId);
+        
+        if (checkbox.checked && table.style.display === 'none') {
+            table.style.display = 'table'; // Show table if checkbox is checked
+        } else {
+            table.style.display = 'none'; // Hide table if checkbox is unchecked
+        }
+    }
    $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const uniqueId = urlParams.get('unique_id');
@@ -548,7 +564,7 @@ function displayPhoto(event) {
             success: function(response) {
                 if (response.success) {
                     const medicines = response.data;
-         
+
                     // Append new rows
                     medicines.forEach(medicine => {
                         const rowHtml = `
@@ -570,6 +586,12 @@ function displayPhoto(event) {
                         `;
                         $('#medicine-table-body').append(rowHtml);
                     });
+
+                                // Show medicine table if there are rows fetched
+            if (medicines.length > 0) {
+                $('#medicineTable').show(); // Assuming medicineTable is the ID of your medicine table
+                $('#optMedicine').prop('checked', true); // Check the medicine checkbox
+            }
                 } else {
                     console.error('Failed to fetch medicine data:', response.message);
                 }
@@ -607,6 +629,10 @@ function displayPhoto(event) {
                         `;
                         $('#therapies-table-body').append(rowHtml);
                     });
+                    if (therapies.length > 0) {
+                $('#therapyTable').show(); // Assuming therapiesTable is the ID of your therapies table
+                $('#optTherapy').prop('checked', true); // Check the therapy checkbox
+            }
                 } else {
                     console.error('Failed to fetch therapies data:', response.message);
                 }
