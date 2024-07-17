@@ -14,7 +14,6 @@ $unique_id = $_POST['unique_id'];
 $medication_prescribed = isset($_POST['medication_prescribed']) ? $_POST['medication_prescribed'] : '';
 $notes = isset($_POST['notes']) ? $_POST['notes'] : '';
 $notes2 = isset($_POST['notes2']) ? $_POST['notes2'] : '';
-$key_therapies = isset($_POST['key_therapies']) ? $_POST['key_therapies'] : '';
 $diseases = isset($_POST['diseases']) ? $_POST['diseases'] : '';
 $doctor_name = $_POST['doctor_name'];
 $time_duration = $_POST['time_duration'];
@@ -108,7 +107,6 @@ $result_check = $conn->query($sql_check);
 if ($result_check->num_rows > 0) {
     // Update existing prescription
     $sql_update = "UPDATE prescription SET 
-                    key_therapies = '$key_therapies', 
                     medication_prescribed = '$medication_prescribed', 
                     notes = '$notes',
                     notes2 = '$notes2',
@@ -123,11 +121,11 @@ if ($result_check->num_rows > 0) {
     }
 } else {
     // Insert new prescription
-    $sql_insert = "INSERT INTO prescription (unique_id, patient_first_name, patient_last_name, key_therapies, medication_prescribed, notes, diseases, notes2, patient_image)
+    $sql_insert = "INSERT INTO prescription (unique_id, patient_first_name, patient_last_name, medication_prescribed, notes, diseases, notes2, patient_image)
                    VALUES ('$unique_id', 
                            (SELECT patient_first_name FROM appointments WHERE unique_id = '$unique_id' LIMIT 1), 
                            (SELECT patient_last_name FROM appointments WHERE unique_id = '$unique_id' LIMIT 1), 
-                           '$key_therapies', '$medication_prescribed', '$notes', '$diseases', '$notes2', '$patientImage')";
+                            '$medication_prescribed', '$notes', '$diseases', '$notes2', '$patientImage')";
 
     if ($conn->query($sql_insert) === TRUE) {
         echo "New prescription saved successfully";

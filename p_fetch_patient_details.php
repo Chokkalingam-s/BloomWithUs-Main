@@ -8,7 +8,7 @@ if ($conn->connect_error) {
 }
 
 $unique_id = $_GET['unique_id'];
-$sql = "SELECT a.patient_first_name, a.patient_last_name, p.key_therapies,p.diseases, p.medication_prescribed, p.notes , p.notes2, p.patient_image
+$sql = "SELECT a.patient_first_name, a.patient_last_name, p.diseases, p.medication_prescribed, p.notes , p.notes2, p.patient_image
         FROM appointments a
         LEFT JOIN prescription p ON a.unique_id = p.unique_id
         WHERE a.unique_id = '$unique_id'";
@@ -24,7 +24,6 @@ if ($result->num_rows > 0) {
     echo json_encode([
         'patient_first_name' => '',
         'patient_last_name' => '',
-        'key_therapies' => '',
         'diseases'=>'',
         'medication_prescribed' => '',
         'notes' => '',

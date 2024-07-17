@@ -285,19 +285,6 @@ if (!isset($_SESSION['username'])) {
                             </select>
                             <div id="diseases-badges" class="badge-container"></div>
                         </div>
-                        <div class="form-group pt-1">
-                            <label for="key-therapies"><h4>Therapies</h4></label><br>
-                            <select id="key-therapies" class="form-control therapy-select" multiple="multiple">
-                                <option>Cognitive behavioural therapy</option>
-                                <option>Relaxation therapy</option>
-                                <option>Behavioural therapy</option>
-                                <option>Art therapy</option>
-                                <option>Interpersonal therapy</option>
-                                <option>Emotion focused therapy</option>
-                                <option>Family therapy</option>
-                            </select>
-                            <div id="key-therapies-badges" class="badge-container"></div>
-                        </div>
 
                         <h4><strong>Medicine</strong></h4>
                             <table class="table">
@@ -741,13 +728,13 @@ function displayPhoto(event) {
                 $('#prescriptionModal form').on('submit', function(event) {
                     event.preventDefault();
                     // Serialize form data for key therapies and diseases
-                        const keyTherapies = $('#key-therapies').val().join(', ');
+
                         const diseases = $('#diseases').val().join(', ');
 
                         const formData = new FormData(this);
                         formData.append('medicineData', JSON.stringify(medicineDataArray));
                         formData.append('therapiesData', JSON.stringify(therapiesDataArray));
-                        formData.append('key_therapies', keyTherapies);
+
                         formData.append('diseases', diseases);
 
                         formData.append('patient_image', $('#upload-photo')[0].files[0]); // Add prescription image file
@@ -770,14 +757,6 @@ function displayPhoto(event) {
                 });
             
 
-
-
-
-            // Update badges on change
-            $('#key-therapies').change(function() {
-                updateBadges('key-therapies', 'key-therapies-badges', $(this).val());
-            });
-
             // Event listener for disease selection change
             $('#diseases').change(function() {
                 updateBadges('diseases', 'diseases-badges', $(this).val());
@@ -798,13 +777,9 @@ function displayPhoto(event) {
                 $('#notes2').val(patient.notes2);
 
                 // Select key therapies and diseases based on fetched data
-                const selectedTherapies = patient.key_therapies ? patient.key_therapies.split(', ') : [];
                 const selectedDiseases = patient.diseases ? patient.diseases.split(', ') : [];
-                $('#key-therapies').val(selectedTherapies);
                 $('#diseases').val(selectedDiseases);
 
-                // Update key therapies badges
-                updateBadges('key-therapies', 'key-therapies-badges', selectedTherapies);
 
                 // Update diseases badges
                 updateBadges('diseases', 'diseases-badges', selectedDiseases);
