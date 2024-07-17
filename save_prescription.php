@@ -47,7 +47,8 @@ foreach ($medicine_table_data as $medicine) {
 $therapies_table_data = isset($_POST['therapiesData']) ? json_decode($_POST['therapiesData'], true) : [];
 
 foreach ($therapies_table_data as $therapies) {
-    $therapies_name = $therapies['therapiesName'];
+    $therapies_name_array = $therapies['therapiesName'];
+    $therapies_name = implode(', ', $therapies_name_array);
     $times_per_day = $therapies['noOfTimes'];
     $meal = $therapies['meal'];
     $sos = $therapies['sos'] ? 1 : 0;

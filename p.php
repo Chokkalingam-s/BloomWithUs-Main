@@ -347,7 +347,18 @@ if (!isset($_SESSION['username'])) {
                                 </thead>
                                 <tbody id="therapies-table-body">
                                     <tr>
-                                        <td><input type="text" name="therapies" class="form-control"></td>
+                                        <td>
+                                        <label for="therapies"><h4>Therapies</h4></label><br>
+                                            <select name="therapies" class="form-control therapy-select"  multiple="multiple">
+                                                <option value="Cognitive behavioural therapy">Cognitive behavioural therapy</option>
+                                                <option value="Relaxation therapy">Relaxation therapy</option>
+                                                <option value="Behavioural therapy">Behavioural therapy</option>
+                                                <option value="Art therapy">Art therapy</option>
+                                                <option value="Interpersonal therapy">Interpersonal therapy</option>
+                                                <option value="Emotion focused therapy">Emotion focused therapy</option>
+                                                <option value="Family therapy">Family therapy</option>
+                                            </select>
+                                        </td>
                                         <td><input type="text" name="therapies_times_per_day" class="form-control"></td>
                                         <td>
                                             <select name="therapies_before_after_meal" class="form-control">
@@ -901,9 +912,9 @@ function displayPhoto(event) {
                 $(document).on('click', '.therapies-save-btn', function() {
                     const row = $(this).closest('tr');
                     const data = {
-                        therapiesName: row.find('input[type="text"]').eq(0).val(),
-                        noOfTimes: row.find('input[type="text"]').eq(1).val(),
-                        meal: row.find('select').val(),
+                        therapiesName: row.find('select').eq(0).val(),
+                        noOfTimes: row.find('input[type="text"]').eq(0).val(),
+                        meal: row.find('select').eq(1).val(),
                         sos: row.find('input[type="checkbox"]').is(':checked')
                     };
                     therapiesDataArray.push(data);
