@@ -272,8 +272,9 @@ if (!isset($_SESSION['username'])) {
                         </div>
                         <div class="col-md-9 section2">
                             <h2 class="my-3"> <strong> Diagnosis </strong></h2>
+                            <div class="ml-2">
                         <div class="form-group">
-                            <label for="diseases"><h4>Diseases</h4></label><br>
+                            <label for="diseases"><h4><strong>Diseases</strong></h4></label><br>
                             <select id="diseases" class="form-control disease-select" multiple="multiple">
                                 <option>Major Depressive Disorder (MDD)</option>
                                 <option>Generalized Anxiety Disorder (GAD)</option>
@@ -384,6 +385,8 @@ if (!isset($_SESSION['username'])) {
                                     <textarea class="form-control" name="notes2" id="notes2" rows="5"></textarea>
                                 </div>
                                 </div>
+                                </div>
+
                                 </div>
                     </div>
                 </div>
