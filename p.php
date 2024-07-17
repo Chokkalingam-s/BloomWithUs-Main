@@ -82,7 +82,8 @@ if (!isset($_SESSION['username'])) {
             width: 50vw;
         }
         .therapy-select {
-            width: 50vw;
+            min-width: 18vw;
+            width: 18vw;
         }
         .sos-checkbox-cell {
         text-align: center; 
@@ -335,7 +336,6 @@ if (!isset($_SESSION['username'])) {
                                 <tbody id="therapies-table-body">
                                     <tr>
                                         <td>
-                                        <label for="therapies"><h4>Therapies</h4></label><br>
                                             <select name="therapies" class="form-control therapy-select"  multiple="multiple">
                                                 <option value="Cognitive behavioural therapy">Cognitive behavioural therapy</option>
                                                 <option value="Relaxation therapy">Relaxation therapy</option>
@@ -512,7 +512,7 @@ function displayPhoto(event) {
                         // Initialize select2 for therapy
                         $('.therapy-select').select2({
                             tags: true,
-                            tokenSeparators: [',', ' ']
+                            tokenSeparators: [',']
                         });
         function updateBadges(selectElementId, badgeContainerId, selectedItems) {
                 const selectedOptions = $(`#${selectElementId} option:selected`);
@@ -878,8 +878,9 @@ function displayPhoto(event) {
                 }
 
                 function clearInputFields1() {
+                    $('#therapies-table-body select.therapy-select').val(null).trigger('change');
                     $('#therapies-table-body input[type="text"], #medicine-table-body input[type="number"]').val('');
-                    $('#therapies-table-body select').val('Before Meal');
+                    $('#therapies-table-body select').eq(1).val('Before Meal');
                     $('#therapies-table-body input[type="checkbox"]').prop('checked', false);
                 }
 
