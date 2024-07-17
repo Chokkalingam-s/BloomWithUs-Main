@@ -152,6 +152,36 @@ if (!isset($_SESSION['username'])) {
             display: none;
         }
 
+        /* Style for checkbox container */
+.TherMed {
+    margin: 2.4% 0; /* Adjust vertical spacing */
+}
+
+/* Style for checkbox label */
+.checkbox-label {
+    font-size: 16px; /* Adjust font size */
+    font-weight: bold; /* Make font bold */
+    display: inline-block;
+    margin-bottom: 8px; /* Space below checkbox */
+    margin-right: 20px; /* Space between checkboxes */
+}
+
+/* Style for checkbox itself */
+.checkbox-label input[type="checkbox"] {
+    border: 2px solid #333; /* Add border to checkbox */
+    padding: 5px; /* Adjust padding for checkbox */
+    appearance: none; /* Remove default styles */
+    -webkit-appearance: none; /* Safari and Chrome */
+    -moz-appearance: none; /* Firefox */
+}
+
+/* Style for checkbox when checked */
+.checkbox-label input[type="checkbox"]:checked {
+    background-color: green; /* Change background color when checked */
+    color:#D4DBD3;
+}
+
+
     </style>
 </head>
 
@@ -287,8 +317,14 @@ if (!isset($_SESSION['username'])) {
                             </select>
                             <div id="diseases-badges" class="badge-container"></div>
                         </div>
-                        <input type="checkbox" id="optTherapy" onchange="toggleTable('therapyTable')"> Opt for Therapy
-                        <input type="checkbox" id="optMedicine" onchange="toggleTable('medicineTable')"> Opt for Medicine
+                        <div class="TherMed">
+    <label for="optTherapy" class="checkbox-label">
+        <input type="checkbox" id="optTherapy" onchange="toggleTable('therapyTable')"> Opt for Therapy
+    </label>
+    <label for="optMedicine" class="checkbox-label">
+        <input type="checkbox" id="optMedicine" onchange="toggleTable('medicineTable')"> Opt for Medicine
+    </label>
+</div>
 
                         <div id="medicineTable" style="display: none;">
                         <h4><strong>Medicine</strong></h4>
