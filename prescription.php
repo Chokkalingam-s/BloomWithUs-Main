@@ -78,7 +78,7 @@ if (!isset($_SESSION['username'])) {
             background-color: #DFD3C3;
         }
         .section2{
-            background-color: #F8EDE3 ;
+            background-color: #ede1d5 ;
         }
         .disease-select{
             width: 50vw;
