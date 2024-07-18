@@ -74,11 +74,11 @@ if (!isset($_SESSION['username'])) {
         .table td, .table th {
             vertical-align: middle;
         }
-        .section1 ,.section3{
-            background-color: #D4DBD3;
+        .section1{
+            background-color: #DFD3C3;
         }
         .section2{
-            background-color: #DAE0DA ;
+            background-color: #F8EDE3 ;
         }
         .disease-select{
             width: 50vw;
@@ -129,7 +129,7 @@ if (!isset($_SESSION['username'])) {
             align-items: center;
             justify-content: center;
             width: 100px;
-            height: 100px;
+            height: 110px;
             border: 2px dashed #007bff;
             color: #007bff;
             cursor: pointer;
@@ -149,7 +149,7 @@ if (!isset($_SESSION['username'])) {
         }
         .passport-photo {
             width: 100px;
-            height: 100px;
+            height: 110px;
             object-fit: cover;
             display: none;
         }
@@ -178,8 +178,7 @@ if (!isset($_SESSION['username'])) {
 
         /* Style for checkbox when checked */
         .checkbox-label input[type="checkbox"]:checked {
-            background-color: green; /* Change background color when checked */
-            color:#D4DBD3;
+            background-color: #88D66C; /* Change background color when checked */
         }
 
 
@@ -287,7 +286,7 @@ if (!isset($_SESSION['username'])) {
                                         <textarea class="form-control" id="medicineTook" name="medicine_took" rows="2" placeholder="Previous Medication"></textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="prescriptionImage" class="form-label">Attachment of Image (old prescription image)</label>
+                                        <label for="prescriptionImage" class="form-label">Attachment of Old Prescription Image</label>
                                         <input type="file" class="form-control" id="prescriptionImage" name="prescription_image">
                                     </div>
                                 </div>
@@ -326,45 +325,8 @@ if (!isset($_SESSION['username'])) {
         <input type="checkbox" id="optMedicine" onchange="toggleTable('medicineTable')"> Opt for Medicine
     </label>
 </div>
-
-                        <div id="medicineTable" style="display: none;">
-                        <h4><strong>Medicine</strong></h4>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Medicine</th>
-                                        <th>Times/day</th>
-                                        <th>Dose(mg)</th>
-                                        <th>B/A Meal</th>
-                                        <th>SOS</th>
-                                        <th>Options</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="medicine-table-body">
-                                    <tr>
-                                        <td><input type="text" name="medicine" class="form-control"></td>
-                                        <td><input type="text" name="times_per_day" class="form-control"></td>
-                                        <td><input type="number" name="dose" class="form-control"></td>
-                                        <td>
-                                            <select name="before_after_meal" class="form-control">
-                                                <option>Before Meal</option>
-                                                <option>After Meal</option>
-                                            </select>
-                                        </td>
-                                        <td class="sos-checkbox-cell">
-                                        <div class="sos-checkbox-wrapper">
-                                            <input type="checkbox" name="sos" class="form-check-input sos-checkbox">
-                                        </div>
-                                        </td>
-                                        <td>
-                                            <button type="button" id="save-medicine-btn" class="btn btn-success save-btn">Save</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            </div>
                              
-                            <div id="therapyTable" style="display: none;">
+<div id="therapyTable" style="display: none;">
                             <h4><strong>Therapies</strong></h4>
                             <table class="table mt-2">
                                 <thead>
@@ -408,6 +370,43 @@ if (!isset($_SESSION['username'])) {
                                 </tbody>
                             </table>
                             </div>
+                        <div id="medicineTable" style="display: none;">
+                        <h4><strong>Medicine</strong></h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Medicine</th>
+                                        <th>Times/day</th>
+                                        <th>Dose(mg)</th>
+                                        <th>B/A Meal</th>
+                                        <th>SOS</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="medicine-table-body">
+                                    <tr>
+                                        <td><input type="text" name="medicine" class="form-control"></td>
+                                        <td><input type="text" name="times_per_day" class="form-control"></td>
+                                        <td><input type="number" name="dose" class="form-control"></td>
+                                        <td>
+                                            <select name="before_after_meal" class="form-control">
+                                                <option>Before Meal</option>
+                                                <option>After Meal</option>
+                                            </select>
+                                        </td>
+                                        <td class="sos-checkbox-cell">
+                                        <div class="sos-checkbox-wrapper">
+                                            <input type="checkbox" name="sos" class="form-check-input sos-checkbox">
+                                        </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" id="save-medicine-btn" class="btn btn-success save-btn">Save</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+
 
                         
                                <div class="row "> 
@@ -590,6 +589,46 @@ function displayPhoto(event) {
                 }
 
  
+                $.ajax({
+            url: 'fetch_therapies.php',
+            type: 'GET',
+            data: { unique_id: uniqueId }, // Send unique_id as parameter if needed
+            dataType: 'json', // Expect JSON response
+            success: function(response) {
+                if (response.success) {
+                    const therapies = response.data;
+         
+                    // Append new rows
+                    therapies.forEach(therapie => {
+                        const rowHtml = `
+                            <tr data-id="${therapie.unique_id}"
+                                data-name="${therapie.therapies_name}"
+                                data-times="${therapie.times_per_day}"
+                                data-sos="${therapie.sos ? '1' : '0'}"
+                                class="${therapie.sos ? 'sos-highlight' : ''}">
+                                <td>${therapie.therapies_name}</td>
+                                <td>${therapie.times_per_day}</td>
+                                <td>${therapie.before_after_meal}</td>
+                                <td>${therapie.sos ? 'Yes' : 'No'}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger delete-therapies-btn">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+                        $('#therapies-table-body').append(rowHtml);
+                    });
+                    if (therapies.length > 0) {
+                $('#therapyTable').show(); // Assuming therapiesTable is the ID of your therapies table
+                $('#optTherapy').prop('checked', true); // Check the therapy checkbox
+            }
+                } else {
+                    console.error('Failed to fetch therapies data:', response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching therapies data:', error);
+            }
+        });
 
     
         // AJAX request to fetch medicine data
@@ -638,46 +677,6 @@ function displayPhoto(event) {
             }
         });
 
-        $.ajax({
-            url: 'fetch_therapies.php',
-            type: 'GET',
-            data: { unique_id: uniqueId }, // Send unique_id as parameter if needed
-            dataType: 'json', // Expect JSON response
-            success: function(response) {
-                if (response.success) {
-                    const therapies = response.data;
-         
-                    // Append new rows
-                    therapies.forEach(therapie => {
-                        const rowHtml = `
-                            <tr data-id="${therapie.unique_id}"
-                                data-name="${therapie.therapies_name}"
-                                data-times="${therapie.times_per_day}"
-                                data-sos="${therapie.sos ? '1' : '0'}"
-                                class="${therapie.sos ? 'sos-highlight' : ''}">
-                                <td>${therapie.therapies_name}</td>
-                                <td>${therapie.times_per_day}</td>
-                                <td>${therapie.before_after_meal}</td>
-                                <td>${therapie.sos ? 'Yes' : 'No'}</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger delete-therapies-btn">Delete</button>
-                                </td>
-                            </tr>
-                        `;
-                        $('#therapies-table-body').append(rowHtml);
-                    });
-                    if (therapies.length > 0) {
-                $('#therapyTable').show(); // Assuming therapiesTable is the ID of your therapies table
-                $('#optTherapy').prop('checked', true); // Check the therapy checkbox
-            }
-                } else {
-                    console.error('Failed to fetch therapies data:', response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching therapies data:', error);
-            }
-        });
 
 
         $('#medicine-table-body').on('click', '.delete-medicine-btn', function() {
