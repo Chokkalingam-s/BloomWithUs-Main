@@ -330,13 +330,13 @@ if (!isset($_SESSION['username'])) {
                             <div id="diseases-badges" class="badge-container"></div>
                         </div>
                         <div class="TherMed">
-    <label for="optTherapy" class="checkbox-label">
-        <input type="checkbox" id="optTherapy" onchange="toggleTable('therapyTable')"> Opt for Therapy
-    </label>
-    <label for="optMedicine" class="checkbox-label1">
-        <input type="checkbox" id="optMedicine" onchange="toggleTable('medicineTable')"> Opt for Medicine
-    </label>
-</div>
+                            <label for="optTherapy" class="checkbox-label">
+                                <input type="checkbox" id="optTherapy" onchange="toggleTable('therapyTable')"> Opt for Therapy
+                            </label>
+                            <label for="optMedicine" class="checkbox-label1">
+                                <input type="checkbox" id="optMedicine" onchange="toggleTable('medicineTable')"> Opt for Medicine
+                            </label>
+                        </div>
                              
 <div id="therapyTable" style="display: none;">
                             <h4><u><strong style="color:#50ab30;">THERAPIES</strong></u></h4>
