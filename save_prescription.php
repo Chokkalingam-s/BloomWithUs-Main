@@ -110,8 +110,7 @@ if ($result_check->num_rows > 0) {
                     medication_prescribed = '$medication_prescribed', 
                     notes = '$notes',
                     notes2 = '$notes2',
-                    diseases = '$diseases',
-                    patient_image = '$patientImage'
+                    diseases = '$diseases'
                    WHERE unique_id = '$unique_id'";
 
     if ($conn->query($sql_update) === TRUE) {
