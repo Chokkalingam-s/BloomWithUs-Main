@@ -78,7 +78,7 @@ if (!isset($_SESSION['username'])) {
             background-color: #DFD3C3;
         }
         .section2{
-            background-color: #ede1d5 ;
+            background-color: #ede1d5;
         }
         .disease-select{
             width: 50vw;
@@ -159,7 +159,7 @@ if (!isset($_SESSION['username'])) {
         }
 
         /* Style for checkbox label */
-        .checkbox-label {
+        .checkbox-label ,.checkbox-label1{
             font-size: 16px; /* Adjust font size */
             font-weight: bold; /* Make font bold */
             display: inline-block;
@@ -176,9 +176,21 @@ if (!isset($_SESSION['username'])) {
             -moz-appearance: none; /* Firefox */
         }
 
+        .checkbox-label1 input[type="checkbox"] {
+            border: 2px solid #333; /* Add border to checkbox */
+            padding: 5px; /* Adjust padding for checkbox */
+            appearance: none; /* Remove default styles */
+            -webkit-appearance: none; /* Safari and Chrome */
+            -moz-appearance: none; /* Firefox */
+        }
+
         /* Style for checkbox when checked */
         .checkbox-label input[type="checkbox"]:checked {
             background-color: #88D66C; /* Change background color when checked */
+        }
+
+        .checkbox-label1 input[type="checkbox"]:checked {
+            background-color: #037ffc; /* Change background color when checked */
         }
 
 
@@ -274,19 +286,19 @@ if (!isset($_SESSION['username'])) {
                                 </div>
                                 <div class="mt-3 d-none" id="oldPrescriptionForm">
                                     <div class="mb-3">
-                                        <label for="doctorName" class="form-label">Doctor Name</label>
+                                        <label for="doctorName" class="form-label">Doctor's Name</label>
                                         <input type="text" class="form-control" id="doctorName" name="doctor_name" placeholder="Past Doctor's name">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="timeDuration" class="form-label">Time Duration Treated</label>
+                                        <label for="timeDuration" class="form-label">Duration</label>
                                         <input type="text" class="form-control" id="timeDuration" name="time_duration" placeholder="Time duration treated">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="medicineTook" class="form-label">Medicine Took</label>
+                                        <label for="medicineTook" class="form-label">Therapy/Medicine</label>
                                         <textarea class="form-control" id="medicineTook" name="medicine_took" rows="2" placeholder="Previous Medication"></textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="prescriptionImage" class="form-label">Attachment of Old Prescription Image</label>
+                                        <label for="prescriptionImage" class="form-label">Attachment of Old Prescription</label>
                                         <input type="file" class="form-control" id="prescriptionImage" name="prescription_image">
                                     </div>
                                 </div>
@@ -301,10 +313,10 @@ if (!isset($_SESSION['username'])) {
                             </div>
                         </div>
                         <div class="col-md-9 section2">
-                            <h2 class="my-3"> <strong> Diagnosis </strong></h2>
+                            <h2 class="my-3"> <strong> DIAGNOSIS </strong></h2>
                             <div class="ml-2">
                         <div class="form-group">
-                            <label for="diseases"><h4><strong>Diseases</strong></h4></label><br>
+                            <label for="diseases"><u><h4 Style="color:red;"><strong>DISEASES</strong></h4></u></label><br>
                             <select id="diseases" class="form-control disease-select" multiple="multiple">
                                 <option>Major Depressive Disorder (MDD)</option>
                                 <option>Generalized Anxiety Disorder (GAD)</option>
@@ -321,13 +333,13 @@ if (!isset($_SESSION['username'])) {
     <label for="optTherapy" class="checkbox-label">
         <input type="checkbox" id="optTherapy" onchange="toggleTable('therapyTable')"> Opt for Therapy
     </label>
-    <label for="optMedicine" class="checkbox-label">
+    <label for="optMedicine" class="checkbox-label1">
         <input type="checkbox" id="optMedicine" onchange="toggleTable('medicineTable')"> Opt for Medicine
     </label>
 </div>
                              
 <div id="therapyTable" style="display: none;">
-                            <h4><strong>Therapies</strong></h4>
+                            <h4><u><strong style="color:#50ab30;">THERAPIES</strong></u></h4>
                             <table class="table mt-2">
                                 <thead>
                                     <tr>
@@ -371,7 +383,7 @@ if (!isset($_SESSION['username'])) {
                             </table>
                             </div>
                         <div id="medicineTable" style="display: none;">
-                        <h4><strong>Medicine</strong></h4>
+                        <h4><u><strong style="color:#037ffc;">MEDICINE</strong></u></h4>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -526,33 +538,43 @@ function displayPhoto(event) {
                         </div>
                     `);
 
-                    // Display previous appointments
-                    let previousAppointmentsHtml = '<h4 style="color:#282924;"><strong>Previous Appointments</strong></h4>';
-                    if (data.previous_appointments.length > 0) {
-                        data.previous_appointments.forEach(appointment => {
-                            previousAppointmentsHtml += `<p>${appointment.appointment_date} - ${appointment.time_slot}</p>`;
-                        });
-                    } else {
-                        previousAppointmentsHtml += '<p>No previous appointments</p>';
-                    }
+                // Helper function to convert date format
+                function formatDate(dateString) {
+                    const date = new Date(dateString);
+                    const day = date.getDate();
+                    const month = date.toLocaleString('default', { month: 'long' });
+                    const year = date.getFullYear();
+                    return `${day} ${month} , ${year}`;
+                }
 
-                    // Display future appointments
-                    let futureAppointmentsHtml = '<h4 style="color:#282924;"><strong>Upcoming Appointments</strong></h4>';
-                    if (data.future_appointments.length > 0) {
-                        data.future_appointments.forEach(appointment => {
-                            futureAppointmentsHtml += `<p>${appointment.appointment_date} - ${appointment.time_slot}</p>`;
-                        });
-                    } else {
-                        futureAppointmentsHtml += '<p>No future appointments</p>';
-                    }
+                // Display previous appointments
+                let previousAppointmentsHtml = '<h4 style="color:#282924;"><strong>Previous Appointments</strong></h4>';
+                if (data.previous_appointments.length > 0) {
+                    data.previous_appointments.forEach(appointment => {
+                        previousAppointmentsHtml += `<p>${formatDate(appointment.appointment_date)} - ${appointment.time_slot}</p>`;
+                    });
+                } else {
+                    previousAppointmentsHtml += '<p>No Previous Appointments</p>';
+                }
 
-                    $('.past_appointments').html(`
-                        ${previousAppointmentsHtml}
-                    `);
+                // Display future appointments
+                let futureAppointmentsHtml = '<h4 style="color:#282924;"><strong>Upcoming Appointments</strong></h4>';
+                if (data.future_appointments.length > 0) {
+                    data.future_appointments.forEach(appointment => {
+                        futureAppointmentsHtml += `<p>${formatDate(appointment.appointment_date)} - ${appointment.time_slot}</p>`;
+                    });
+                } else {
+                    futureAppointmentsHtml += '<p>No Future Appointments</p>';
+                }
 
-                    $('.future_appointments').html(`
-                        ${futureAppointmentsHtml}
-                    `);
+                $('.past_appointments').html(`
+                    ${previousAppointmentsHtml}
+                `);
+
+                $('.future_appointments').html(`
+                    ${futureAppointmentsHtml}
+                `);
+
                 }
             })
             .catch(error => console.error('Error fetching appointment details:', error));
@@ -771,10 +793,10 @@ function displayPhoto(event) {
 
                         const oldPrescriptionHtml = `
                             <h5>Old Prescription Details</h5>
-                            <p><strong>Doctor Name:</strong> ${oldPrescription.doctor_name}</p>
-                            <p><strong>Time Duration Treated:</strong> ${oldPrescription.time_duration}</p>
-                            <p><strong>Medicine Took:</strong> ${oldPrescription.medicine_took}</p>
-                                <p><strong>Image:</strong> 
+                            <p><strong>Doctor's Name:</strong> ${oldPrescription.doctor_name}</p>
+                            <p><strong>Duration:</strong> ${oldPrescription.time_duration}</p>
+                            <p><strong>Therapy / Medicine:</strong> ${oldPrescription.medicine_took}</p>
+                                <p><strong>Old Prescription:</strong> 
                     <a href="${oldPrescription.prescription_image}" target="_blank" class="btn btn-light" style="background-color: #765341; color: white;">
                         View Image
                     </a>
