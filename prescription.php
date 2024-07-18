@@ -520,23 +520,41 @@ function displayPhoto(event) {
                 if (data.message) {
                     console.error('Appointment not found');
                 } else {
-                    $('.appointment_details').html(`
-                        <div class="row" >
-                            <div class="col-12" style="margin-top: 5%;">
-                                 <p style="font-size:1.2em;"><strong>Name: ${data.patient_first_name} ${data.patient_last_name} </strong></p>
-                            </div>
-                            <div class="col-4">
-                                <p><strong>Age:</strong> ${data.age}</p> 
-                            </div>
-                            <div class="col-8">
-                                <p><strong>Gender:</strong> ${data.gender}</p> 
-                            </div>
-                            <div class="col-12">
+                    
+                // Helper function to get title based on gender
+                function getTitle(gender) {
+                    if (gender.toLowerCase() === 'male') {
+                        return 'Mr.';
+                    } else if (gender.toLowerCase() === 'female') {
+                        return 'Ms.';
+                    } else {
+                        return '';
+                    }
+                }
+
+                // Construct name with title
+                const title = getTitle(data.gender);
+                const fullName = `${title} ${data.patient_first_name} ${data.patient_last_name}`;
+
+                // Update appointment details HTML
+                $('.appointment_details').html(`
+                    <div class="row" >
+                        <div class="col-12" style="margin-top: 5%;">
+                            <p style="font-size:1.2em;"><strong>Name: ${fullName} </strong></p>
+                        </div>
+                        <div class="col-4">
+                            <p><strong>Age:</strong> ${data.age}</p> 
+                        </div>
+                        <div class="col-8">
+                            <p><strong>Gender:</strong> ${data.gender}</p> 
+                        </div>
+                        <div class="col-12">
                             <p><strong>Profession:</strong> ${data.profession}</p>
                             <p><strong>Phone Number:</strong> ${data.phone_number}</p>
-                             </div>
                         </div>
-                    `);
+                    </div>
+                `);
+
 
                 // Helper function to convert date format
                 function formatDate(dateString) {
