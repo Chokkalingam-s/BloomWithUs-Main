@@ -417,10 +417,10 @@ if (!isset($_SESSION['username'])) {
 
                               </div>
                               </div>
-                              <div class="row">
+                              <div class="row ">
                             <div class="form-group col-6">
                                     <label for="notes"><h4 style="color:#282924;"><strong>Patient Remarks</strong></h4></label>
-                                    <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
+                                    <textarea class="form-control mb-3" name="notes" id="notes" rows="5"></textarea>
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="notes2"><h4 style="color:#282924;"><strong>Personal Remarks</strong></h4></label>
