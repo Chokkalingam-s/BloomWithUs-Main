@@ -38,7 +38,6 @@ if (!isset($_SESSION['username'])) {
     <style>
           body {
             background-color: #f8f9fa;
-        
         }
         .container-wrapper {
             display: flex;
@@ -50,19 +49,16 @@ if (!isset($_SESSION['username'])) {
             flex: 1;
             display: flex;
             justify-content: center;
-            
         }
         ::-webkit-scrollbar { width: 0 !important }
         footer {
             flex-shrink: 0;
             background: #f8f9fa;
         }
-
         .container {
             max-width: 90vw;
             margin-top: 50px;
         }    
-        
         .badge-container {
             margin-top: 10px;
         }
@@ -92,29 +88,24 @@ if (!isset($_SESSION['username'])) {
         vertical-align: middle; 
         padding: 0; 
         }
-
         .sos-checkbox-wrapper {
         display: flex;
         justify-content: center; 
         align-items: center; 
         height: 100%;
         }
-
         .sos-checkbox {
         width: 5%; 
         height: 3%;
         margin-left: 0.5%;
         }
-
         .sos-highlight td {
             background-color:  #f8c4cc;
         }
-
         .row{
             margin-top: -1.1% !important;
             margin-bottom: -1.1% !important;
         }
-
         .patient-photo {
             display: flex;
             align-items: center;
@@ -123,7 +114,6 @@ if (!isset($_SESSION['username'])) {
             padding: 10px;
             height: 200px;
         }
-
         .add-photo-btn {
             display: flex;
             align-items: center;
@@ -137,7 +127,6 @@ if (!isset($_SESSION['username'])) {
             background-color: white;
             position: relative;
         }
-
         .add-photo-btn input[type="file"] {
             position: absolute;
             width: 100%;
@@ -153,44 +142,39 @@ if (!isset($_SESSION['username'])) {
             object-fit: cover;
             display: none;
         }
-
         .TherMed {
             margin: 2.4% 0; 
         }
-
-        /* Style for checkbox label */
         .checkbox-label ,.checkbox-label1{
-            font-size: 16px; /* Adjust font size */
-            font-weight: bold; /* Make font bold */
+            font-size: 16px; 
+            font-weight: bold; 
             display: inline-block;
-            margin-bottom: 8px; /* Space below checkbox */
-            margin-right: 20px; /* Space between checkboxes */
+            margin-bottom: 8px;
+            margin-right: 20px;
         }
 
-        /* Style for checkbox itself */
         .checkbox-label input[type="checkbox"] {
-            border: 2px solid #333; /* Add border to checkbox */
-            padding: 5px; /* Adjust padding for checkbox */
-            appearance: none; /* Remove default styles */
-            -webkit-appearance: none; /* Safari and Chrome */
-            -moz-appearance: none; /* Firefox */
+            border: 2px solid #333; 
+            padding: 5px;
+            appearance: none; 
+            -webkit-appearance: none; 
+            -moz-appearance: none;
         }
 
         .checkbox-label1 input[type="checkbox"] {
-            border: 2px solid #333; /* Add border to checkbox */
-            padding: 5px; /* Adjust padding for checkbox */
-            appearance: none; /* Remove default styles */
-            -webkit-appearance: none; /* Safari and Chrome */
-            -moz-appearance: none; /* Firefox */
+            border: 2px solid #333; 
+            padding: 5px; 
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none; 
         }
 
-        /* Style for checkbox when checked */
         .checkbox-label input[type="checkbox"]:checked {
-            background-color: #88D66C; /* Change background color when checked */
+            background-color: #88D66C; 
         }
 
         .checkbox-label1 input[type="checkbox"]:checked {
-            background-color: #037ffc; /* Change background color when checked */
+            background-color: #037ffc; 
         }
 
 
@@ -337,8 +321,15 @@ if (!isset($_SESSION['username'])) {
                                 <input type="checkbox" id="optMedicine" onchange="toggleTable('medicineTable')"> Opt for Medicine
                             </label>
                         </div>
+
+                        <label for="optSelect">Select Options:</label>
+<select id="optSelect" class="form-control" multiple="multiple">
+    <option value="therapy">Therapy</option>
+    <option value="medicine">Medicine</option>
+</select>
+
                              
-<div id="therapyTable" style="display: none;">
+                            <div id="therapyTable" style="display: none;">
                             <h4><u><strong style="color:#50ab30;">THERAPIES</strong></u></h4>
                             <table class="table mt-2">
                                 <thead>
@@ -418,10 +409,7 @@ if (!isset($_SESSION['username'])) {
                                 </tbody>
                             </table>
                             </div>
-
-
-                        
-                               <div class="row "> 
+                  <div class="row "> 
                               <div class="past_appointments pt-1 col-6 my-5">
 
                               </div>
@@ -627,61 +615,44 @@ function displayPhoto(event) {
                     }
                 });
                 }
+                $('#optSelect').select2({
+        placeholder: "Select options",
+        allowClear: true
+    });
 
- 
-                $.ajax({
-            url: 'fetch_therapies.php',
-            type: 'GET',
-            data: { unique_id: uniqueId }, // Send unique_id as parameter if needed
-            dataType: 'json', // Expect JSON response
-            success: function(response) {
-                if (response.success) {
-                    const therapies = response.data;
-         
-                    // Append new rows
-                    therapies.forEach(therapie => {
-                        const rowHtml = `
-                            <tr data-id="${therapie.unique_id}"
-                                data-name="${therapie.therapies_name}"
-                                data-times="${therapie.times_per_day}"
-                                data-sos="${therapie.sos ? '1' : '0'}"
-                                class="${therapie.sos ? 'sos-highlight' : ''}">
-                                <td>${therapie.therapies_name}</td>
-                                <td>${therapie.times_per_day}</td>
-                                <td>${therapie.before_after_meal}</td>
-                                <td>${therapie.sos ? 'Yes' : 'No'}</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger delete-therapies-btn">Delete</button>
-                                </td>
-                            </tr>
-                        `;
-                        $('#therapies-table-body').append(rowHtml);
-                    });
-                    if (therapies.length > 0) {
-                $('#therapyTable').show(); // Assuming therapiesTable is the ID of your therapies table
-                $('#optTherapy').prop('checked', true); // Check the therapy checkbox
-            }
-                } else {
-                    console.error('Failed to fetch therapies data:', response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching therapies data:', error);
-            }
-        });
+    // Variables to track availability of data
+    let medicinesAvailable = false;
+    let therapiesAvailable = false;
 
-    
-        // AJAX request to fetch medicine data
-        $.ajax({
-            url: 'fetch_medicine.php',
-            type: 'GET',
-            data: { unique_id: uniqueId }, // Send unique_id as parameter if needed
-            dataType: 'json', // Expect JSON response
-            success: function(response) {
-                if (response.success) {
-                    const medicines = response.data;
+    // Function to update the dropdown and table visibility
+    function updateDropdownAndTables() {
+        const selectedOptions = [];
+        if (therapiesAvailable) {
+            selectedOptions.push('therapy');
+            $('#therapyTable').show();
+        } else {
+            $('#therapyTable').hide();
+        }
+        if (medicinesAvailable) {
+            selectedOptions.push('medicine');
+            $('#medicineTable').show();
+        } else {
+            $('#medicineTable').hide();
+        }
+        $('#optSelect').val(selectedOptions).trigger('change');
+    }
 
-                    // Append new rows
+    // AJAX request to fetch medicine data
+    $.ajax({
+        url: 'fetch_medicine.php',
+        type: 'GET',
+        data: { unique_id: uniqueId },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                const medicines = response.data;
+                if (medicines.length > 0) {
+                    medicinesAvailable = true;
                     medicines.forEach(medicine => {
                         const rowHtml = `
                             <tr data-id="${medicine.unique_id}"
@@ -702,22 +673,65 @@ function displayPhoto(event) {
                         `;
                         $('#medicine-table-body').append(rowHtml);
                     });
-
-                                // Show medicine table if there are rows fetched
-            if (medicines.length > 0) {
-                $('#medicineTable').show(); // Assuming medicineTable is the ID of your medicine table
-                $('#optMedicine').prop('checked', true); // Check the medicine checkbox
-            }
-                } else {
-                    console.error('Failed to fetch medicine data:', response.message);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching medicine data:', error);
+            } else {
+                console.error('Failed to fetch medicine data:', response.message);
             }
-        });
+            updateDropdownAndTables();
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching medicine data:', error);
+            updateDropdownAndTables();
+        }
+    });
 
+    // AJAX request to fetch therapies data
+    $.ajax({
+        url: 'fetch_therapies.php',
+        type: 'GET',
+        data: { unique_id: uniqueId },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                const therapies = response.data;
+                if (therapies.length > 0) {
+                    therapiesAvailable = true;
+                    therapies.forEach(therapy => {
+                        const rowHtml = `
+                            <tr data-id="${therapy.unique_id}"
+                                data-name="${therapy.therapies_name}"
+                                data-times="${therapy.times_per_day}"
+                                data-sos="${therapy.sos ? '1' : '0'}"
+                                class="${therapy.sos ? 'sos-highlight' : ''}">
+                                <td>${therapy.therapies_name}</td>
+                                <td>${therapy.times_per_day}</td>
+                                <td>${therapy.before_after_meal}</td>
+                                <td>${therapy.sos ? 'Yes' : 'No'}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger delete-therapies-btn">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+                        $('#therapies-table-body').append(rowHtml);
+                    });
+                }
+            } else {
+                console.error('Failed to fetch therapies data:', response.message);
+            }
+            updateDropdownAndTables();
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching therapies data:', error);
+            updateDropdownAndTables();
+        }
+    });
 
+    // Dropdown change event to toggle table visibility
+    $('#optSelect').on('change', function() {
+        const selectedOptions = $(this).val();
+        $('#therapyTable').toggle(selectedOptions.includes('therapy'));
+        $('#medicineTable').toggle(selectedOptions.includes('medicine'));
+    });
 
         $('#medicine-table-body').on('click', '.delete-medicine-btn', function() {
                 var medicineRow = $(this).closest('tr');
