@@ -83,6 +83,9 @@ if (!isset($_SESSION['username'])) {
             min-width: 18vw;
             width: 18vw;
         }
+        #optSelect {
+            width: 25vw;
+        }
         .sos-checkbox-cell {
         text-align: center; 
         vertical-align: middle; 
@@ -142,41 +145,14 @@ if (!isset($_SESSION['username'])) {
             object-fit: cover;
             display: none;
         }
-        .TherMed {
-            margin: 2.4% 0; 
-        }
-        .checkbox-label ,.checkbox-label1{
-            font-size: 16px; 
-            font-weight: bold; 
-            display: inline-block;
-            margin-bottom: 8px;
-            margin-right: 20px;
+        
+        .thermed{
+            margin: 2% 0;
         }
 
-        .checkbox-label input[type="checkbox"] {
-            border: 2px solid #333; 
-            padding: 5px;
-            appearance: none; 
-            -webkit-appearance: none; 
-            -moz-appearance: none;
+        .modal-footer {
+           margin-bottom: 3%;
         }
-
-        .checkbox-label1 input[type="checkbox"] {
-            border: 2px solid #333; 
-            padding: 5px; 
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none; 
-        }
-
-        .checkbox-label input[type="checkbox"]:checked {
-            background-color: #88D66C; 
-        }
-
-        .checkbox-label1 input[type="checkbox"]:checked {
-            background-color: #037ffc; 
-        }
-
 
     </style>
 </head>
@@ -234,7 +210,7 @@ if (!isset($_SESSION['username'])) {
 
 <!-- Prescription Modal -->
 <div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg mt-0 " style="max-width: 100%;max-height: 100vh;">
+    <div class="modal-dialog modal-lg mt-0" style="max-width: 100%;max-height: 90vh;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="prescriptionModalLabel">Prescription for <span id="modalUniqueId"></span></h5>
@@ -313,21 +289,13 @@ if (!isset($_SESSION['username'])) {
                             </select>
                             <div id="diseases-badges" class="badge-container"></div>
                         </div>
-                        <div class="TherMed">
-                            <label for="optTherapy" class="checkbox-label">
-                                <input type="checkbox" id="optTherapy" onchange="toggleTable('therapyTable')"> Opt for Therapy
-                            </label>
-                            <label for="optMedicine" class="checkbox-label1">
-                                <input type="checkbox" id="optMedicine" onchange="toggleTable('medicineTable')"> Opt for Medicine
-                            </label>
-                        </div>
-
-                        <label for="optSelect">Select Options:</label>
-<select id="optSelect" class="form-control" multiple="multiple">
-    <option value="therapy">Therapy</option>
-    <option value="medicine">Medicine</option>
-</select>
-
+                             <div class="thermed">
+                            <label for="optSelect"><span style=" font-weight: bold; font-size:large;">Opt For Therapy / Medicine : </span></label>
+                                    <select id="optSelect" class="form-control" multiple="multiple">
+                                        <option value="therapy">Therapy</option>
+                                        <option value="medicine">Medicine</option>
+                                    </select>
+                                    </div>
                              
                             <div id="therapyTable" style="display: none;">
                             <h4><u><strong style="color:#50ab30;">THERAPIES</strong></u></h4>
@@ -616,7 +584,7 @@ function displayPhoto(event) {
                 });
                 }
                 $('#optSelect').select2({
-        placeholder: "Select options",
+        placeholder: "Opt For Therapy / Medicine",
         allowClear: true
     });
 

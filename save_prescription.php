@@ -165,6 +165,7 @@ if ($record_exists) {
     $stmt_update->close();
 } else {
     // Insert the record if it doesn't exist
+    if($doctor_name !== ""){
     $insert_query = "INSERT INTO old_prescriptions (unique_id, doctor_name, time_duration, medicine_took, prescription_image) VALUES (?, ?, ?, ?, ?)";
     $stmt_insert = $conn->prepare($insert_query);
     $stmt_insert->bind_param("sssss", $unique_id, $doctor_name, $time_duration, $medicine_took, $prescription_image);
@@ -176,6 +177,7 @@ if ($record_exists) {
         echo "Error saving old prescription";
     }
     $stmt_insert->close();
+}
 }
 
 $conn->close();
