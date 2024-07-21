@@ -149,7 +149,7 @@ if (!isset($_SESSION['username'])) {
         .thermed{
             margin: 2% 0;
         }
-
+        
         .modal-footer {
            margin-bottom: 3%;
         }
