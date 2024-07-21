@@ -483,7 +483,7 @@
                     const appointmentID = data.appointmentID;
                     showCustomAlert(`🎉 Appointment booked successfully! 🎉
 
-Your Appointment ID is: ${appointmentID}. Please note it down for future reference.
+Your Appointment ID is: ${appointmentID} Please note it down for future reference.
 
 📋 Kindly bring any previous prescriptions if you have consulted another doctor regarding any psychological issues. This will help us provide you with the best care possible. 😊`);
  const appointmentModal = bootstrap.Modal.getInstance(document.getElementById('appointmentModal'));
