@@ -238,13 +238,14 @@ if (!isset($_SESSION['username'])) {
                             </div>
 
                             <div class="row  old_prescription"  >
-                                <div class="form-check ml-4 " style="margin-top:18%;">
-                                    <input class="form-check-input  border-success " type="checkbox" id="oldPrescriptionAvailable">
-                                    <label class="form-check-label" for="oldPrescriptionAvailable">
-                                        Old Prescription Available
-                                    </label>
-                                </div>
-                                <div class="mt-3 d-none" id="oldPrescriptionForm">
+                            <div class="form-group ml-1" style="margin-top:18%;">
+                                <label for="oldPrescriptionAvailableDropdown" class="form-label"><h5><strong>Old Prescription Details </strong></h5></label>
+                                <select class="form-control" id="oldPrescriptionAvailableDropdown">
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                            </div>
+                                <div class="mt-2 d-none" id="oldPrescriptionForm">
                                     <div class="mb-3">
                                         <label for="doctorName" class="form-label">Doctor's Name</label>
                                         <input type="text" class="form-control" id="doctorName" name="doctor_name" placeholder="Past Doctor's name">
@@ -462,13 +463,16 @@ function displayPhoto(event) {
     const urlParams = new URLSearchParams(window.location.search);
     const uniqueId = urlParams.get('unique_id');
     if (uniqueId){
-        $('#oldPrescriptionAvailable').change(function() {
-            if ($(this).is(':checked')) {
+        let oldPrescriptionDataFetched = false;
+
+        $('#oldPrescriptionAvailableDropdown').change(function() {
+            if ($(this).val() === 'Yes' && !oldPrescriptionDataFetched) {
                 $('#oldPrescriptionForm').removeClass('d-none');
             } else {
                 $('#oldPrescriptionForm').addClass('d-none');
             }
         });
+
         // Fetch appointment details for section 1 and 3
         fetch(`get_appointment_details.php?unique_id=${uniqueId}`)
             .then(response => response.json())
@@ -792,7 +796,7 @@ function displayPhoto(event) {
                         $('#medicineTook').val(oldPrescription.medicine_took);
 
                         const oldPrescriptionHtml = `
-                            <h5>Old Prescription Details</h5>
+                            
                             <p><strong>Doctor's Name:</strong> ${oldPrescription.doctor_name}</p>
                             <p><strong>Duration:</strong> ${oldPrescription.time_duration}</p>
                             <p><strong>Therapy / Medicine:</strong> ${oldPrescription.medicine_took}</p>
@@ -803,7 +807,9 @@ function displayPhoto(event) {
                 </p>
                         `;
                         $('#oldPrescriptionDetails').html(oldPrescriptionHtml);
-                    }
+                                $('#oldPrescriptionAvailableDropdown').val('Yes');
+            oldPrescriptionDataFetched = true;
+        }
                 },
                 error: function(error) {
                     console.error('Error fetching old prescription details:', error);
