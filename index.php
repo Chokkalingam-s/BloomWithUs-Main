@@ -39,6 +39,23 @@ $result = $conn->query($sql);
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+        .counter-section {
+            background-color: #f0f8ff;
+            padding: 50px 0;
+            text-align: center;
+            max-width: 100%;
+        }
+        .counter {
+            font-size: 2.5em;
+            color: #388da8;
+        }
+        .counter-description {
+            font-size: 1.2em;
+            color: #16a085;
+        }
+    </style>
 </head>
 
 <body class="index-page">
@@ -164,6 +181,23 @@ $result = $conn->query($sql);
       </div>
   </section>
     <!-- End About Section -->
+
+    <div class="container counter-section">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="counter" id="peopleTreated">0<span>+</span></div>
+            <div class="counter-description">Lives Transformed</div>
+        </div>
+        <div class="col-md-4">
+            <div class="counter" id="lecturesSeminars">0<span>+</span></div>
+            <div class="counter-description">Workshops</div>
+        </div>
+        <div class="col-md-4">
+            <div class="counter" id="yearsExperience">0<span>+</span></div>
+            <div class="counter-description">Years of Experience</div>
+        </div>
+    </div>
+</div>
 
     <!-- Myths and Facts Section -->
     <section id="testimonials" class="testimonials section light-background">
@@ -551,6 +585,44 @@ $result = $conn->query($sql);
     </script>
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+
+  <script>
+window.onload = async function() {
+    try {
+        const response = await fetch('get_achievements.php');
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const data = await response.json();
+        if (data && typeof data === 'object') {
+            animateCounter('peopleTreated', data.people_treated);
+            animateCounter('lecturesSeminars', data.lectures_seminars);
+            animateCounter('yearsExperience', data.years_experience);
+        } else {
+            console.error('Data is not an object:', data);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+
+    function animateCounter(id, endValue) {
+        let counter = document.getElementById(id);
+        let count = 0;
+        let increment = Math.ceil(endValue / 100); // Speed up the counting
+        let interval = setInterval(() => {
+            counter.innerText = count;
+            if (count >= endValue) {
+                clearInterval(interval);
+                counter.innerText = endValue; // Ensure it ends at the exact value
+            } else {
+                count += increment;
+            }
+        }, 20); // Adjust the speed
+    }
+  </script>
 
 </body>
 

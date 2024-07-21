@@ -32,6 +32,15 @@ if (isset($_GET['edit'])) {
     $editPost = $conn->query("SELECT * FROM events WHERE id = $id")->fetch_assoc();
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $people_treated = $_POST['people_treated'];
+    $lectures_seminars = $_POST['lectures_seminars'];
+    $years_experience = $_POST['years_experience'];
+
+    $query = "UPDATE doctor_achievements SET people_treated = $people_treated, lectures_seminars = $lectures_seminars, years_experience = $years_experience WHERE id = 1";
+    mysqli_query($conn, $query);
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
     $title = $_POST['title'];
@@ -295,6 +304,26 @@ $conn->close();
                 </table>
             </div>
         </div>
+
+        <div class="container mt-5">
+    <h2>Update Doctor Achievements</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="peopleTreated">People Treated</label>
+            <input type="number" class="form-control" id="peopleTreated" name="people_treated" required>
+        </div>
+        <div class="form-group">
+            <label for="lecturesSeminars">Lectures/Seminars on Mental Health</label>
+            <input type="number" class="form-control" id="lecturesSeminars" name="lectures_seminars" required>
+        </div>
+        <div class="form-group">
+            <label for="yearsExperience">Years of Experience</label>
+            <input type="number" class="form-control" id="yearsExperience" name="years_experience" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+
     </div>
 </main>
 
