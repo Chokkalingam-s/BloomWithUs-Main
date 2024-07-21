@@ -174,7 +174,7 @@ $conn->close();
                 </div>
 
                  <!-- Admin Feature Cards -->
-                  <div style="margin-top:1%;">
+                  <div style="margin-top:4%;">
                  <div class="row g-3">
                     <div class="col-md-3">
                         <a href="appointment.php" class="text-decoration-none">
@@ -222,7 +222,7 @@ $conn->close();
          <div id="AddPost" style="padding-top:10%">
         <div class="card mb-4" >
             <div class="card-body" >
-                <h2 class="card-title">Add New Post</h2>
+                <h2 class="card-title"><strong>Add New Post</strong></h2>
                 <form action="admin_dashboard.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="add">
                     <div class="mb-3">
@@ -237,7 +237,9 @@ $conn->close();
                         <label for="images" class="form-label">Event Images</label>
                         <input type="file" class="form-control" id="images" name="images[]" multiple >
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Post</button>
+                    <div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary w-50">Add Post</button>
+</div>
                 </form>
             </div>
         </div>
@@ -247,7 +249,7 @@ $conn->close();
         <?php if ($editPost): ?>
         <div class="card mb-4" id="EditPost">
             <div class="card-body" >
-                <h2 class="card-title">Edit Post</h2>
+                <h2 class="card-title"><strong>Edit Post</strong></h2>
                 <form action="admin_dashboard.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" value="<?php echo $editPost['id']; ?>">
@@ -273,7 +275,9 @@ $conn->close();
                             ?>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Post</button>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary w-50">Update Post</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -282,7 +286,7 @@ $conn->close();
         <!-- Post List Card -->
         <div class="card" id="ManagePost">
             <div class="card-body">
-                <h2 class="card-title mt-4 mb-3">Manage Posts</h2>
+                <h2 class="card-title mt-4 mb-3"><strong>Manage Posts</strong></h2>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -305,23 +309,30 @@ $conn->close();
             </div>
         </div>
 
-        <div class="container mt-5">
-    <h2>Update Doctor Achievements</h2>
+       
+        <div class="card mt-4 mb-4" >
+            <div class="card-body" >
+                <h2 class="card-title"><strong> Count Information</strong></h2>
     <form method="post">
-        <div class="form-group">
-            <label for="peopleTreated">People Treated</label>
+        <div class="form-group mt-3">
+            <label for="peopleTreated">Lives Transformed</label>
             <input type="number" class="form-control" id="peopleTreated" name="people_treated" required>
         </div>
-        <div class="form-group">
-            <label for="lecturesSeminars">Lectures/Seminars on Mental Health</label>
+        <div class="form-group mt-3">
+            <label for="lecturesSeminars">Seminars Conducted</label>
             <input type="number" class="form-control" id="lecturesSeminars" name="lectures_seminars" required>
         </div>
-        <div class="form-group">
-            <label for="yearsExperience">Years of Experience</label>
+        <div class="form-group mt-3">
+            <label for="yearsExperience">Consultancy Experience</label>
             <input type="number" class="form-control" id="yearsExperience" name="years_experience" required>
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary mt-3 w-50">Update</button>
+        </div>
     </form>
+    </div>
+    </div>
+    
 </div>
 
     </div>

@@ -55,6 +55,11 @@ $result = $conn->query($sql);
             font-size: 1.2em;
             color: #16a085;
         }
+        .plus-sign {
+            font-size: 1.2em;
+            vertical-align: center;
+            
+        }
     </style>
 </head>
 
@@ -183,22 +188,21 @@ $result = $conn->query($sql);
     <!-- End About Section -->
 
     <div class="container counter-section">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="counter" id="peopleTreated">0<span>+</span></div>
-            <div class="counter-description">Lives Transformed</div>
-        </div>
-        <div class="col-md-4">
-            <div class="counter" id="lecturesSeminars">0<span>+</span></div>
-            <div class="counter-description">Workshops</div>
-        </div>
-        <div class="col-md-4">
-            <div class="counter" id="yearsExperience">0<span>+</span></div>
-            <div class="counter-description">Years of Experience</div>
-        </div>
-    </div>
-</div>
-
+      <div class="row">
+          <div class="col-md-4">
+              <div class="counter"><strong><span id="peopleTreated">0</span><span class="plus-sign">+</span></strong></div>
+              <div class="counter-description"><h4><strong>Lives Transformed</strong></h4></div>
+          </div>
+          <div class="col-md-4">
+              <div class="counter"><strong><span id="lecturesSeminars">0</span><span class="plus-sign">+</span></strong></div>
+              <div class="counter-description"><h4><strong>Seminars Conducted</strong></h4></div>
+          </div>
+          <div class="col-md-4">
+              <div class="counter"><strong><span id="yearsExperience">0</span><span class="plus-sign">+</span></strong></div>
+              <div class="counter-description"><h4><strong>Consultancy Experience</strong></h4></div>
+          </div>
+      </div>
+  </div>
     <!-- Myths and Facts Section -->
     <section id="testimonials" class="testimonials section light-background">
 
@@ -588,7 +592,19 @@ $result = $conn->query($sql);
 
 
   <script>
-window.onload = async function() {
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelector('.counter-section');
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            fetchAndAnimateCounters();
+            observer.disconnect();
+        }
+    }, { threshold: 0.1 });
+
+    observer.observe(counters);
+});
+
+async function fetchAndAnimateCounters() {
     try {
         const response = await fetch('get_achievements.php');
         if (!response.ok) {
@@ -605,24 +621,22 @@ window.onload = async function() {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
-};
+}
 
-
-    function animateCounter(id, endValue) {
-        let counter = document.getElementById(id);
-        let count = 0;
-        let increment = Math.ceil(endValue / 100); // Speed up the counting
-        let interval = setInterval(() => {
-            counter.innerText = count;
-            if (count >= endValue) {
-                clearInterval(interval);
-                counter.innerText = endValue; // Ensure it ends at the exact value
-            } else {
-                count += increment;
-            }
-        }, 20); // Adjust the speed
-    }
-  </script>
+function animateCounter(id, endValue) {
+    let counter = document.getElementById(id);
+    let count = 0;
+    let increment = Math.ceil(endValue / 90);
+    let interval = setInterval(() => {
+        if (count >= endValue) {
+            clearInterval(interval);
+            count = endValue; 
+        }
+        counter.innerText = count;
+        count += increment;
+    }, 20); // Adjust the speed
+}
+</script>
 
 </body>
 
