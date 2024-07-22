@@ -11,7 +11,7 @@
                 <div class="modal-body" style="background-color: #E7EBE6;">
                     <input type="hidden" name="unique_id" id="hiddenUniqueId">
                     <div class="row">
-                        <div class="col-md-3 section1">
+                        <div class="cm3 section1">
                             <div class="row appointment_details pt-1">
                                 <!-- Appointment details automatic render -->
                             </div>
@@ -27,14 +27,20 @@
                             </div>
 
                             <div class="row  old_prescription"  >
-                            <div class="form-group ml-1" style="margin-top:18%;">
-                                <label for="oldPrescriptionAvailableDropdown" class="form-label"><h5><strong>Old Prescription Details </strong></h5></label>
-                                <select class="form-control" id="oldPrescriptionAvailableDropdown">
-                                    <option value="No">No</option>
-                                    <option value="Yes">Yes</option>
-                                </select>
-                            </div>
-                                <div class="mt-2 d-none" id="oldPrescriptionForm">
+                            <div class="form-group" style="margin-top: 18%;">
+                                    <div class="row align-items-center">
+                                        <label for="oldPrescriptionAvailableDropdown" class="form-label col-auto">
+                                            <h5><strong>Old Prescription Details</strong></h5>
+                                        </label>
+                                        <div class="col-auto">
+                                            <select class="form-control mb-2" id="oldPrescriptionAvailableDropdown">
+                                                <option value="No">No</option>
+                                                <option value="Yes">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-1 d-none" id="oldPrescriptionForm">
                                     <div class="mb-3">
                                         <label for="doctorName" class="form-label">Doctor's Name</label>
                                         <input type="text" class="form-control" id="doctorName" name="doctor_name" placeholder="Past Doctor's name">
@@ -44,8 +50,8 @@
                                         <input type="text" class="form-control" id="timeDuration" name="time_duration" placeholder="Time duration treated">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="medicineTook" class="form-label">Therapy/Medicine</label>
-                                        <textarea class="form-control" id="medicineTook" name="medicine_took" rows="2" placeholder="Previous Medication"></textarea>
+                                        <label for="medicineTook" class="form-label">Remarks</label>
+                                        <textarea class="form-control" id="medicineTook" name="medicine_took" rows="2" placeholder="Previous Doctor's Remarks"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="prescriptionImage" class="form-label">Attachment of Old Prescription</label>
@@ -62,7 +68,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-9 section2">
+                        <div class="col section2">
                             <h2 class="my-3"> <strong> DIAGNOSIS </strong></h2>
                             <div class="ml-2">
                         <div class="form-group">
@@ -177,11 +183,11 @@
                               </div>
                               <div class="row ">
                             <div class="form-group col-6">
-                                    <label for="notes"><h4 style="color:#282924;"><strong>Patient Remarks</strong></h4></label>
+                                    <label for="notes"><h4 style="color:#282924;"><strong>Remarks</strong></h4></label>
                                     <textarea class="form-control mb-3" name="notes" id="notes" rows="5"></textarea>
                                 </div>
                                 <div class="form-group col-6">
-                                    <label for="notes2"><h4 style="color:#282924;"><strong>Personal Remarks</strong></h4></label>
+                                    <label for="notes2"><h4 style="color:#282924;"><strong>Doctor Remarks</strong></h4></label>
                                     <textarea class="form-control" name="notes2" id="notes2" rows="5"></textarea>
                                 </div>
                                 </div>
@@ -190,7 +196,7 @@
                                 </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer mfp">
                     <button type="submit" class="btn btn-dark w-50 mx-auto" >Save</button>
                 </div>
             </form>

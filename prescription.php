@@ -147,9 +147,14 @@ if (!isset($_SESSION['username'])) {
             margin: 2% 0;
         }
         
-        .modal-footer {
+        .mfp {
            margin-bottom: 3%;
         }
+
+        .cm3{
+            max-width: 22% !important;
+        }
+
 
     </style>
 </head>

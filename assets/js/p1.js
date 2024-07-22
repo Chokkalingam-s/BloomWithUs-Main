@@ -209,9 +209,6 @@ if (checkbox.checked && table.style.display === 'none') {
                                 <td>${medicine.dose_mg}</td>
                                 <td>${medicine.before_after_meal}</td>
                                 <td>${medicine.sos ? 'Yes' : 'No'}</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger delete-medicine-btn">Delete</button>
-                                </td>
                             </tr>
                         `;
                         $('#medicine-table-body').append(rowHtml);
@@ -250,9 +247,7 @@ if (checkbox.checked && table.style.display === 'none') {
                                 <td>${therapy.times_per_day}</td>
                                 <td>${therapy.before_after_meal}</td>
                                 <td>${therapy.sos ? 'Yes' : 'No'}</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger delete-therapies-btn">Delete</button>
-                                </td>
+
                             </tr>
                         `;
                         $('#therapies-table-body').append(rowHtml);
@@ -298,7 +293,7 @@ if (checkbox.checked && table.style.display === 'none') {
                             
                             <p><strong>Doctor's Name:</strong> ${oldPrescription.doctor_name}</p>
                             <p><strong>Duration:</strong> ${oldPrescription.time_duration}</p>
-                            <p><strong>Therapy / Medicine:</strong> ${oldPrescription.medicine_took}</p>
+                            <p><strong>Remarks:</strong> ${oldPrescription.medicine_took}</p>
                                 <p><strong>Old Prescription:</strong> 
                     <a href="${oldPrescription.prescription_image}" target="_blank" class="btn btn-light" style="background-color: #765341; color: white;">
                         View Image

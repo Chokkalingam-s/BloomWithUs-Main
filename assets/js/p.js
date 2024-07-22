@@ -358,13 +358,14 @@ if (checkbox.checked && table.style.display === 'none') {
 
                         const oldPrescriptionHtml = `
                             
-                            <p><strong>Doctor's Name:</strong> ${oldPrescription.doctor_name}</p>
-                            <p><strong>Duration:</strong> ${oldPrescription.time_duration}</p>
-                            <p><strong>Therapy / Medicine:</strong> ${oldPrescription.medicine_took}</p>
-                                <p><strong>Old Prescription:</strong> 
-                    <a href="${oldPrescription.prescription_image}" target="_blank" class="btn btn-light" style="background-color: #765341; color: white;">
+                            <p><strong>Doctor's Name :</strong> ${oldPrescription.doctor_name}</p>
+                            <p><strong>Duration :</strong> ${oldPrescription.time_duration}</p>
+                            <p><strong>Remarks :</strong> ${oldPrescription.medicine_took}</p>
+                            <div>
+                    <a href="${oldPrescription.prescription_image}" target="_blank" class="btn btn-light " style="background-color: #765341; color: white; width:75%; ">
                         View Image
                     </a>
+                    </div>
                 </p>
                         `;
                         $('#oldPrescriptionDetails').html(oldPrescriptionHtml);

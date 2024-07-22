@@ -1,5 +1,5 @@
 <div class="modal fade" id="prescriptionModal1" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg mt-0" style="max-width: 100%;max-height: 90vh;">
+    <div class="modal-dialog modal-lg mt-0" style="max-width: 100%;max-height: 100vh;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="prescriptionModalLabel">Prescription for <span id="modalUniqueId"></span></h5>
@@ -11,7 +11,7 @@
                 <div class="modal-body" style="background-color: #E7EBE6;">
                     <input type="hidden" name="unique_id" id="hiddenUniqueId">
                     <div class="row">
-                        <div class="col-md-3 section1">
+                        <div class="cm3 section1">
                             <div class="row appointment_details pt-1">
                                 <!-- Appointment details automatic render -->
                             </div>
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-9 section2">
+                        <div class="col section2">
                             <h2 class="my-3"> <strong> DIAGNOSIS </strong></h2>
                             <div class="ml-2">
                         <div class="form-group">
@@ -79,15 +79,16 @@
                                         <th>Times/day</th>
                                         <th>B/A Meal</th>
                                         <th>SOS</th>
-                                        <th>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody id="therapies-table-body">
-                                    <tr>
+                                    <tr> </tr>
 
                                 </tbody>
                             </table>
                             </div>
+
+
                         <div id="medicineTable" style="display: none;">
                         <h4><u><strong style="color:#037ffc;">MEDICINE</strong></u></h4>
                             <table class="table">
@@ -98,22 +99,24 @@
                                         <th>Dose(mg)</th>
                                         <th>B/A Meal</th>
                                         <th>SOS</th>
-                                        <th>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody id="medicine-table-body">
+                                    <tr></tr>
                                 </tbody>
                             </table>
                             </div>
-                  <div class="row "> 
 
+
+                     <div class="row "> 
                               <div class="future_appointments pt-1 col-12 my-5">
 
                               </div>
-                              </div>
+                     </div>
+                     
                               <div class="row ">
                             <div class="form-group col-12">
-                                    <label for="notes"><h4 style="color:#282924;"><strong>Patient Remarks</strong></h4></label>
+                                    <label for="notes"><h4 style="color:#282924;"><strong>Remarks</strong></h4></label>
                                     <textarea class="form-control mb-3" name="notes" id="notes" rows="5"></textarea>
                                 </div>
                                 </div>
@@ -123,7 +126,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-dark w-50 mx-auto" >Save</button>
                 </div>
             </form>
         </div>
