@@ -1,4 +1,4 @@
-<div class="modal fade" id="prescriptionModal1" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
+<div class="modal fade" id="prescriptionModal2" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg mt-0" style="max-width: 100%; max-height: 100vh;">
         <div class="modal-content">
             <div class="modal-header">
@@ -19,21 +19,21 @@
                     </div>
                     <h2 class="mt-5 p-2">Patient Details</h2>
                     <div class="section2 d-flex justify-content-start align-items-center">
-    <div class="col-6 d-flex justify-content-start align-items-center">
-        <div class="patient_photo text-left mr-3 pl-5">
-            <div class="d-flex justify-content-start align-items-center">
-                <div class="add-photo-btn">
-                    +
-                    <input type="file" id="upload-photo" accept="image/*" name="patient_image" onchange="displayPhoto(event)">
-                </div>
-                <img id="patient-photo" class="passport-photo" alt="Patient Photo">
-            </div>
-        </div>
-        <div class="appointment_details text-left pl-5">    
-            <!-- Appointment details automatic render -->
-        </div>
-    </div>
-</div>
+                            <div class="col-6 d-flex justify-content-start align-items-center">
+                                <div class="patient_photo text-left mr-3 pl-5">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <div class="add-photo-btn">
+                                            +
+                                            <input type="file" id="upload-photo" accept="image/*" name="patient_image" onchange="displayPhoto(event)">
+                                        </div>
+                                        <img id="patient-photo" class="passport-photo" alt="Patient Photo">
+                                    </div>
+                                </div>
+                                <div class="appointment_details text-left pl-5">    
+                                    <!-- Appointment details automatic render -->
+                                </div>
+                            </div>
+                        </div>
 
 
                         <div class=" section1"> <!-- Adjusted width to 9 columns -->
@@ -83,16 +83,17 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-12">
+                                    <div class="form-group col-6">
                                         <label for="notes"><h4 style="color:#282924;"><strong>Remarks</strong></h4></label>
                                         <textarea class="form-control mb-3" name="notes" id="notes" rows="5"></textarea>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="notes2"><h4 style="color:#282924;"><strong>Doctor Remarks</strong></h4></label>
+                                        <textarea class="form-control" name="notes2" id="notes2" rows="5"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                       
-                    
                 </div>
                 <div class="modal-footer"></div>
             </form>

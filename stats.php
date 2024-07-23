@@ -47,115 +47,7 @@ if (!isset($_SESSION['username'])) {
             display: flex;
             justify-content: center;
         }
-        footer {
-            flex-shrink: 0;
-            background: #f8f9fa;
-        }
-        .container {
-            max-width: 90vw;
-            margin-top: 50px;
-        }    
-        .badge-container {
-            margin-top: 10px;
-        }
-        .badge {
-            margin: 2px;
-            padding: 0.5%;
-            font-size: medium;
-        }
-        .table td, .table th {
-            vertical-align: middle;
-        }
-        .section1{
-            background-color: #DFD3C3;
-        }
-        .section2{
-            background-color: #ede1d5; 
-        }
-        .disease-select{
-            width: 50vw;
-        }
-        .therapy-select {
-            min-width: 18vw;
-            width: 18vw;
-        }
-        #optSelect {
-            width: 25vw;
-        }
-        .sos-checkbox-cell {
-        text-align: center; 
-        vertical-align: middle; 
-        padding: 0; 
-        }
-        .sos-checkbox-wrapper {
-        display: flex;
-        justify-content: center; 
-        align-items: center; 
-        height: 100%;
-        }
-        .sos-checkbox {
-        width: 5%; 
-        height: 3%;
-        margin-left: 0.5%;
-        }
-        .sos-highlight td {
-            background-color:  #f8c4cc;
-        }
-        .row{
-            margin-top: -1.1% !important;
-            margin-bottom: -1.1% !important;
-        }
-        .patient-photo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #ddd;
-            height: 200px;
-        }
-        .add-photo-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100px;
-            height: 110px;
-            border: 2px dashed #007bff;
-            color: #007bff;
-            cursor: pointer;
-            font-size: 24px;
-            background-color: white;
-            position: relative;
-        }
-        .add-photo-btn input[type="file"] {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-     
-        .passport-photo {
-            width: 110px;
-            height: 130px;
-            object-fit: cover;
-            display: none;
-        }
-        
-        .thermed{
-            margin: 2% 0;
-        }
-        
-        .mfp {
-           margin-bottom: 3%;
-        }
-
-        .cm3{
-            max-width: 22% !important;
-        }
-.heading{
-    font-weight: bold;
-}
+        ::-webkit-scrollbar { width: 0 !important }
 
     </style>
 </head>
@@ -201,39 +93,9 @@ if (!isset($_SESSION['username'])) {
 
     <main class="main" style="margin-top: 11vh;">
     <div class="container mt-5">
-    <h2>Prescription</h2>
-    <form method="GET" action="">
-        <div class="form-group mt-5">
-            <label for="uniqueIdSearch">Unique ID based Prescription</label>
-            <input type="text" class="form-control" id="uniqueIdSearch" name="unique_id" placeholder="Paste Unique ID" onkeyup="this.form.submit()">  
-        </div>
-    </form>
-  <div style="display:none;">
-      <form method="GET" action="" id="uniqueIdForm">
-    <div class="form-group mt-5">
-        <label for="uniqueIdSearch1">Unique ID based Prescription</label>
-        <input type="text" class="form-control" id="uniqueIdSearch1" placeholder="Paste Unique ID">  
-    </div>
-    <button type="button" class="btn btn-primary" onclick="submitForm('unique_id1')">Submit as ID1</button>
-    <button type="button" class="btn btn-secondary" onclick="submitForm('unique_id2')">Submit as ID2</button>
-</form>
-  
-</div>
-    
+
 
     </div>
-       <!-- Save Prescription Modal -->
-
-
-        <!-- Patient Prescription Modal -->
-              <div class="patientpres">
-              <?php
-                include 'p.php';
-                ?>
-
-              </div>
-
-
 
     </main>
     <footer id="footer" class="footer position-relative light-background">
@@ -270,24 +132,5 @@ if (!isset($_SESSION['username'])) {
 
        <script src="assets/js/p.js"></script>
        <script src="assets/js/p1.js"></script> 
-       <script src="assets/js/p2.js"></script> 
-
-       <script>
-function submitForm(uniqueIdName) {
-    // Ensure the input value is included as a hidden input with the correct name
-    var uniqueIdValue = document.getElementById('hiddenUniqueId').value;
-    var hiddenInput = document.createElement('input');
-    hiddenInput.type = 'hidden';
-    hiddenInput.name = uniqueIdName;
-    hiddenInput.value = uniqueIdValue;
-
-    // Append the hidden input to the form
-    var form = document.getElementById('uniqueIdForm');
-    form.appendChild(hiddenInput);
-
-    // Submit the form
-    form.submit();
-}
-</script>
 </body>
 </html>
