@@ -197,9 +197,11 @@
                     </div>
                 </div>
                 <div class="modal-footer mfp">
-                <button type="button" class="btn btn-primary" onclick="submitForm('unique_id1')">Submit as ID1</button>
-                <button type="button" class="btn btn-secondary" onclick="submitForm('unique_id2')">Submit as ID2</button>
-                    <button type="submit" class="btn btn-dark w-50 mx-auto" >Save</button>
+                    
+                <button type="button" class="btn btn-primary w-auto " onclick="submitForm('unique_id1')">Patient Copy</button>
+                <button type="button" class="btn btn-dark w-auto" onclick="submitForm('unique_id2')">Doctor Copy</button>
+                <button type="submit" class="btn btn-success w-50 mx-auto" >Save</button></div>
+                    </div>
                 </div>
             </form>
         </div>
