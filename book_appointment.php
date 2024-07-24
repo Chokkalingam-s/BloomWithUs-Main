@@ -47,22 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $patientNumber = $row['patient_number'];
             $email = $row['email'];
 
-            // Generate new unique ID for the new appointment
-            $firstNameInitial = strtoupper(substr($firstName, 0, 1));
-            $lastNameInitial = strtoupper(substr($lastName, 0, 1));
-            $genderInitial = strtoupper(substr($gender, 0, 1));
-            $bookingDate = date('d/m/Y', strtotime($appointmentDate));
-            $newUniqueId = $firstNameInitial . $lastNameInitial . $genderInitial . '-' . $bookingDate . '-' . str_replace(' ', '', $timeSlot);
-
             // Insert new row into the appointments table
             $sql = "INSERT INTO appointments 
                     (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id)
                     VALUES 
-                    ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$newUniqueId')";
+                    ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$uniqueId')";
 
             // Perform SQL query
             if (mysqli_query($conn, $sql)) {
-                echo json_encode(['success' => true, 'appointmentID' => $newUniqueId]);
+                echo json_encode(['success' => true, 'appointmentID' => $uniqueId]);
             } else {
                 echo json_encode(['success' => false, 'error' => 'Database Error: ' . mysqli_error($conn)]);
             }
@@ -71,7 +64,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Handle case where unique_id is not provided
-        echo json_encode(['success' => false, 'error' => 'Unique ID is required to duplicate the record.']);
+                // Generate new unique ID
+                $firstNameInitial = strtoupper(substr($firstName, 0, 1));
+                $lastNameInitial = strtoupper(substr($lastName, 0, 1));
+                $genderInitial = strtoupper(substr($gender, 0, 1));
+                $bookingDate = date('d/m/Y', strtotime($appointmentDate));
+                $uniqueId = $firstNameInitial . $lastNameInitial . $genderInitial . '-' . $bookingDate . '-' . str_replace(' ', '', $timeSlot);
+        
+                // Insert new record
+                $sql = "INSERT INTO appointments 
+                        (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id)
+                        VALUES 
+                        ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$uniqueId')";
+        
+                // Perform SQL query
+                if (mysqli_query($conn, $sql)) {
+                    echo json_encode(['success' => true, 'appointmentID' => $uniqueId]);
+                } else {
+                    echo json_encode(['success' => false, 'error' => 'Database Error: ' . mysqli_error($conn)]);
+                }
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['date'])) {
     // Fetch booked time slots for the given date

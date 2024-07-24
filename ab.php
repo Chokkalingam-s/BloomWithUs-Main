@@ -285,12 +285,13 @@
                                         <input type="tel" class="form-control" id="phoneNumber1" name="phone_number1" required><br/>
                                     </div>
 
-                                         <div class="form-group">
-                                            <label for="uniqueIdInput">Unique ID</label>
-                                            <input type="text" id="uniqueIdInput" class="form-control" readonly>
-                                        </div>
-                                        
-                                    <div id="uniqueIdDisplay" class="alert alert-info" style="display: none;">
+                                    <div class="form-group" style="display:none;">
+                                        <label for="uniqueIdInput">Unique ID</label>
+                                        <input type="text" id="uniqueIdInput" class="form-control" readonly>
+                                        <input type="hidden" id="uniqueIdHidden" name="unique_id">
+                                    </div>
+
+                                    <div id="uniqueIdDisplay" class="alert alert-info mt-1" style="display: none;">
                                         <strong>Unique ID: </strong><span id="uniqueId"></span>
                                     </div>
 
@@ -355,6 +356,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const emergencyStatus = document.getElementById('emergencyStatus');
     const bookAppointmentButton = document.getElementById('bookAppointmentButton');
 
+    const uniqueIdInput = document.getElementById('uniqueIdInput');
+    const uniqueIdHidden = document.getElementById('uniqueIdHidden');
+
     async function fetchPatientDetails() {
         const fName = firstName.value.trim();
         const lName = lastName.value.trim();
@@ -378,6 +382,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (data.unique_id) {
                     uniqueIdInput.value = data.unique_id;
+                uniqueIdHidden.value = data.unique_id;
                 uniqueIdSpan.textContent = data.unique_id;
                 uniqueIdDisplay.style.display = 'block';
 
