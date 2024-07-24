@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phoneNumber = $_POST['phone_number'] ?? '';
     $patientNumber = $_POST['patient_number'] ?? '';
     $email = $_POST['email'] ?? '';
+    $emergencyStatus = isset($_POST['emergency']) ? 1 : 0;
 
     if ($uniqueId) {
         // Fetch existing details from the database
@@ -49,9 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Insert new row into the appointments table
             $sql = "INSERT INTO appointments 
-                    (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id)
+                    (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id, emergency)
                     VALUES 
-                    ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$uniqueId')";
+                    ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$uniqueId' , '$emergencyStatus')";
 
             // Perform SQL query
             if (mysqli_query($conn, $sql)) {
@@ -65,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Handle case where unique_id is not provided
                 // Generate new unique ID
-                $firstNameInitial = strtoupper(substr($firstName, 0, 1));
-                $lastNameInitial = strtoupper(substr($lastName, 0, 1));
+                $firstNameInitial = strtoupper(substr($patientFirstName, 0, 1));
+                $lastNameInitial = strtoupper(substr($patientLastName, 0, 1));
                 $genderInitial = strtoupper(substr($gender, 0, 1));
                 $bookingDate = date('d/m/Y', strtotime($appointmentDate));
                 $uniqueId = $firstNameInitial . $lastNameInitial . $genderInitial . '-' . $bookingDate . '-' . str_replace(' ', '', $timeSlot);

@@ -13,7 +13,7 @@ if (isset($input['firstName'], $input['lastName'], $input['phoneNumber'])) {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Fetch the unique_id
-        $stmt = $pdo->prepare('SELECT unique_id FROM appointments WHERE first_name = ? AND last_name = ? AND phone_number = ?');
+        $stmt = $pdo->prepare('SELECT unique_id FROM appointments WHERE patient_first_name = ? AND patient_last_name = ? AND patient_number = ?');
         $stmt->execute([$firstName, $lastName, $phoneNumber]);
         $row = $stmt->fetch();
 

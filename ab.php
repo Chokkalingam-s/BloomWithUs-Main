@@ -273,16 +273,16 @@
                                     <p>Patient Details</p>
                                         <div class="col">
                                             <label for="firstName1" class="form-label">First Name</label>
-                                            <input type="text" class="form-control" id="firstName1" name="first_name1" required>
+                                            <input type="text" class="form-control" id="firstName1" name="first_name1" >
                                         </div>
                                         <div class="col">
                                             <label for="lastName1" class="form-label">Last Name</label>
-                                            <input type="text" class="form-control" id="lastName1" name="last_name1" required>
+                                            <input type="text" class="form-control" id="lastName1" name="last_name1" >
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label for="phoneNumber1" class="form-label">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phoneNumber1" name="phone_number1" required><br/>
+                                        <input type="tel" class="form-control" id="phoneNumber1" name="phone_number1" ><br/>
                                     </div>
 
                                     <div class="form-group" style="display:none;">
@@ -302,13 +302,13 @@
                                     </div>
 
                                     <div id="appointmentActions" style="display: none;">
-                                        <label>
-                                            <input type="checkbox" id="emergencyStatus"> Emergency
+                                        <label for="emergency" class="form-label my-2">
+                                        Is that an Emergency Appointment? <span class="ml-2"><input type="checkbox"  class="form-check-input bg-danger ml-2" id="emergencyStatus" name="emergency"> </span>
                                         </label>
                                     </div>
 
                                 </div>
-                                <button type="submit" class="btn btn-primary" style="background-color: #388da8; width:100%;">Submit</button>
+                                <button type="submit" class="btn btn-primary mt-2" style="background-color: #388da8; width:100%;">Submit</button>
                                
                                 </form>
                                
