@@ -10,13 +10,23 @@
             <form method="POST">
                 <div class="modal-body" style="background-color: #E7EBE6;">
                     <input type="hidden" name="unique_id" id="hiddenUniqueId">
-                    <div class="title">
+                    <div class="row">
+                        <div class="col-8">
+                            <image src="assets/img/logo.png" style="height: 17vh; width:17vh;"></image>
+
+                        </div>
+                        <div class="col-4">
+                        <div class="title mt-5">
                         <h1 class="heading">BloomWithUs</h1> 
                         <h4 class="fw-bold">Dr. Tamana Sharma</h4>
                         <h6 class="fw-bold"> <i class="bi bi-geo-alt-fill"></i><span> #132/6, Mansa Devi Complex, Sector 4,<br> <span style="opacity:0%;">cho</span>  Panchkula, Haryana, India, 134109</span></h6>
                         <h6 class="fw-bold"> <i class="bi bi-telephone-fill"> </i><span> +91 9779981199</span></h6>
                         <h6 class="fw-bold"> <i class="bi bi-envelope-fill"> </i><span> Bloomwithuscounselling@gmail.com</span></h6>
                     </div>
+
+                        </div>
+                    </div>
+                    
                     <h2 class="mt-5 p-2">Patient Details</h2>
                     <div class="section2 d-flex justify-content-start align-items-center">
     <div class="col-6 d-flex justify-content-start align-items-center">
@@ -29,7 +39,7 @@
                 <img id="patient-photo" class="passport-photo" alt="Patient Photo">
             </div>
         </div>
-        <div class="appointment_details text-left pl-5">    
+        <div class="appointment_details text-left pl-4">    
             <!-- Appointment details automatic render -->
         </div>
     </div>
@@ -79,7 +89,12 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="future_appointments pt-1 col-12 my-5"></div>
+                                    <div class="future_appointments pt-1 col-4 my-5">
+
+                                    </div>
+                                    <div class="future_appointments1 col my-5 pt-1">
+
+                                    </div>
                                 </div>
 
                                 <div class="row">

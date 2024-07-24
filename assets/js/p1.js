@@ -71,7 +71,7 @@ if (checkbox.checked && table.style.display === 'none') {
 
                 // Update appointment details HTML
                 $('.appointment_details').html(`
-                    <div class="row" >
+                    <div class="row " >
                         <div class="col-12" style="margin-top: 5%;">
                             <p style="font-size:1.2em;"><strong>Name: ${fullName} </strong></p>
                         </div>
@@ -98,24 +98,16 @@ if (checkbox.checked && table.style.display === 'none') {
                     return `${day} ${month} , ${year}`;
                 }
 
-                // Display previous appointments
-                let previousAppointmentsHtml = '<h4 style="color:#282924;"><strong>Previous Appointments</strong></h4>';
-                if (data.previous_appointments.length > 0) {
-                    data.previous_appointments.forEach(appointment => {
-                        previousAppointmentsHtml += `<p>${formatDate(appointment.appointment_date)} - ${appointment.time_slot}</p>`;
-                    });
-                } else {
-                    previousAppointmentsHtml += '<p>No Previous Appointments</p>';
-                }
 
                 // Display future appointments
-                let futureAppointmentsHtml = '<h4 style="color:#282924;"><strong>Upcoming Appointments</strong></h4>';
+                let futureAppointmentsHtml = '<h4 style="color:#282924; class="head"><strong>Upcoming Appointments</strong></h4>';
+                let futureAppointmentsHtml1 = '';
                 if (data.future_appointments.length > 0) {
                     data.future_appointments.forEach(appointment => {
-                        futureAppointmentsHtml += `<p>${formatDate(appointment.appointment_date)} - ${appointment.time_slot}</p>`;
+                        futureAppointmentsHtml1 += `<p class="points">${formatDate(appointment.appointment_date)} - ${appointment.time_slot}</p>`;
                     });
                 } else {
-                    futureAppointmentsHtml += '<p>No Future Appointments</p>';
+                    futureAppointmentsHtml1 += '<p>No Future Appointments</p>';
                 }
 
 
@@ -123,6 +115,9 @@ if (checkbox.checked && table.style.display === 'none') {
                 $('.future_appointments').html(`
                     ${futureAppointmentsHtml}
                 `);
+                $('.future_appointments1').html(`
+                ${futureAppointmentsHtml1}
+            `);
 
                 }
             })
@@ -309,10 +304,6 @@ if (checkbox.checked && table.style.display === 'none') {
                     console.error('Error fetching old prescription details:', error);
                 }
             });
-
-
-
-            
 
             // Event listener for disease selection change
             $('#diseases').change(function() {
