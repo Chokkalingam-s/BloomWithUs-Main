@@ -179,9 +179,15 @@
                                             <option value="05:30 PM To 06:00 PM">05:30 PM To 06:00 PM</option>
                                         </select>
                                     </div>
+
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="existingUserCheckbox">
+                                        <label class="form-check-label" for="existingUserCheckbox">Existing User</label>
+                                    </div>
                                     
                                     <!-- Rest of the form fields -->
                                     <!-- (First Name and Last Name side by side) -->
+                                    <div id="restOfForm">
                                     <div class="row mb-3">
                                         <div class="col">
                                             <label for="firstName" class="form-label">First Name</label>
@@ -260,8 +266,51 @@
                                         <input type="email" class="form-control" id="email" name="email" required>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary" style="background-color: #388da8; width:100%;">Submit</button>
+                                    
+                                </div>
+                                <div id="newForm" style="display: none;">
+                                    <div class="row mb-3">
+                                    <p>Patient Details</p>
+                                        <div class="col">
+                                            <label for="firstName1" class="form-label">First Name</label>
+                                            <input type="text" class="form-control" id="firstName1" name="first_name1" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="lastName1" class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName1" name="last_name1" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="phoneNumber1" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phoneNumber1" name="phone_number1" required><br/>
+                                    </div>
+
+                                         <div class="form-group">
+                                            <label for="uniqueIdInput">Unique ID</label>
+                                            <input type="text" id="uniqueIdInput" class="form-control" readonly>
+                                        </div>
+                                        
+                                    <div id="uniqueIdDisplay" class="alert alert-info" style="display: none;">
+                                        <strong>Unique ID: </strong><span id="uniqueId"></span>
+                                    </div>
+
+
+                                    <div id="futureAppointmentsDisplay" class="alert alert-info" style="display: none;">
+                                        <strong>Future Appointments:</strong>
+                                        <ul id="futureAppointmentsList"></ul>
+                                    </div>
+
+                                    <div id="appointmentActions" style="display: none;">
+                                        <label>
+                                            <input type="checkbox" id="emergencyStatus"> Emergency
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="background-color: #388da8; width:100%;">Submit</button>
+                               
                                 </form>
+                               
                             </div>
                         </div>
                     </div>
@@ -294,6 +343,98 @@
 
     <!-- Calendar Script -->
     <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const firstName = document.getElementById('firstName1');
+    const lastName = document.getElementById('lastName1');
+    const phoneNumber = document.getElementById('phoneNumber1');
+    const uniqueIdDisplay = document.getElementById('uniqueIdDisplay');
+    const uniqueIdSpan = document.getElementById('uniqueId');
+    const futureAppointmentsDisplay = document.getElementById('futureAppointmentsDisplay');
+    const futureAppointmentsList = document.getElementById('futureAppointmentsList');
+    const appointmentActions = document.getElementById('appointmentActions');
+    const emergencyStatus = document.getElementById('emergencyStatus');
+    const bookAppointmentButton = document.getElementById('bookAppointmentButton');
+
+    async function fetchPatientDetails() {
+        const fName = firstName.value.trim();
+        const lName = lastName.value.trim();
+        const phone = phoneNumber.value.trim();
+
+        if (fName && lName && phone.length === 10) {
+            try {
+                const response = await fetch('patient_details.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ firstName: fName, lastName: lName, phoneNumber: phone })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+
+                const data = await response.json();
+
+                if (data.unique_id) {
+                    uniqueIdInput.value = data.unique_id;
+                uniqueIdSpan.textContent = data.unique_id;
+                uniqueIdDisplay.style.display = 'block';
+
+                    futureAppointmentsList.innerHTML = '';
+                    data.future_appointments.forEach(appointment => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${appointment.appointment_date} - ${appointment.time_slot}`;
+                        futureAppointmentsList.appendChild(listItem);
+                    });
+                    futureAppointmentsDisplay.style.display = 'block';
+                    appointmentActions.style.display = 'block';
+                } else {
+                    uniqueIdDisplay.style.display = 'none';
+                    futureAppointmentsDisplay.style.display = 'none';
+                    appointmentActions.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                uniqueIdDisplay.style.display = 'none';
+                futureAppointmentsDisplay.style.display = 'none';
+                appointmentActions.style.display = 'none';
+            }
+        } else {
+            uniqueIdDisplay.style.display = 'none';
+            futureAppointmentsDisplay.style.display = 'none';
+            appointmentActions.style.display = 'none';
+        }
+    }
+
+    [firstName, lastName, phoneNumber].forEach(input => {
+        input.addEventListener('input', fetchPatientDetails);
+    });
+});
+
+
+
+        document.getElementById('existingUserCheckbox').addEventListener('change', function () {
+            const isChecked = this.checked;
+            const restOfForm = document.getElementById('restOfForm');
+            restOfForm.style.display = isChecked ? 'none' : 'block';
+            const newForm = document.getElementById('newForm');
+            newForm.style.display = isChecked ? 'block' : 'none';
+
+            if (isChecked) {
+                document.getElementById('firstName').removeAttribute('required');
+                document.getElementById('lastName').removeAttribute('required');
+                document.getElementById('phoneNumber').removeAttribute('required');
+                document.getElementById('patientFirstName').removeAttribute('required');
+                document.getElementById('patientLastName').removeAttribute('required');
+                document.getElementById('profession').removeAttribute('required');
+                document.getElementById('dob').removeAttribute('required');
+                document.getElementById('age').removeAttribute('required');
+                document.getElementById('gender').removeAttribute('required');
+                document.getElementById('patientNumber').removeAttribute('required');
+                document.getElementById('email').removeAttribute('required');
+            }
+        });
          function showCustomAlert(message) {
          const alertMessageElement = document.getElementById('customAlertMessage');
          alertMessageElement.innerText = message;
@@ -472,7 +613,11 @@
         const appointmentForm = document.getElementById('appointmentForm');
         appointmentForm.addEventListener('submit', function(e) {
             e.preventDefault();
+  
             const formData = new FormData(appointmentForm);
+            for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+}
             fetch('book_appointment.php', {
                 method: 'POST',
                 body: formData
