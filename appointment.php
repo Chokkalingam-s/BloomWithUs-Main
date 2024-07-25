@@ -565,7 +565,7 @@ if (!isset($_SESSION['username'])) {
 
     // Function to show appointment details in modal
     function showAppointmentDetails(uniqueId, formattedDate) {
-    fetch(`get_appointment_details.php?unique_id=${uniqueId}&formatted_date=${formattedDate}`)
+    fetch(`get_appointment_details1.php?unique_id=${uniqueId}&formatted_date=${formattedDate}`)
         .then(response => response.json())
             .then(data => {
                 const appointmentDetailsBody = document.getElementById('appointmentDetailsBody');
