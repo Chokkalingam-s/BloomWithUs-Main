@@ -578,7 +578,10 @@ if (!isset($_SESSION['username'])) {
                         <i class="bi bi-copy" >Copy Unique Id</i>
                     </button>
                 </p>
-                    <p><strong>Emergency:</strong> ${data.emergency}</p>
+                    <p style="color:red"><strong>Emergency:</strong>
+    ${data.emergency == 0 ? 'Normal Appointment' : data.emergency == 1 ? 'Emergency Appointment By Patient' : data.emergency == 11 ? 'Emergency Appointment By Doctor' : 'Unknown'}
+</p>
+
                     <p><strong>Name:</strong> ${data.first_name} ${data.last_name}</p>
                     <p><strong>Patient Name:</strong> ${data.patient_first_name} ${data.patient_last_name}</p>
                     <p><strong>Relation:</strong> ${data.relation_to_patient}</p>
