@@ -157,6 +157,14 @@ if (!isset($_SESSION['username'])) {
     font-weight: bold;
 }
 
+.index-page::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+.modal::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
     </style>
 </head>
 

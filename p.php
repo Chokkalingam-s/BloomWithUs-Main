@@ -198,9 +198,9 @@
                 </div>
                 <div class="modal-footer mfp">
                     
-                <button type="button" class="btn btn-primary w-auto " onclick="submitForm('unique_id1')">Patient Copy</button>
-                <button type="button" class="btn btn-dark w-auto" onclick="submitForm('unique_id2')">Doctor Copy</button>
-                <button type="submit" class="btn btn-success w-50 mx-auto" >Save</button></div>
+                <button type="button" class="btn btn-primary" style="width:20%;" onclick="submitForm('unique_id1')"><strong>Print Patient Copy</strong></button>
+                <button type="button" class="btn btn-dark" style="width:20%;" onclick="submitForm('unique_id2')"><strong>Print Doctor Copy</strong></button>
+                <button type="submit" class="btn btn-success w-50 mx-auto" ><strong>Save</strong></button></div>
                     </div>
                 </div>
             </form>
