@@ -94,6 +94,20 @@ if (!isset($_SESSION['username'])) {
     <main class="main" style="margin-top: 11vh;">
     <div class="container mt-5">
 
+    <canvas id="appointmentsChart" width="400" height="200"></canvas>
+    <div class="my-5">
+    <canvas id="diseasesChart" width="200" height="100"></canvas>
+    </div>
+
+    <div class="row my-3">
+        <div class="col my-3">
+        <canvas id="therapiesChart" width="200" height="100"></canvas>
+        </div>
+        <div class="col my-3">
+        <canvas id="medicinesChart" width="200" height="100"></canvas>
+        </div>
+    </div>
+
 
     </div>
 
@@ -113,6 +127,8 @@ if (!isset($_SESSION['username'])) {
     <!-- Preloader -->
     <div id="preloader"></div>
     <!-- Vendor JS Files -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="assets/vendor/aos/aos.js"></script>
     <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
@@ -130,7 +146,118 @@ if (!isset($_SESSION['username'])) {
        <!-- select2 JS -->
        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-       <script src="assets/js/p.js"></script>
-       <script src="assets/js/p1.js"></script> 
+
+       <script>
+        // Fetch and display appointments data
+            fetch('get_appointments_data.php')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data fetched successfully:', data);
+                    const ctx = document.getElementById('appointmentsChart').getContext('2d');
+                    const appointmentsChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: data,
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching appointments data:', error);
+                });
+
+            // Fetch and display diseases data
+            fetch('get_diseases_data.php')
+                .then(response => response.json())
+                .then(data => {
+                    const ctx = document.getElementById('diseasesChart').getContext('2d');
+                    const diseasesChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(tooltipItem) {
+                                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching diseases data:', error);
+                });
+
+            // Fetch and display therapies data
+            fetch('get_therapies_data.php')
+                .then(response => response.json())
+                .then(data => {
+                    const ctx = document.getElementById('therapiesChart').getContext('2d');
+                    const therapiesChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(tooltipItem) {
+                                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching therapies data:', error);
+                });
+                
+            // Fetch and display top 5 medicines data
+            fetch('get_top_medicines.php')
+                .then(response => response.json())
+                .then(data => {
+                    const ctx = document.getElementById('medicinesChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'pie',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(tooltipItem) {
+                                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching medicines data:', error);
+                });
+        </script>
+
+
 </body>
 </html>
