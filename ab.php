@@ -85,6 +85,11 @@
             align-items: center;
             margin-bottom: 1rem;
         }
+        .form-check-input{
+            border-color: green;
+            border-width: 2px;
+            box-shadow: 1px 1px;
+        }
     </style>
 </head>
 
@@ -303,7 +308,7 @@
 
                                     <div id="appointmentActions" style="display: none;">
                                         <label for="emergency" class="form-label my-2">
-                                        Is that an Emergency Appointment? <span class="ml-2"><input type="checkbox"  class="form-check-input bg-danger ml-2" id="emergencyStatus" name="emergency"> </span>
+                                        <span style="color:red;">Is this an Emergency Appointment? </span><span class="ml-2"><input type="checkbox"  class="form-check-input  ml-2" id="emergencyStatus" name="emergency"> </span>
                                         </label>
                                     </div>
 
