@@ -30,11 +30,14 @@ foreach ($knownDiseases as $disease) {
 $diseaseCounts['Others'] = 0;
 
 while ($row = $result->fetch_assoc()) {
-    $disease = $row['diseases'];
-    if (in_array($disease, $knownDiseases)) {
-        $diseaseCounts[$disease]++;
-    } else {
-        $diseaseCounts['Others']++;
+    $diseases = explode(',', $row['diseases']); // Split the comma-separated diseases
+    foreach ($diseases as $disease) {
+        $disease = trim($disease); // Remove any extra spaces
+        if (in_array($disease, $knownDiseases)) {
+            $diseaseCounts[$disease]++;
+        } else {
+            $diseaseCounts['Others']++;
+        }
     }
 }
 

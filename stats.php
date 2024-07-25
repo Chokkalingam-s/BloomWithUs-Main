@@ -81,8 +81,8 @@ if (!isset($_SESSION['username'])) {
                         <ul>
                         <li><a href="admin_dashboard.php">Home</a></li>
                         <li><a href="admin_dashboard.php#AddPost">Add Post</a></li>
-                        <li><a href="admin_dashboard.php#ManagePost">Manage Post</a></li>
-                        <li><a href="prescription.php" class="active">Prescription</a></li>
+                        <li><a href="prescription.php">Prescription</a></li>
+                        <li><a href="stats.php" class="active">Statistics</a></li>
                         <li><a href="logout.php" style="color: red;">Logout</a></li>
                         </ul>
                         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -95,11 +95,15 @@ if (!isset($_SESSION['username'])) {
     <div class="container mt-5">
 
     <canvas id="appointmentsChart" width="400" height="200"></canvas>
-    <div class="my-5">
+    <div class="row my-3">
+        <div class="col-2"></div>
+        <div class="col-8">
     <canvas id="diseasesChart" width="200" height="100"></canvas>
+        </div>
+       
     </div>
 
-    <div class="row my-3">
+    <div class="row">
         <div class="col my-3">
         <canvas id="therapiesChart" width="200" height="100"></canvas>
         </div>
@@ -182,7 +186,7 @@ if (!isset($_SESSION['username'])) {
                             responsive: true,
                             plugins: {
                                 legend: {
-                                    position: 'top',
+                                    position: 'left',
                                 },
                                 tooltip: {
                                     callbacks: {
