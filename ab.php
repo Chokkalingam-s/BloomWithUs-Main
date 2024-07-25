@@ -211,7 +211,7 @@
                                     </div>
                                     <!-- Patient First Name and Last Name side by side -->
                                     <div class="row mb-3">
-                                    <p>Patient Details</p>
+                                    <p><u><strong> Patient Details</strong></u></p>
                                         <div class="col">
                                             <label for="patientFirstName" class="form-label">First Name</label>
                                             <input type="text" class="form-control" id="patientFirstName" name="patient_first_name" required>
@@ -275,7 +275,7 @@
                                 </div>
                                 <div id="newForm" style="display: none;">
                                     <div class="row mb-3">
-                                    <p>Patient Details</p>
+                                    <p><u><strong>Patient Details</strong></u></p>
                                         <div class="col">
                                             <label for="firstName1" class="form-label">First Name</label>
                                             <input type="text" class="form-control" id="firstName1" name="first_name1" >
@@ -297,18 +297,18 @@
                                     </div>
 
                                     <div id="uniqueIdDisplay" class="alert alert-info mt-1" style="display: none;">
-                                        <strong>Unique ID: </strong><span id="uniqueId"></span>
+                                        <strong><u>Unique ID: </u></strong><span id="uniqueId"></span>
                                     </div>
 
 
                                     <div id="futureAppointmentsDisplay" class="alert alert-info" style="display: none;">
-                                        <strong>Future Appointments:</strong>
+                                        <strong><u>Future Appointments:</u></strong>
                                         <ul id="futureAppointmentsList"></ul>
                                     </div>
 
                                     <div id="appointmentActions" style="display: none;">
                                         <label for="emergency" class="form-label my-2">
-                                        <span style="color:red;">Is this an Emergency Appointment? </span><span class="ml-2"><input type="checkbox"  class="form-check-input  ml-2" id="emergencyStatus" name="emergency"> </span>
+                                        <span style="color:red;"><strong> <u>This is an Emergency Appointment?</u> </strong></span><span class="ml-2"><input type="checkbox"  class="form-check-input  ml-2" id="emergencyStatus" name="emergency"> </span>
                                         </label>
                                     </div>
 
