@@ -10,9 +10,10 @@ if ($conn->connect_error) {
 // Check if unique_id parameter is set
 if (isset($_GET['unique_id'])) {
     $unique_id = $_GET['unique_id'];
+    $appointmentDate = $_GET['formatted_date'];
 
     // Query to fetch appointment details
-    $query = "SELECT * FROM appointments WHERE unique_id = '$unique_id'";
+    $query = "SELECT * FROM appointments WHERE unique_id = '$unique_id' AND appointment_date ='$appointmentDate'";
     $result = mysqli_query($conn, $query);
 
     if ($result) {

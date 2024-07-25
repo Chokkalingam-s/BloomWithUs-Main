@@ -110,6 +110,10 @@ if (!isset($_SESSION['username'])) {
             flex-direction: column;
         }
 
+        .calendar .eb{
+            background-color: #ff3105 !important;
+        }
+
         .calendar .booked .appointment-time {
             font-weight: bold; 
             font-size: 0.7rem; 
@@ -117,6 +121,10 @@ if (!isset($_SESSION['username'])) {
             overflow: hidden; 
             text-overflow: ellipsis; 
             background-color: #EA3666;
+        }
+
+        .calendar .eb .appointment-time {
+            background-color: #FA8072 !important;
         }
 
         .calendar .booked .unique-id {
@@ -128,6 +136,10 @@ if (!isset($_SESSION['username'])) {
             overflow: hidden; 
             text-overflow: ellipsis; 
             margin-top: 0.1rem; 
+        }
+
+        .calendar .eb .unique-id {
+            background-color: #FFA07A !important;
         }
         .calendar-header {
             display: flex;
@@ -501,10 +513,13 @@ if (!isset($_SESSION['username'])) {
                 // Create appointment element and append to dayElement
                     const appointmentElement = document.createElement('div');
                     appointmentElement.classList.add('booked');
+                     if (appointment.emergency == 1) {
+                appointmentElement.classList.add('eb');
+            }
                     appointmentElement.setAttribute('data-toggle', 'modal');
                     appointmentElement.setAttribute('data-target', '#appointmentDetailsModal');
                     appointmentElement.addEventListener('click', function () {
-                        showAppointmentDetails(uniqueId);
+                        showAppointmentDetails(uniqueId, formattedDate);
                     });
 
                     const appointmentTimeElement = document.createElement('span');
@@ -527,9 +542,9 @@ if (!isset($_SESSION['username'])) {
 
 
     // Function to show appointment details in modal
-    function showAppointmentDetails(uniqueId) {
-        fetch(`get_appointment_details.php?unique_id=${uniqueId}`)
-            .then(response => response.json())
+    function showAppointmentDetails(uniqueId, formattedDate) {
+    fetch(`get_appointment_details.php?unique_id=${uniqueId}&formatted_date=${formattedDate}`)
+        .then(response => response.json())
             .then(data => {
                 const appointmentDetailsBody = document.getElementById('appointmentDetailsBody');
                 appointmentDetailsBody.innerHTML = `
@@ -541,6 +556,7 @@ if (!isset($_SESSION['username'])) {
                         <i class="bi bi-copy" >Copy Unique Id</i>
                     </button>
                 </p>
+                    <p><strong>Emergency:</strong> ${data.emergency}</p>
                     <p><strong>Name:</strong> ${data.first_name} ${data.last_name}</p>
                     <p><strong>Patient Name:</strong> ${data.patient_first_name} ${data.patient_last_name}</p>
                     <p><strong>Relation:</strong> ${data.relation_to_patient}</p>

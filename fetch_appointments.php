@@ -43,7 +43,8 @@ ORDER BY slot_order ASC;
                 'unique_id' => $row['unique_id'],
                 'time_slot' => $row['time_slot'],
                 'first_name' => $row['first_name'],
-                'last_name' => $row['last_name']
+                'last_name' => $row['last_name'],
+                 'emergency'=> $row['emergency']
                 // Add more fields as needed
             );
         }
