@@ -9,7 +9,7 @@ if ($conn->connect_error) {
     exit();
 }
 
-$query = "SELECT key_therapies FROM prescription";
+$query = "SELECT therapies_name FROM therapies";
 $result = $conn->query($query);
 
 $therapyCounts = [];
@@ -29,7 +29,7 @@ foreach ($knownTherapies as $therapy) {
 $therapyCounts['Others'] = 0;
 
 while ($row = $result->fetch_assoc()) {
-    $therapy = $row['key_therapies'];
+    $therapy = $row['therapies_name'];
     if (in_array($therapy, $knownTherapies)) {
         $therapyCounts[$therapy]++;
     } else {
