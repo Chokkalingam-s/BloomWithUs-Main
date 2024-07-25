@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $patientNumber = $_POST['reservationPatientNumber'] ?? '';
     $email = $_POST['reservationEmail'] ?? '';
     $uniqueId = $_POST['reservationPatientId'] ?? '';
-    $emergencyStatus = isset($_POST['emergency']) ? 1 : 0;
+    $emergencyStatus = isset($_POST['emergency']) ? 11 : 0;
     $sql = "INSERT INTO appointments 
             (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id, emergency)
             VALUES 

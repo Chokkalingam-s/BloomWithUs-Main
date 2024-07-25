@@ -114,6 +114,29 @@ if (!isset($_SESSION['username'])) {
             background-color: #ff3105 !important;
         }
 
+        .calendar .eb .appointment-time {
+            background-color: #FA8072 !important;
+            color: #000;
+        }
+
+        .calendar .eb .unique-id {
+            background-color: #FFA07A !important;
+        }
+        
+
+        .calendar .eb1{
+            background-color: #808b96 !important;
+        }
+
+        .calendar .eb1 .appointment-time {
+            background-color: #f9e79f!important;
+            color: #000;
+        }
+
+        .calendar .eb1 .unique-id {
+            background-color: #aed6f1 !important;
+        }
+
         .calendar .booked .appointment-time {
             font-weight: bold; 
             font-size: 0.7rem; 
@@ -121,10 +144,6 @@ if (!isset($_SESSION['username'])) {
             overflow: hidden; 
             text-overflow: ellipsis; 
             background-color: #EA3666;
-        }
-
-        .calendar .eb .appointment-time {
-            background-color: #FA8072 !important;
         }
 
         .calendar .booked .unique-id {
@@ -515,7 +534,10 @@ if (!isset($_SESSION['username'])) {
                     appointmentElement.classList.add('booked');
                      if (appointment.emergency == 1) {
                 appointmentElement.classList.add('eb');
-            }
+            } 
+            if (appointment.emergency == 11) {
+                appointmentElement.classList.add('eb1');
+            } 
                     appointmentElement.setAttribute('data-toggle', 'modal');
                     appointmentElement.setAttribute('data-target', '#appointmentDetailsModal');
                     appointmentElement.addEventListener('click', function () {
