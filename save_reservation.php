@@ -27,10 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $patientNumber = $_POST['reservationPatientNumber'] ?? '';
     $email = $_POST['reservationEmail'] ?? '';
     $uniqueId = $_POST['reservationPatientId'] ?? '';
+    $emergencyStatus = isset($_POST['emergency']) ? 1 : 0;
     $sql = "INSERT INTO appointments 
-    (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id)
-    VALUES 
-    ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$uniqueId')";
+            (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id, emergency)
+            VALUES 
+            ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$uniqueId' , '$emergencyStatus')";
 
 // Perform SQL query
 if (mysqli_query($conn, $sql)) {

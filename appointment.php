@@ -163,7 +163,12 @@ if (!isset($_SESSION['username'])) {
             margin-left: 5%;
             font-weight: 500;
             border-width: bold;
-        }      
+        }  
+        .form-check-input{
+            border-color: green;
+            border-width: 2px;
+            box-shadow: 1px 1px;
+        }    
 
     </style>
 </head>
@@ -264,6 +269,13 @@ if (!isset($_SESSION['username'])) {
                         <label for="reservationPatientId">Patient Unique ID</label>
                         <input type="text" class="form-control" id="reservationPatientId" name="reservationPatientId" placeholder="Paste Patient Unique ID">
                     </div>
+                    <div class="form-group">
+                    <label for="emergency" class="form-label my-2">
+                                        <span style="color:red;"><strong> <u>This is an Emergency Appointment?</u> </strong></span><span class="ml-2"><input type="checkbox"  class="form-check-input  ml-2" id="emergencyStatus" name="emergency"> </span>
+                                        </label>
+                   </div>
+                    
+                   
                     <div id="patientDetails" style="display: none;">
                         <hr>
                         <div class="form-group">
@@ -317,7 +329,7 @@ if (!isset($_SESSION['username'])) {
                     </div>
                     <div >
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save Reservation</button>
+                <button type="submit" class="btn btn-success">Save Reservation</button>
             </div>
                 </form>
             </div>

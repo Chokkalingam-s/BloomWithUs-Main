@@ -93,22 +93,23 @@ if (!isset($_SESSION['username'])) {
 
     <main class="main" style="margin-top: 11vh;">
     <div class="container mt-5">
-
+     <h3>Appointments Stats</h3>
     <canvas id="appointmentsChart" width="400" height="200"></canvas>
-    <div class="row my-3">
+    
+    <div class="row mt-3"> 
         <div class="col-2"></div>
         <div class="col-8">
-    <canvas id="diseasesChart" width="200" height="100"></canvas>
+    <canvas id="diseasesChart" ></canvas>
         </div>
        
     </div>
 
     <div class="row">
-        <div class="col my-3">
-        <canvas id="therapiesChart" width="200" height="100"></canvas>
+        <div class="col-6 my-3">
+        <canvas id="therapiesChart" ></canvas>
         </div>
-        <div class="col my-3">
-        <canvas id="medicinesChart" width="200" height="100"></canvas>
+        <div class="col-6 my-3">
+        <canvas id="medicinesChart" ></canvas>
         </div>
     </div>
 
@@ -153,26 +154,51 @@ if (!isset($_SESSION['username'])) {
 
        <script>
         // Fetch and display appointments data
-            fetch('get_appointments_data.php')
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Data fetched successfully:', data);
-                    const ctx = document.getElementById('appointmentsChart').getContext('2d');
-                    const appointmentsChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: data,
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+        fetch('get_appointments_data.php')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Data fetched successfully:', data);
+        const ctx = document.getElementById('appointmentsChart').getContext('2d');
+        const appointmentsChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            font: {
+                                size: 14, // Increase the font size for y-axis
+                                weight: 'bold' // Increase the font weight for y-axis
                             }
                         }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching appointments data:', error);
-                });
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 14, // Increase the font size for x-axis
+                                weight: 'bold' // Increase the font weight for x-axis
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 16, // Increase the font size for legend
+                                weight: 'bold' // Increase the font weight for legend
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching appointments data:', error);
+    });
+
 
             // Fetch and display diseases data
             fetch('get_diseases_data.php')
@@ -187,6 +213,14 @@ if (!isset($_SESSION['username'])) {
                             plugins: {
                                 legend: {
                                     position: 'left',
+                                    labels: {
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 16,
+                    }
+                }
+
+                                    
                                 },
                                 tooltip: {
                                     callbacks: {
@@ -215,7 +249,13 @@ if (!isset($_SESSION['username'])) {
                             responsive: true,
                             plugins: {
                                 legend: {
-                                    position: 'top',
+                                    position: 'left',
+                                    labels: {
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 15,
+                    }
+                }
                                 },
                                 tooltip: {
                                     callbacks: {
@@ -244,7 +284,13 @@ if (!isset($_SESSION['username'])) {
                             responsive: true,
                             plugins: {
                                 legend: {
-                                    position: 'top',
+                                    position: 'right',
+                                    labels: {
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 15,
+                    }
+                }
                                 },
                                 tooltip: {
                                     callbacks: {

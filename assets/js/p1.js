@@ -1,7 +1,6 @@
 
 
 $(document).ready(function() {
-
     const urlParams = new URLSearchParams(window.location.search);
     const uniqueId = urlParams.get('unique_id1');
     if (uniqueId){
@@ -342,6 +341,7 @@ if (checkbox.checked && table.style.display === 'none') {
         }
 
                         $('#prescriptionModal1').modal('show');
+                        
                     }
                 });
 
@@ -357,4 +357,6 @@ if (checkbox.checked && table.style.display === 'none') {
             
         
         });
+
+        
 
