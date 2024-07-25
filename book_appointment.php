@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Handle case where unique_id is not provided
                 // Generate new unique ID
+                
                 $firstNameInitial = strtoupper(substr($patientFirstName, 0, 1));
                 $lastNameInitial = strtoupper(substr($patientLastName, 0, 1));
                 $genderInitial = strtoupper(substr($gender, 0, 1));
