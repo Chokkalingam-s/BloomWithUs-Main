@@ -92,7 +92,7 @@ if (!isset($_SESSION['username'])) {
         }
 
         .calendar .day {
-            background-color: #FFCCE6;
+            background-color: #ffdbee;
             border: 1px solid #dee2e6;
             padding: 10px;
             text-align: center;

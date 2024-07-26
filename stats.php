@@ -98,17 +98,19 @@ if (!isset($_SESSION['username'])) {
     
     <div class="row mt-3"> 
         <div class="col-2"></div>
-        <div class="col-8">
+        <div >
     <canvas id="diseasesChart" ></canvas>
         </div>
        
     </div>
 
+
     <div class="row">
-        <div class="col-6 my-3">
+    <div class="col my-3">
         <canvas id="therapiesChart" ></canvas>
         </div>
-        <div class="col-6 my-3">
+
+        <div class="col my-3">
         <canvas id="medicinesChart" ></canvas>
         </div>
     </div>
