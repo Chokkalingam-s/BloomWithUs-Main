@@ -46,7 +46,38 @@ if (!isset($_SESSION['username'])) {
             flex: 1;
             display: flex;
             justify-content: center;
+            width: 100vw !important;
         }
+        .disease-state{
+            z-index: 1;
+            position: relative;
+            top:120px;
+            left: 10px;
+        }
+        .chart-container {
+    width: 100%;
+    max-width: 500px; /* Adjust as needed */
+    height: 400px;    /* Adjust as needed */
+}
+
+.chart-container1 {
+    width: 100%;
+    max-width: 1000px; /* Adjust as needed */
+    height: 700px;    /* Adjust as needed */
+    
+}
+
+canvas {
+    width: 100% ;
+    height: 100%;
+}
+
+.card1{
+    max-height: 650px !important;
+    display: flex;
+    justify-content: center;
+}
+
         ::-webkit-scrollbar { width: 0 !important }
 
     </style>
@@ -92,28 +123,52 @@ if (!isset($_SESSION['username'])) {
             </header>
 
     <main class="main" style="margin-top: 11vh;">
-    <div class="container mt-5">
-     <h3>Appointments Stats</h3>
-    <canvas id="appointmentsChart" width="400" height="200"></canvas>
+    <div class="container mt-3">
+    <div class="card card1 mt-5">
+     <h3 class="m-4 mt-5">Appointments Stats</h3>
+    <canvas id="appointmentsChart" class="mx-4 mb-4" width="400" height="200"></canvas>
+    </div>
     
+    <div class="card card1 mt-5">
+    <h3 class="disease-state m-4">Diseases Analytics</h3>
     <div class="row mt-3"> 
         <div class="col-2"></div>
         <div >
-    <canvas id="diseasesChart" ></canvas>
+
         </div>
        
+
     </div>
 
-
-    <div class="row">
-    <div class="col my-3">
-        <canvas id="therapiesChart" ></canvas>
-        </div>
-
-        <div class="col my-3">
-        <canvas id="medicinesChart" ></canvas>
+    <div class="container">
+    <div class="row text-center">
+        <div class="col-md-12 d-flex justify-content-center align-items-center ">
+            <div class="chart-container1">
+                <canvas id="diseasesChart" ></canvas>
+            </div>
         </div>
     </div>
+</div>
+</div>
+
+<div class="card card1 mt-5">
+    <div class="container mt-4">
+    <div class="row text-center">
+        <div class="col-md-7 d-flex justify-content-center align-items-center my-3">
+            <div class="chart-container">
+                <h3>Therapies Offered</h3>
+                <canvas id="therapiesChart"></canvas>
+            </div>
+        </div>
+        <div class="col-md-5 d-flex justify-content-center align-items-center my-3">
+            <div class="chart-container">
+                <h3 class="mr-5"><span class="mr-5">Medicine Prescribed</span></h3>
+                <canvas id="medicinesChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 
     </div>
