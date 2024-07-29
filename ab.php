@@ -90,6 +90,10 @@
             border-width: 2px;
             box-shadow: 1px 1px;
         }
+        .modal-title{
+            margin-left: 30%;
+            font-weight: bolder;
+        }
     </style>
 </head>
 
@@ -149,7 +153,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="appointmentModalLabel">Book Appointment</h5>
+                                <h5 class="modal-title" id="appointmentModalLabel"><u>Book Appointment</u></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
