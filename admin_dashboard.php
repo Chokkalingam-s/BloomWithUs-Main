@@ -157,7 +157,6 @@ $conn->close();
                     <ul>
                         <li><a href="admin_dashboard.php" class="active">Home</a></li>
                         <li><a href="admin_dashboard.php#AddPost">Add Post</a></li>
-                        <li><a href="admin_dashboard.php#ManagePost">Manage Post</a></li>
                         <li><a href="prescription.php">Prescription</a></li>
                         <li><a href="stats.php">Statistics</a></li>
                         <li><a href="logout.php" style="color: red;">Logout</a></li>

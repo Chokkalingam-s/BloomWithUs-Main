@@ -67,11 +67,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Handle case where unique_id is not provided
                 // Generate new unique ID
                 
-                $firstNameInitial = strtoupper(substr($patientFirstName, 0, 1));
-                $lastNameInitial = strtoupper(substr($patientLastName, 0, 1));
-                $genderInitial = strtoupper(substr($gender, 0, 1));
-                $bookingDate = date('d/m/Y', strtotime($appointmentDate));
-                $uniqueId = $firstNameInitial . $lastNameInitial . $genderInitial . '-' . $bookingDate . '-' . str_replace(' ', '', $timeSlot);
+       // Convert patient first name, last name, and gender to initials
+$firstNameInitial = strtoupper(substr($patientFirstName, 0, 1));
+$lastNameInitial = strtoupper(substr($patientLastName, 0, 1));
+$genderInitial = strtoupper(substr($gender, 0, 1));
+$bookingDate = date('dmy', strtotime($appointmentDate)); // Convert to DDMMYY
+
+// Create unique ID
+$uniqueId = $firstNameInitial . $lastNameInitial . $genderInitial . '-' . $bookingDate . '-' . $timeSlot;
+
         
                 // Insert new record
                 $sql = "INSERT INTO appointments 
