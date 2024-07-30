@@ -552,10 +552,17 @@ if (!isset($_SESSION['username'])) {
     const formattedDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
 
     fetch(`fetch_appointments.php?date=${formattedDate}`)
-        .then(response => response.json())
-        .then(data => {
-            dropdownMenu.innerHTML = ''; // Clear existing items in the dropdown menu
+    .then(response => response.json())
+    .then(data => {
+        dropdownMenu.innerHTML = ''; // Clear existing items in the dropdown menu
 
+        if (data.length === 0) {
+            // Create and append the "No Appointment Booked" message
+            const noAppointmentsItem = document.createElement('li');
+            noAppointmentsItem.classList.add('dropdown-item');
+            noAppointmentsItem.textContent = 'No Appointment Booked';
+            dropdownMenu.appendChild(noAppointmentsItem);
+        } else {
             data.forEach(appointment => {
                 const appointmentDate = new Date(appointment.appointment_date);
                 const appointmentTime = appointment.time_slot;
@@ -593,7 +600,9 @@ if (!isset($_SESSION['username'])) {
                     dropdownMenu.appendChild(divider);
                 }
             });
-        })
+        }
+    })
+
         .catch(error => console.error('Error fetching appointments:', error));
 }
 
