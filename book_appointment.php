@@ -73,6 +73,7 @@ $lastNameInitial = strtoupper(substr($patientLastName, 0, 1));
 $genderInitial = strtoupper(substr($gender, 0, 1));
 $bookingDate = date('dmy', strtotime($appointmentDate)); // Convert to DDMMYY
 
+
 // Create unique ID
 $uniqueId = $firstNameInitial . $lastNameInitial . $genderInitial . '-' . $bookingDate . '-' . $timeSlot;
 
