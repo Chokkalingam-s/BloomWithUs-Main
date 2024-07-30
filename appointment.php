@@ -110,7 +110,7 @@ if (!isset($_SESSION['username'])) {
             flex-direction: column;
         }
 
-        .calendar .eb{
+         .eb{
             background-color: #ff3105 !important;
         }
 
@@ -199,7 +199,13 @@ if (!isset($_SESSION['username'])) {
             border-color: green;
             border-width: 2px;
             box-shadow: 1px 1px;
-        }    
+        }  
+        
+        .btn-group{
+            background-color: transparent !important;
+            border: none; /* Optional: removes any border */
+       
+        }
 
     </style>
 </head>
@@ -483,26 +489,51 @@ if (!isset($_SESSION['username'])) {
 
         // Loop through each day in the month
         for (let day = 1; day <= daysInMonth; day++) {
-            const dayElement = document.createElement('div');
-            dayElement.textContent = day;
-            dayElement.classList.add('day');
+    const dayElement = document.createElement('div');
+    dayElement.textContent = day;
+    dayElement.classList.add('day');
 
-            // Fetch appointments for this day
-            fetchAppointments(new Date(year, month, day), dayElement);
+        // Add Book button
+        const reserveButton = document.createElement('button');
+    reserveButton.classList.add('btn', 'btn-light', 'btn-sm', 'mt-10');
+    reserveButton.textContent = 'Book!';
+    reserveButton.setAttribute('data-toggle', 'modal');
+    reserveButton.setAttribute('data-target', '#reservationModal');
+    reserveButton.addEventListener('click', function () {
+        openReservationModal(year, month, day);
+    });
+    dayElement.appendChild(reserveButton);
 
-            adminCalendar.appendChild(dayElement);
-            // In your existing renderCalendar function, after appending dayElement
-            const reserveButton = document.createElement('button');
-            reserveButton.classList.add('btn', 'btn-light', 'btn-sm', 'mt-10');
-            reserveButton.textContent = 'Book!';
-            reserveButton.setAttribute('data-toggle', 'modal');
-            reserveButton.setAttribute('data-target', '#reservationModal');
-            reserveButton.addEventListener('click', function () {
-                openReservationModal(year, month, day);
-            });
-            dayElement.appendChild(reserveButton);
+    // Create the button for the dropdown
+    const viewAppointment = document.createElement('button');
+    viewAppointment.classList.add('btn', 'btn-primary', 'dropdown-toggle');
+    viewAppointment.setAttribute('data-bs-toggle', 'dropdown');
+    viewAppointment.setAttribute('aria-expanded', 'false');
+    viewAppointment.textContent = 'Appointments!';
 
-        }
+    // Create the dropdown menu
+    const dropdownMenu = document.createElement('ul');
+    dropdownMenu.classList.add('dropdown-menu');
+    dropdownMenu.setAttribute('id', `dropdown-menu-${day}`); // Unique ID for dropdown menu
+
+    // Create container for the dropdown button and menu
+    const btnGroup = document.createElement('div');
+    btnGroup.classList.add('btn-group');
+
+    // Append the button and menu to the container
+    btnGroup.appendChild(viewAppointment);
+    btnGroup.appendChild(dropdownMenu);
+
+    // Append the container to the desired parent element (e.g., dayElement)
+    dayElement.appendChild(btnGroup);
+
+    // Fetch appointments for this day
+    fetchAppointments(new Date(year, month, day), dropdownMenu);
+
+    adminCalendar.appendChild(dayElement);
+
+
+}
     }
 
     function getMonthName(month) {
@@ -512,7 +543,7 @@ if (!isset($_SESSION['username'])) {
     }
 
     // Function to fetch appointments for a specific date
-    function fetchAppointments(date, dayElement) {
+    function fetchAppointments(date, dropdownMenu) {
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
@@ -523,40 +554,44 @@ if (!isset($_SESSION['username'])) {
     fetch(`fetch_appointments.php?date=${formattedDate}`)
         .then(response => response.json())
         .then(data => {
+            dropdownMenu.innerHTML = ''; // Clear existing items in the dropdown menu
+
             data.forEach(appointment => {
-                // Parse the appointment date from the response (adjust for timezone if necessary)
                 const appointmentDate = new Date(appointment.appointment_date);
                 const appointmentTime = appointment.time_slot;
                 const uniqueId = appointment.unique_id;
 
-                // Create appointment element and append to dayElement
-                    const appointmentElement = document.createElement('div');
-                    appointmentElement.classList.add('booked');
-                     if (appointment.emergency == 1) {
-                appointmentElement.classList.add('eb');
-            } 
-            if (appointment.emergency == 11) {
-                appointmentElement.classList.add('eb1');
-            } 
-                    appointmentElement.setAttribute('data-toggle', 'modal');
-                    appointmentElement.setAttribute('data-target', '#appointmentDetailsModal');
-                    appointmentElement.addEventListener('click', function () {
-                        showAppointmentDetails(uniqueId, formattedDate);
-                    });
+                // Create dropdown item for the appointment
+                const listItem = document.createElement('li');
+                listItem.classList.add('dropdown-item');
 
-                    const appointmentTimeElement = document.createElement('span');
-                    appointmentTimeElement.classList.add('appointment-time');
-                    appointmentTimeElement.textContent = appointmentTime;
+                // Add classes based on emergency status
+                if (appointment.emergency == 1) {
+                    listItem.classList.add('eb'); // Class for emergency type 1
+                }
+                if (appointment.emergency == 11) {
+                    listItem.classList.add('eb1'); // Class for emergency type 11
+                }
 
-                    const uniqueIdElement = document.createElement('span');
-                    uniqueIdElement.classList.add('unique-id');
-                    uniqueIdElement.textContent = uniqueId;
+                // Create a clickable link for each appointment
+                const appointmentLink = document.createElement('a');
+                appointmentLink.setAttribute('href', '#');
+                appointmentLink.textContent = `${appointmentTime} `;
+                appointmentLink.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent the default link behavior
+                    showAppointmentDetails(uniqueId, formattedDate); // Show appointment details modal
+                });
 
-                    appointmentElement.appendChild(appointmentTimeElement);
-                    appointmentElement.appendChild(uniqueIdElement);
+                listItem.appendChild(appointmentLink);
+                dropdownMenu.appendChild(listItem);
 
-                    dayElement.appendChild(appointmentElement);
-
+                // Optionally add a divider if needed
+                const isLastItem = data.indexOf(appointment) === data.length - 1;
+                if (isLastItem) {
+                    const divider = document.createElement('li');
+                    divider.innerHTML = '<hr class="dropdown-divider">';
+                    dropdownMenu.appendChild(divider);
+                }
             });
         })
         .catch(error => console.error('Error fetching appointments:', error));

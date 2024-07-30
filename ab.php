@@ -94,6 +94,11 @@
             margin-left: 30%;
             font-weight: bolder;
         }
+
+        #existingUserDropdown {
+    width: auto;
+    min-width: 70px; 
+}
     </style>
 </head>
 
@@ -161,13 +166,28 @@
                                     <input type="hidden" name="appointment_date" id="appointmentDate">
                                     <input type="hidden" name="time_slot" id="timeSlot">
 
+                                    
+                                    <div class="mb-3 form-group row align-items-center">
+                                        <label for="existingUserDropdown" class="col-form-label col-auto cl-primary"><b> <i><u>Existing User : </u></i></b></label>
+                                        <div class="col-auto">
+                                            <select class="form-control" id="existingUserDropdown">
+                                                <option value="No" selected>No</option>
+                                                <option value="Yes">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <!-- Slot selection near date -->
-                                    <div class="mb-3">
+                                     <div class="row">
+                                        <div class="col-6">
+                                        <div class="mb-3">
                                         <label for="selectedDate" class="form-label">Selected Date</label>
                                         <input type="text" class="form-control" id="selectedDate" name="selected_date" readonly>
                                     </div>
 
-                                    <!-- Time Slot selection -->
+                                        </div>
+                                        <div class="col-6">
+                                            <!-- Time Slot selection -->
                                     <div class="mb-3">
                                         <label for="timeSlotInput" class="form-label">Time Slot</label>
                                         <select class="form-select" id="timeSlotInput" name="time_slot" required>
@@ -188,11 +208,14 @@
                                             <option value="05:30 PM To 06:00 PM">05:30 PM To 06:00 PM</option>
                                         </select>
                                     </div>
+                                            
+                                         </div>
+                                     </div>
+                                   
 
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="existingUserCheckbox">
-                                        <label class="form-check-label" for="existingUserCheckbox">Existing User</label>
-                                    </div>
+                                    
+
+                                    
                                     
                                     <!-- Rest of the form fields -->
                                     <!-- (First Name and Last Name side by side) -->
@@ -289,7 +312,7 @@
                                             <input type="text" class="form-control" id="lastName1" name="last_name1" >
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-6">
                                         <label for="phoneNumber1" class="form-label">Phone Number</label>
                                         <input type="tel" class="form-control" id="phoneNumber1" name="phone_number1" ><br/>
                                     </div>
@@ -428,27 +451,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-        document.getElementById('existingUserCheckbox').addEventListener('change', function () {
-            const isChecked = this.checked;
-            const restOfForm = document.getElementById('restOfForm');
-            restOfForm.style.display = isChecked ? 'none' : 'block';
-            const newForm = document.getElementById('newForm');
-            newForm.style.display = isChecked ? 'block' : 'none';
+document.getElementById('existingUserDropdown').addEventListener('change', function () {
+    const selectedValue = this.value;
+    const restOfForm = document.getElementById('restOfForm');
+    const newForm = document.getElementById('newForm');
+    const requiredFields = ['firstName', 'lastName', 'phoneNumber', 'patientFirstName', 'patientLastName', 'profession', 'dob', 'age', 'gender', 'patientNumber', 'email'];
 
-            if (isChecked) {
-                document.getElementById('firstName').removeAttribute('required');
-                document.getElementById('lastName').removeAttribute('required');
-                document.getElementById('phoneNumber').removeAttribute('required');
-                document.getElementById('patientFirstName').removeAttribute('required');
-                document.getElementById('patientLastName').removeAttribute('required');
-                document.getElementById('profession').removeAttribute('required');
-                document.getElementById('dob').removeAttribute('required');
-                document.getElementById('age').removeAttribute('required');
-                document.getElementById('gender').removeAttribute('required');
-                document.getElementById('patientNumber').removeAttribute('required');
-                document.getElementById('email').removeAttribute('required');
-            }
-        });
+    if (selectedValue === 'Yes') {
+        restOfForm.style.display = 'none';
+        newForm.style.display = 'block';
+        requiredFields.forEach(field => document.getElementById(field).removeAttribute('required'));
+    } else {
+        restOfForm.style.display = 'block';
+        newForm.style.display = 'none';
+        requiredFields.forEach(field => document.getElementById(field).setAttribute('required', 'true'));
+    }
+});
          function showCustomAlert(message) {
          const alertMessageElement = document.getElementById('customAlertMessage');
          alertMessageElement.innerText = message;
