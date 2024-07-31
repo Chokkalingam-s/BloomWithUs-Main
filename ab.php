@@ -168,11 +168,11 @@
 
                                     
                                     <div class="mb-3 form-group row align-items-center">
-                                        <label for="existingUserDropdown" class="col-form-label col-auto" style="color:#79db07;"><b> <i><u>Existing Patient: </u></i></b></label>
+                                        <label for="existingUserDropdown" class="col-form-label col-auto" style="color:#79db07;"><b><u>Patient Type: </u></b></label>
                                         <div class="col-auto">
                                             <select class="form-control" id="existingUserDropdown">
-                                                <option value="No" selected>No</option>
-                                                <option value="Yes">Yes</option>
+                                                <option value="No" selected>New</option>
+                                                <option value="Yes">Existing</option>
                                             </select>
                                         </div>
                                     </div>
@@ -252,8 +252,8 @@
                                     <!-- (Relation and Profession side by side) -->
                                     <div class="row mb-3">
                                         <div class="col">
-                                            <label for="relation" class="form-label">Relation</label>
-                                            <input type="text" class="form-control" id="relation" name="relation_to_patient">
+                                            <label for="relation" class="form-label">Patient Relation</label>
+                                            <input type="text" class="form-control" id="relation" name="relation_to_patient" placeholder="How You're related to patient">
                                         </div>
                                         <div class="col">
                                             <label for="profession" class="form-label">Profession</label>
@@ -284,14 +284,15 @@
 
                                     <!-- Phone Number, Patient Number, Email -->
                                     <div class="row mb-3">
-                                        <div class="col">
-                                            <label for="phoneNumber" class="form-label">Phone Number</label>
-                                            <input type="tel" class="form-control" id="phoneNumber" name="phone_number" required>
+                                    <div class="col">
+                                            <label for="patientNumber" class="form-label">Phone Number</label>
+                                            <input type="text" class="form-control" id="patientNumber" name="patient_number" placeholder="Patient Number" required>
                                         </div>
                                         <div class="col">
-                                            <label for="patientNumber" class="form-label">Patient Number</label>
-                                            <input type="text" class="form-control" id="patientNumber" name="patient_number" required>
+                                            <label for="phoneNumber" class="form-label">Alternate Number</label>
+                                            <input type="tel" class="form-control" id="phoneNumber" name="phone_number" placeholder="Accompany Number" required>
                                         </div>
+
                                     </div>
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
