@@ -401,6 +401,8 @@ if (!isset($_SESSION['username'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
    <script>
+
+    
         function showCustomAlert(message) {
             const alertMessageElement = document.getElementById('customAlertMessage');
             alertMessageElement.innerText = message;
@@ -526,6 +528,17 @@ if (!isset($_SESSION['username'])) {
 
     // Append the container to the desired parent element (e.g., dayElement)
     dayElement.appendChild(btnGroup);
+
+    //     // Add hover functionality
+    //     btnGroup.addEventListener('mouseover', () => {
+    //     const bsDropdown = new bootstrap.Dropdown(viewAppointment);
+    //     bsDropdown.show();
+    // });
+
+    // btnGroup.addEventListener('mouseout', () => {
+    //     const bsDropdown = new bootstrap.Dropdown(viewAppointment);
+    //     bsDropdown.hide();
+    // });
 
     // Fetch appointments for this day
     fetchAppointments(new Date(year, month, day), dropdownMenu);
