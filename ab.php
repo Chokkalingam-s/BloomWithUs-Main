@@ -168,7 +168,7 @@
 
                                     
                                     <div class="mb-3 form-group row align-items-center">
-                                        <label for="existingUserDropdown" class="col-form-label col-auto cl-primary"><b> <i><u>Existing User : </u></i></b></label>
+                                        <label for="existingUserDropdown" class="col-form-label col-auto" style="color:#79db07;"><b> <i><u>Existing Patient: </u></i></b></label>
                                         <div class="col-auto">
                                             <select class="form-control" id="existingUserDropdown">
                                                 <option value="No" selected>No</option>

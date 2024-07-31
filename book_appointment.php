@@ -74,10 +74,11 @@ $genderInitial = strtoupper(substr($gender, 0, 1));
 $bookingDate = date('dmy', strtotime($appointmentDate)); // Convert to DDMMYY
 $timeSlotArray = explode(' ', $timeSlot, 4); // Split into a maximum of 2 elements
 $firstElement = $timeSlotArray[0];
+$firstElement = str_replace(':', '', $firstElement);
 
 
 // Create unique ID
-$uniqueId = $firstNameInitial . $lastNameInitial . $genderInitial . '-' . $bookingDate . '-' . $firstElement;
+$uniqueId = $firstNameInitial . $lastNameInitial . $genderInitial . $bookingDate . $firstElement;
 
         
                 // Insert new record
