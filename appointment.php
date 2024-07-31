@@ -581,8 +581,7 @@ if (!isset($_SESSION['username'])) {
                 }
 
                 // Create a clickable link for each appointment
-                const appointmentLink = document.createElement('a');
-                appointmentLink.setAttribute('href', '#');
+                const appointmentLink = document.createElement('p');
                 appointmentLink.textContent = `${appointmentTime} `;
                 appointmentLink.addEventListener('click', function (event) {
                     event.preventDefault(); // Prevent the default link behavior
