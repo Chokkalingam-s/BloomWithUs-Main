@@ -265,7 +265,7 @@
                                         </div>
                                         <div class="col">
                                             <label for="profession" class="form-label">Profession</label>
-                                            <input type="text" class="form-control" id="profession" name="profession" required>
+                                            <input type="text" class="form-control" id="profession" name="profession" placeholder="Patient Profession" required>
                                         </div>
                                     </div>
 
@@ -298,7 +298,7 @@
                                         </div>
                                         <div class="col">
                                             <label for="phoneNumber" class="form-label">Alternate Number</label>
-                                            <input type="tel" class="form-control" id="phoneNumber" name="phone_number" placeholder="Accompany Number" required>
+                                            <input type="tel" class="form-control" id="phoneNumber" name="phone_number"  required>
                                         </div>
 
                                     </div>
@@ -630,18 +630,18 @@ document.getElementById('existingUserDropdown').addEventListener('change', funct
             document.getElementById('relation').value = isChecked ? 'Myself' : '';
 
             if (isChecked) {
-                document.getElementById('phoneNumber').addEventListener('input', syncPhoneNumber);
+                document.getElementById('patientNumber').addEventListener('input', syncPhoneNumber);
             } else {
-                document.getElementById('phoneNumber').removeEventListener('input', syncPhoneNumber);
-                document.getElementById('patientNumber').value = '';
+                document.getElementById('patientNumber').removeEventListener('input', syncPhoneNumber);
+                document.getElementById('phoneNumber').value = '';
             }
         });
 
         // Function to sync phone number fields
         function syncPhoneNumber() {
-            const phoneNumber = document.getElementById('phoneNumber').value;
+            const patientNumber = document.getElementById('patientNumber').value;
             if (document.getElementById('selfCheckbox').checked) {
-                document.getElementById('patientNumber').value = phoneNumber;
+                document.getElementById('phoneNumber').value = patientNumber;
             }
         }
 

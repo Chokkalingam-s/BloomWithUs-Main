@@ -55,7 +55,7 @@ if (checkbox.checked && table.style.display === 'none') {
 
                 // Construct name with title
                 const title = getTitle(data.gender);
-                const fullName = `${title} ${data.patient_first_name} ${data.patient_last_name}`;
+                const fullName = `${title} ${data.patient_first_name} ${data.patient_middle_name} ${data.patient_last_name}`;
 
                 // Update appointment details HTML
                 $('.appointment_details').html(`

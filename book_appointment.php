@@ -13,7 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uniqueId = $_POST['unique_id'] ?? null;
     $firstName = $_POST['first_name'] ?? '';
     $lastName = $_POST['last_name'] ?? '';
+    $middleName = $_POST['middle_name'] ?? '';
     $patientFirstName = $_POST['patient_first_name'] ?? '';
+    $patientMiddleName = $_POST['patient_middle_name'] ?? '';
     $patientLastName = $_POST['patient_last_name'] ?? '';
     $relation = $_POST['relation_to_patient'] ?? '';
     $appointmentDate = $_POST['appointment_date'] ?? '';
@@ -37,8 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Prepare data for new row
             $firstName = $row['first_name'];
             $lastName = $row['last_name'];
+            $middleName = $row['middle_name'];
             $patientFirstName = $row['patient_first_name'];
             $patientLastName = $row['patient_last_name'];
+            $patientmiddleName = $row['patient_middle_name'];
             $relation = $row['relation_to_patient'];
             $profession = $row['profession'];
             $dob = $row['dob'];
@@ -50,9 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Insert new row into the appointments table
             $sql = "INSERT INTO appointments 
-                    (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id, emergency)
+                    (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id, emergency, middle_name, patient_middle_name)
                     VALUES 
-                    ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$uniqueId' , '$emergencyStatus')";
+                    ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$uniqueId' , '$emergencyStatus' , '$middleName' , '$patientmiddleName')";
 
             // Perform SQL query
             if (mysqli_query($conn, $sql)) {
@@ -83,9 +87,9 @@ $uniqueId = $firstNameInitial . $lastNameInitial . $genderInitial . $bookingDate
         
                 // Insert new record
                 $sql = "INSERT INTO appointments 
-                        (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id)
+                        (first_name, last_name, patient_first_name, patient_last_name, relation_to_patient, appointment_date, time_slot, profession, dob, age, gender, phone_number, patient_number, email, unique_id , middle_name , patient_middle_name)
                         VALUES 
-                        ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$uniqueId')";
+                        ('$firstName', '$lastName', '$patientFirstName', '$patientLastName', '$relation', '$appointmentDate', '$timeSlot', '$profession', '$dob', '$age', '$gender', '$phoneNumber', '$patientNumber', '$email', '$uniqueId' , '$middleName' , '$patientMiddleName')";
         
                 // Perform SQL query
                 if (mysqli_query($conn, $sql)) {
