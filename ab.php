@@ -226,6 +226,10 @@
                                             <input type="text" class="form-control" id="firstName" name="first_name" required>
                                         </div>
                                         <div class="col">
+                                            <label for="middleName" class="form-label">Middle Name</label>
+                                            <input type="text" class="form-control" id="middleName" name="middle_name">
+                                        </div>
+                                        <div class="col">
                                             <label for="lastName" class="form-label">Last Name</label>
                                             <input type="text" class="form-control" id="lastName" name="last_name" required>
                                         </div>
@@ -242,6 +246,10 @@
                                         <div class="col">
                                             <label for="patientFirstName" class="form-label">First Name</label>
                                             <input type="text" class="form-control" id="patientFirstName" name="patient_first_name" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="patientMiddleName" class="form-label">Middle Name</label>
+                                            <input type="text" class="form-control" id="patientMiddleName" name="patient_middle_name" >
                                         </div>
                                         <div class="col">
                                             <label for="patientLastName" class="form-label">Last Name</label>
@@ -614,9 +622,11 @@ document.getElementById('existingUserDropdown').addEventListener('change', funct
             const isChecked = this.checked;
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
+            const middleName = document.getElementById('middleName').value;
 
             document.getElementById('patientFirstName').value = isChecked ? firstName : '';
             document.getElementById('patientLastName').value = isChecked ? lastName : '';
+            document.getElementById('patientMiddleName').value = isChecked ? middleName : '';
             document.getElementById('relation').value = isChecked ? 'Myself' : '';
 
             if (isChecked) {
