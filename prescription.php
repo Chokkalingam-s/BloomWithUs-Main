@@ -170,8 +170,8 @@ if (!isset($_SESSION['username'])) {
 }
 
 .img{
-    margin: 0;
-            height: 70vh;
+            margin: 0;
+            height: 60vh;
             width: 100vw;
             background-image: url("assets/img/p_bg.jpg");
             background-repeat: no-repeat;
@@ -238,7 +238,7 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </header>
 
-    <main class="main img"  style="margin-top: 11vh;">
+    <main class="main img"  style="margin-top: 10vh;">
     <div class="container mt-5">
         <div class="content">
     <h1>Prescription</h1>
