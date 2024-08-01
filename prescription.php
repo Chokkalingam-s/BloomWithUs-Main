@@ -165,6 +165,37 @@ if (!isset($_SESSION['username'])) {
     display: none;  /* Safari and Chrome */
 }
 
+.print-btn {
+    margin-left: 60%;
+}
+
+.img{
+    margin: 0;
+            height: 70vh;
+            width: 100vw;
+            background-image: url("assets/img/p_bg.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            object-fit: cover;
+}
+
+.content{
+    margin-left: 55%;
+    margin-top: 10%;
+}
+
+.content label{
+    font-size: larger;
+    font-weight: 700;
+
+    margin-bottom: 2%;
+}
+
+.content1{
+    margin-left: 11%;
+}
+
     </style>
 </head>
 
@@ -207,13 +238,15 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </header>
 
-    <main class="main" style="margin-top: 11vh;">
+    <main class="main img"  style="margin-top: 11vh;">
     <div class="container mt-5">
-    <h2>Prescription</h2>
+        <div class="content">
+    <h1>Prescription</h1>
+    <div class="content1">
     <form method="GET" action="">
         <div class="form-group mt-5">
-            <label for="uniqueIdSearch">Unique ID based Prescription</label>
-            <input type="text" class="form-control" id="uniqueIdSearch" name="unique_id" placeholder="Paste Unique ID" onkeyup="this.form.submit()">  
+            <label for="uniqueIdSearch"><i>Unique ID based Prescription</i></label>
+            <input type="text" class="form-control w-50" id="uniqueIdSearch" name="unique_id" placeholder="Paste Unique ID" onkeyup="this.form.submit()">  
         </div>
     </form>
   <div style="display:none;">
@@ -225,9 +258,9 @@ if (!isset($_SESSION['username'])) {
     <button type="button" class="btn btn-primary" onclick="submitForm('unique_id1')">Submit as ID1</button>
     <button type="button" class="btn btn-secondary" onclick="submitForm('unique_id2')">Submit as ID2</button>
 </form>
-  
 </div>
-    
+</div>
+</div>
 
     </div>
        <!-- Save Prescription Modal -->

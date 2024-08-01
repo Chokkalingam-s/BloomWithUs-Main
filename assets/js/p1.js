@@ -10,6 +10,7 @@ $(document).ready(function() {
             method: 'GET',
             success: function(response) {
                 $('.patientpres').html(response);
+                
             },
             error: function(xhr, status, error) {
                 console.error('Error fetching the PHP content:', error);
@@ -35,15 +36,7 @@ if (checkbox.checked && table.style.display === 'none') {
     table.style.display = 'none';
 }
 }
-        let oldPrescriptionDataFetched = false;
-
-        $('#oldPrescriptionAvailableDropdown').change(function() {
-            if ($(this).val() === 'Yes' && !oldPrescriptionDataFetched) {
-                $('#oldPrescriptionForm').removeClass('d-none');
-            } else {
-                $('#oldPrescriptionForm').addClass('d-none');
-            }
-        });
+       
 
         // Fetch appointment details for section 1 and 3
         fetch(`get_appointment_details.php?unique_id=${uniqueId}`)
@@ -341,6 +334,8 @@ if (checkbox.checked && table.style.display === 'none') {
         }
 
                         $('#prescriptionModal1').modal('show');
+
+
                         
                     }
                 });
@@ -355,7 +350,7 @@ if (checkbox.checked && table.style.display === 'none') {
                 
             }
             
-        
+            
         });
 
         

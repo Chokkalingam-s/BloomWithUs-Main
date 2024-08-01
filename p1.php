@@ -3,6 +3,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="prescriptionModalLabel">Prescription for <span id="modalUniqueId"></span></h5>
+                <button class="btn btn-primary print-btn"  onclick="window.print()">
+                    <i class="bi bi-printer-fill"></i> 
+                </button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
