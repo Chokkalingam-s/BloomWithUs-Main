@@ -314,20 +314,34 @@ $conn->close();
             <div class="card-body" >
                 <h2 class="card-title"><strong> Count Information</strong></h2>
     <form method="post">
-        <div class="form-group mt-3">
+        <div class="row">
+            <div class="col">
+            <div class="form-group mt-3">
             <label for="peopleTreated">Lives Transformed</label>
-            <input type="number" class="form-control" id="peopleTreated" name="people_treated" required>
+            <input type="number" class="form-control mt-2" id="peopleTreated" name="people_treated" required>
         </div>
-        <div class="form-group mt-3">
+                
+            </div>
+            <div class="col">
+            <div class="form-group mt-3">
             <label for="lecturesSeminars">Seminars Conducted</label>
-            <input type="number" class="form-control" id="lecturesSeminars" name="lectures_seminars" required>
+            <input type="number" class="form-control mt-2" id="lecturesSeminars" name="lectures_seminars" required>
         </div>
-        <div class="form-group mt-3">
+                
+            </div>
+            <div class="col">
+            <div class="form-group mt-3">
             <label for="yearsExperience">Consultancy Experience</label>
-            <input type="number" class="form-control" id="yearsExperience" name="years_experience" required>
+            <input type="number" class="form-control mt-2" id="yearsExperience" name="years_experience" required>
         </div>
+                
+            </div>
+        </div>
+
+
+       
         <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary mt-3 w-50">Update</button>
+        <button type="submit" class="btn btn-primary mt-5 w-50">Update</button>
         </div>
     </form>
     </div>
