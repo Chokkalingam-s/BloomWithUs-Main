@@ -170,7 +170,7 @@ $conn->close();
         <main class="main" style="margin-top: 10vh;">
     <div class="container mt-5" >
     <div class="mb-4 text-center">
-                    <h2>Hello Admin!</h2>
+                    <h1>Hello Admin!</h1>
                 </div>
 
                  <!-- Admin Feature Cards -->
@@ -222,7 +222,7 @@ $conn->close();
          <div id="AddPost" style="padding-top:10%">
         <div class="card mb-4" >
             <div class="card-body" >
-                <h2 class="card-title"><strong>Add New Post</strong></h2>
+                <h1 class="card-title"><strong>Add New Post</strong></h1>
                 <form action="admin_dashboard.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="add">
                     <div class="mb-3">
@@ -249,7 +249,7 @@ $conn->close();
         <?php if ($editPost): ?>
         <div class="card mb-4" id="EditPost">
             <div class="card-body" >
-                <h2 class="card-title"><strong>Edit Post</strong></h2>
+                <h1 class="card-title"><strong>Edit Post</strong></h1>
                 <form action="admin_dashboard.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" value="<?php echo $editPost['id']; ?>">
@@ -286,7 +286,7 @@ $conn->close();
         <!-- Post List Card -->
         <div class="card" id="ManagePost">
             <div class="card-body">
-                <h2 class="card-title mt-4 mb-3"><strong>Manage Posts</strong></h2>
+                <h1 class="card-title mt-4 mb-3"><strong>Manage Posts</strong></h1>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -312,7 +312,7 @@ $conn->close();
        
         <div class="card mt-4 mb-4" >
             <div class="card-body" >
-                <h2 class="card-title"><strong> Count Information</strong></h2>
+                <h1 class="card-title"><strong> Count Information</strong></h1>
     <form method="post">
         <div class="row">
             <div class="col">
