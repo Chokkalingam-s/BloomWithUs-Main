@@ -128,6 +128,11 @@ if (!isset($_SESSION['username'])) {
             background-color: #808b96 !important;
         }
 
+        .calendar .cancel{
+            background-color: black !important;
+            color: wheat;
+        }
+
         .calendar .eb1 .appointment-time {
             background-color: #f9e79f!important;
             color: #000;
@@ -593,6 +598,10 @@ if (!isset($_SESSION['username'])) {
                     listItem.classList.add('eb1'); // Class for emergency type 11
                 }
 
+                if (appointment.emergency == 78) {
+                    listItem.classList.add('cancel'); // Class for emergency type 11
+                }
+
                 // Create a clickable link for each appointment
                 const appointmentLink = document.createElement('p');
                 appointmentLink.textContent = `${appointmentTime} `;
@@ -623,38 +632,45 @@ if (!isset($_SESSION['username'])) {
     function showAppointmentDetails(uniqueId, formattedDate) {
     fetch(`get_appointment_details1.php?unique_id=${uniqueId}&formatted_date=${formattedDate}`)
         .then(response => response.json())
-            .then(data => {
-                const appointmentDetailsBody = document.getElementById('appointmentDetailsBody');
-                appointmentDetailsBody.innerHTML = `
-                      <p><strong>UniqueID:</strong> 
+        .then(data => {
+            const appointmentDetailsBody = document.getElementById('appointmentDetailsBody');
+            appointmentDetailsBody.innerHTML = `
+                <p><strong>UniqueID:</strong> 
                     ${data.unique_id} 
-                    <br>
                     <input type="text" id="hiddenInput" style="position: absolute; left: -9999px;">
                     <button class="btn btn-link" onclick="copyToClipboard('${data.unique_id}')">
-                        <i class="bi bi-copy" >Copy Unique Id</i>
+                        <i class="bi bi-copy">Copy Unique Id</i>
                     </button>
                 </p>
-                    <p style="color:red"><strong>Emergency:</strong>
-    ${data.emergency == 0 ? 'Normal Appointment' : data.emergency == 1 ? 'Emergency Appointment By Patient' : data.emergency == 11 ? 'Emergency Appointment By Doctor' : 'Unknown'}
-</p>
+                <p><strong>Emergency:</strong><span style="color:red">
+                    ${data.emergency == 0 ? 'Normal Appointment' : data.emergency == 1 ? 'Emergency Appointment By Patient' : data.emergency == 11 ? 'Emergency Appointment By Doctor' : 'Cancelled Appointment'}
+                </span></p>
+                <p><strong>Name:</strong> ${data.first_name} ${data.middle_name} ${data.last_name}</p>
+                <p><strong>Patient Name:</strong> ${data.patient_first_name} ${data.patient_middle_name} ${data.patient_last_name}</p>
+                <p><strong>Relation to Patient:</strong> ${data.relation_to_patient}</p>
+                <p><strong>Appointment Date:</strong> ${data.appointment_date}</p>
+                <p><strong>Time Slot:</strong> ${data.time_slot}</p>
+                <p><strong>Profession:</strong> ${data.profession}</p>
+                <p><strong>DOB:</strong> ${data.dob}</p>
+                <p><strong>Age:</strong> ${data.age}</p>
+                <p><strong>Gender:</strong> ${data.gender}</p>
+                <p><strong>Accompany Phone Number:</strong> ${data.phone_number}</p>
+                <p><strong>Patient Phone Number:</strong> ${data.patient_number}</p>
+                <p><strong>Email:</strong> ${data.email}</p>
+                <textarea id="cancelRemarks" placeholder="Enter cancellation remarks here" style="display:none;"></textarea>
+                <button id="cancelButton" class="btn btn-danger" onclick="toggleCancellation('${data.unique_id}', '${data.appointment_date}')">Cancel Appointment</button>
 
-                    <p><strong>Name:</strong> ${data.first_name} ${data.last_name}</p>
-                    <p><strong>Patient Name:</strong> ${data.patient_first_name} ${data.patient_last_name}</p>
-                    <p><strong>Relation:</strong> ${data.relation_to_patient}</p>
-                    <p><strong>Appointment Date:</strong> ${data.appointment_date}</p>
-                    <p><strong>Time Slot:</strong> ${data.time_slot}</p>
-                    <p><strong>Profession:</strong> ${data.profession}</p>
-                    <p><strong>DOB:</strong> ${data.dob}</p>
-                    <p><strong>Age:</strong> ${data.age}</p>
-                    <p><strong>Gender:</strong> ${data.gender}</p>
-                    <p><strong>Phone Number:</strong> ${data.phone_number}</p>
-                    <p><strong>Patient Phone Number:</strong> ${data.patient_number}</p>
-                    <p><strong>Email:</strong> ${data.email}</p>
-                `;
-                $('#appointmentDetailsModal').modal('show');
-            })
-            .catch(error => console.error('Error fetching appointment details:', error));
-    }
+                
+            `;
+            $('#appointmentDetailsModal').modal('show');
+
+            
+        })
+        .catch(error => console.error('Error fetching appointment details:', error));
+}
+
+
+
 
 
 
@@ -774,6 +790,45 @@ reservationForm.addEventListener('submit', function(e) {
 });
     renderCalendar(currentDisplayedDate);
 });
+
+function toggleCancellation(uniqueId, appointmentDate) {
+    const cancelButton = document.getElementById('cancelButton');
+    const cancelRemarks = document.getElementById('cancelRemarks');
+
+    if (cancelButton.textContent.trim() === 'Cancel Appointment') {
+        // Display the textarea and change button text
+        cancelRemarks.style.display = 'block';
+        cancelButton.textContent = 'Confirm Cancellation';
+    } else {
+        const remarks = cancelRemarks.value.trim();
+
+        if (remarks === '') {
+            alert('Please enter cancellation remarks.');
+            return;
+        }
+
+        // Send cancellation request to the server
+        fetch('cancel_appointment.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                unique_id: uniqueId,
+                appointment_date: appointmentDate,
+                cancel_remarks: remarks
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Appointment cancelled successfully.');
+                $('#appointmentDetailsModal').modal('hide');
+            } else {
+                alert('Error cancelling appointment.');
+            }
+        })
+        .catch(error => console.error('Error cancelling appointment:', error));
+    }
+}
 
    </script>
 </body>
