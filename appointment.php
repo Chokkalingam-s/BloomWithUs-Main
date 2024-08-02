@@ -212,6 +212,11 @@ if (!isset($_SESSION['username'])) {
        
         }
 
+        #cancelButton{
+            margin-left: 35%;
+            margin-bottom: 5%;
+        }
+
     </style>
 </head>
 
@@ -634,6 +639,7 @@ if (!isset($_SESSION['username'])) {
         .then(response => response.json())
         .then(data => {
             const appointmentDetailsBody = document.getElementById('appointmentDetailsBody');
+            const showCancelButton = data.emergency != 78;
             appointmentDetailsBody.innerHTML = `
                 <p><strong>UniqueID:</strong> 
                     ${data.unique_id} 
@@ -645,21 +651,23 @@ if (!isset($_SESSION['username'])) {
                 <p><strong>Emergency:</strong><span style="color:red">
                     ${data.emergency == 0 ? 'Normal Appointment' : data.emergency == 1 ? 'Emergency Appointment By Patient' : data.emergency == 11 ? 'Emergency Appointment By Doctor' : 'Cancelled Appointment'}
                 </span></p>
-                <p><strong>Name:</strong> ${data.first_name} ${data.middle_name} ${data.last_name}</p>
+                
                 <p><strong>Patient Name:</strong> ${data.patient_first_name} ${data.patient_middle_name} ${data.patient_last_name}</p>
+                <p><strong>Accompany Name:</strong> ${data.first_name} ${data.middle_name} ${data.last_name}</p>
                 <p><strong>Relation to Patient:</strong> ${data.relation_to_patient}</p>
                 <p><strong>Appointment Date:</strong> ${data.appointment_date}</p>
                 <p><strong>Time Slot:</strong> ${data.time_slot}</p>
                 <p><strong>Profession:</strong> ${data.profession}</p>
-                <p><strong>DOB:</strong> ${data.dob}</p>
-                <p><strong>Age:</strong> ${data.age}</p>
+                <p><strong>DOB:</strong> ${data.dob}  <strong>Age: </strong> ${data.age}</p>
+                
                 <p><strong>Gender:</strong> ${data.gender}</p>
                 <p><strong>Accompany Phone Number:</strong> ${data.phone_number}</p>
                 <p><strong>Patient Phone Number:</strong> ${data.patient_number}</p>
                 <p><strong>Email:</strong> ${data.email}</p>
-                <textarea id="cancelRemarks" placeholder="Enter cancellation remarks here" style="display:none;"></textarea>
-                <button id="cancelButton" class="btn btn-danger" onclick="toggleCancellation('${data.unique_id}', '${data.appointment_date}')">Cancel Appointment</button>
-
+                <textarea id="cancelRemarks" class="form-control my-3" rows="3" placeholder="Enter cancellation remarks here" style="display:none;"></textarea>
+                
+                   ${showCancelButton ? '<button id="cancelButton" class="btn btn-danger" onclick="toggleCancellation(\'' + data.unique_id + '\', \'' + data.appointment_date + '\')">Cancel Appointment</button>' : ''}
+           
                 
             `;
             $('#appointmentDetailsModal').modal('show');
@@ -820,10 +828,10 @@ function toggleCancellation(uniqueId, appointmentDate) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Appointment cancelled successfully.');
+                showCustomAlert('Appointment cancelled successfully.');
                 $('#appointmentDetailsModal').modal('hide');
             } else {
-                alert('Error cancelling appointment.');
+                showCustomAlert('Error cancelling appointment.');
             }
         })
         .catch(error => console.error('Error cancelling appointment:', error));
