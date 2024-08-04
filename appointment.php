@@ -666,7 +666,7 @@ if (!isset($_SESSION['username'])) {
                 <p><strong>Email:</strong> ${data.email}</p>
                 <textarea id="cancelRemarks" class="form-control my-3" rows="3" placeholder="Enter cancellation remarks here" style="display:none;"></textarea>
                 
-                   ${showCancelButton ? '<button id="cancelButton" class="btn btn-danger" onclick="toggleCancellation(\'' + data.unique_id + '\', \'' + data.appointment_date + '\')">Cancel Appointment</button>' : ''}
+                   ${showCancelButton ? '<button id="cancelButton" class="btn btn-danger" onclick="toggleCancellation(\'' + data.unique_id + '\', \'' + data.appointment_date + '\')">Cancel Appointment</button>' : '<p><strong>Cancellation Remarks:</strong> ' + (data.cancel_remarks || 'No remarks provided') + '</p>'}
            
                 
             `;
