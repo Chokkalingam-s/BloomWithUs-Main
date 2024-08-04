@@ -100,6 +100,7 @@ if (!isset($_SESSION['username'])) {
         }
         .sos-highlight td {
             background-color:  #f8c4cc;
+            color: red;
         }
         .row{
             margin-top: -1.1% !important;
@@ -194,6 +195,12 @@ if (!isset($_SESSION['username'])) {
 
 .content1{
     margin-left: 11%;
+}
+
+.badge-danger{
+    background-color: #ddd;
+    color: red !important;
+    border-radius: 0% !important;
 }
 
     </style>

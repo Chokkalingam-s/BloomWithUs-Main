@@ -31,21 +31,21 @@
                     </div>
                     <h2 class="mt-5 p-2">Patient Details</h2>
                     <div class="section2 d-flex justify-content-start align-items-center">
-                            <div class="col-6 d-flex justify-content-start align-items-center">
-                                <div class="patient_photo text-left mr-3 pl-5">
-                                    <div class="d-flex justify-content-start align-items-center">
-                                        <div class="add-photo-btn">
-                                            +
-                                            <input type="file" id="upload-photo" accept="image/*" name="patient_image" onchange="displayPhoto(event)">
-                                        </div>
-                                        <img id="patient-photo" class="passport-photo" alt="Patient Photo">
-                                    </div>
-                                </div>
-                                <div class="appointment_details text-left pl-5">    
-                                    <!-- Appointment details automatic render -->
-                                </div>
-                            </div>
-                        </div>
+    <div class="col-6 d-flex justify-content-start align-items-center">
+        <div class="patient_photo text-left mr-3 pl-5">
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="add-photo-btn">
+                    +
+                    <input type="file" id="upload-photo" accept="image/*" name="patient_image" onchange="displayPhoto(event)">
+                </div>
+                <img id="patient-photo" class="passport-photo" alt="Patient Photo">
+            </div>
+        </div>
+        <div class="appointment_details text-left pl-4">    
+            <!-- Appointment details automatic render -->
+        </div>
+    </div>
+</div>
 
 
                         <div class=" section1"> <!-- Adjusted width to 9 columns -->
@@ -91,7 +91,12 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="future_appointments pt-1 col-12 my-5"></div>
+                                    <div class="future_appointments pt-1 col-4 my-5">
+
+                                    </div>
+                                    <div class="future_appointments1 col my-5 pt-1">
+
+                                    </div>
                                 </div>
 
                                 <div class="row">

@@ -109,13 +109,14 @@ if (checkbox.checked && table.style.display === 'none') {
                 }
 
                 // Display future appointments
-                let futureAppointmentsHtml = '<h4 style="color:#282924;"><strong>Upcoming Appointments</strong></h4>';
+                let futureAppointmentsHtml = '<h4 style="color:#282924; class="head"><strong>Upcoming Appointments</strong></h4>';
+                let futureAppointmentsHtml1 = '';
                 if (data.future_appointments.length > 0) {
                     data.future_appointments.forEach(appointment => {
-                        futureAppointmentsHtml += `<p>${formatDate(appointment.appointment_date)} - ${appointment.time_slot}</p>`;
+                        futureAppointmentsHtml1 += `<p class="points" style="color:blue;">${formatDate(appointment.appointment_date)} - ${appointment.time_slot}</p>`;
                     });
                 } else {
-                    futureAppointmentsHtml += '<p>No Future Appointments</p>';
+                    futureAppointmentsHtml1 += '<p>No Future Appointments</p>';
                 }
 
 
@@ -123,6 +124,9 @@ if (checkbox.checked && table.style.display === 'none') {
                 $('.future_appointments').html(`
                     ${futureAppointmentsHtml}
                 `);
+                $('.future_appointments1').html(`
+                ${futureAppointmentsHtml1}
+            `);
 
                 }
             })
@@ -146,14 +150,14 @@ if (checkbox.checked && table.style.display === 'none') {
                 badgeContainer.empty();
 
                 selectedOptions.each(function() {
-                    const badge = $('<span>').addClass('badge badge-success').text($(this).text());
+                    const badge = $('<span>').addClass('badge badge-danger').text($(this).text());
                     badgeContainer.append(badge);
                 });
 
                 // Handle dynamically added items not in options
                 selectedItems.forEach(item => {
                     if (!selectedOptions.filter(function() { return $(this).text() === item; }).length) {
-                        const badge = $('<span>').addClass('badge badge-success').text(item);
+                        const badge = $('<span>').addClass('badge badge-danger').text(item);
                         badgeContainer.append(badge);
                     }
                 });

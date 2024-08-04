@@ -96,7 +96,7 @@ if (checkbox.checked && table.style.display === 'none') {
                 let futureAppointmentsHtml1 = '';
                 if (data.future_appointments.length > 0) {
                     data.future_appointments.forEach(appointment => {
-                        futureAppointmentsHtml1 += `<p class="points">${formatDate(appointment.appointment_date)} - ${appointment.time_slot}</p>`;
+                        futureAppointmentsHtml1 += `<p class="points" style="color:blue;">${formatDate(appointment.appointment_date)} - ${appointment.time_slot}</p>`;
                     });
                 } else {
                     futureAppointmentsHtml1 += '<p>No Future Appointments</p>';
@@ -133,14 +133,14 @@ if (checkbox.checked && table.style.display === 'none') {
                 badgeContainer.empty();
 
                 selectedOptions.each(function() {
-                    const badge = $('<span>').addClass('badge badge-success').text($(this).text());
+                    const badge = $('<span>').addClass('badge badge-danger').text($(this).text());
                     badgeContainer.append(badge);
                 });
 
                 // Handle dynamically added items not in options
                 selectedItems.forEach(item => {
                     if (!selectedOptions.filter(function() { return $(this).text() === item; }).length) {
-                        const badge = $('<span>').addClass('badge badge-success').text(item);
+                        const badge = $('<span>').addClass('badge badge-danger').text(item);
                         badgeContainer.append(badge);
                     }
                 });
@@ -314,7 +314,6 @@ if (checkbox.checked && table.style.display === 'none') {
                 $('#patientName').text(`${patient.patient_first_name} ${patient.patient_last_name}`);
                 $('#medicationPrescribed').val(patient.medication_prescribed);
                 $('#notes').val(patient.notes);
-                $('#notes2').val(patient.notes2);
 
                 // Select key therapies and diseases based on fetched data
                 const selectedDiseases = patient.diseases ? patient.diseases.split(', ') : [];
