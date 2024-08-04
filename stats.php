@@ -162,7 +162,7 @@ canvas {
         </div>
         <div class="col-md-5 d-flex justify-content-center align-items-center my-3">
             <div class="chart-container">
-                <h3 class="mr-5"><span class="mr-5">Medicine Prescribed</span></h3>
+                <h3 class="mr-5"><span class="mr-5">Medicine's Prescribed</span></h3>
                 <canvas id="medicinesChart"></canvas>
             </div>
         </div>
@@ -215,10 +215,33 @@ canvas {
     .then(response => response.json())
     .then(data => {
         console.log('Data fetched successfully:', data);
+
+        // Define a list of bright colors
+        const brightColors = [
+            '#5DE2E7', //  Blue
+            '#FE9900', //  Yellow
+            '#FFDE59', // Light yellow
+            '#BFD641', // oil green
+            '#8D6F64',  // Brown
+            '#5DE2E7'  // turqoise blue
+        ];
+
+        // Generate colors dynamically based on the number of datasets or data points
+        const backgroundColors = data.datasets.map((dataset, index) => {
+            // Use modulo to cycle through colors if there are more datasets than colors
+            return brightColors[index % brightColors.length];
+        });
+
         const ctx = document.getElementById('appointmentsChart').getContext('2d');
         const appointmentsChart = new Chart(ctx, {
             type: 'bar',
-            data: data,
+            data: {
+                ...data, // Spread the original data
+                datasets: data.datasets.map((dataset, index) => ({
+                    ...dataset,
+                    backgroundColor: backgroundColors[index] // Apply the colors
+                }))
+            },
             options: {
                 scales: {
                     y: {
@@ -257,42 +280,60 @@ canvas {
     });
 
 
-            // Fetch and display diseases data
-            fetch('get_diseases_data.php')
-                .then(response => response.json())
-                .then(data => {
-                    const ctx = document.getElementById('diseasesChart').getContext('2d');
-                    const diseasesChart = new Chart(ctx, {
-                        type: 'pie',
-                        data: data,
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'left',
-                                    labels: {
-                    // This more specific font property overrides the global property
-                    font: {
-                        size: 16,
-                    }
-                }
 
-                                    
-                                },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(tooltipItem) {
-                                            return tooltipItem.label + ': ' + tooltipItem.raw;
-                                        }
-                                    }
-                                }
+            // Fetch and display diseases data
+            const brightColors = [
+    '#5DE2E7', // Blue
+    '#FE9900', // Yellow
+    '#FFDE59', // Light yellow
+    '#BFD641', // Oil green
+    '#8D6F64', // Brown
+    '#5DE2E7'  // Turquoise blue
+];
+
+fetch('get_diseases_data.php')
+    .then(response => response.json())
+    .then(data => {
+        const ctx = document.getElementById('diseasesChart').getContext('2d');
+        
+        // Apply the colors to the dataset
+        const datasets = data.datasets.map((dataset, index) => ({
+            ...dataset,
+            backgroundColor: brightColors // Apply the colors to the pie chart
+        }));
+
+        const diseasesChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                ...data,
+                datasets: datasets // Include the customized datasets
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'left',
+                        labels: {
+                            font: {
+                                size: 16, // Font size for legend labels
                             }
                         }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching diseases data:', error);
-                });
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching diseases data:', error);
+    });
+
 
             // Fetch and display therapies data
             fetch('get_therapies_data.php')
