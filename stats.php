@@ -218,12 +218,13 @@ canvas {
 
         // Define a list of bright colors
         const brightColors = [
+            '#7DDA58',
+            '#FFD401', //  Yellow
             '#5DE2E7', //  Blue
-            '#FE9900', //  Yellow
-            '#FFDE59', // Light yellow
             '#BFD641', // oil green
             '#8D6F64',  // Brown
-            '#5DE2E7'  // turqoise blue
+            '#5DE2E7',  // turqoise blue
+            '#FFDE59' // Light yellow
         ];
 
         // Generate colors dynamically based on the number of datasets or data points
@@ -283,12 +284,21 @@ canvas {
 
             // Fetch and display diseases data
             const brightColors = [
-    '#5DE2E7', // Blue
-    '#FE9900', // Yellow
-    '#FFDE59', // Light yellow
-    '#BFD641', // Oil green
-    '#8D6F64', // Brown
-    '#5DE2E7'  // Turquoise blue
+    '#FFD401', // Yellow
+    '#FE6D6F', // Red
+    '#E7DDFF', // li8 purple
+    '#8885DF', // Light 
+    '#7DDA58', // Green
+    '#FF3E5C', // Pink
+    '#1BADE6', 
+    '#CECECE',
+    '#C49662',
+    '#8D6F64',
+    '#108F8A',
+    '#7B9731',
+    '#D9FE12',
+    '#DFC57B',
+    '#FEA5D3'
 ];
 
 fetch('get_diseases_data.php')
@@ -340,9 +350,16 @@ fetch('get_diseases_data.php')
                 .then(response => response.json())
                 .then(data => {
                     const ctx = document.getElementById('therapiesChart').getContext('2d');
+                    const datasets = data.datasets.map((dataset, index) => ({
+            ...dataset,
+            backgroundColor: brightColors // Apply the colors to the pie chart
+        }));
                     const therapiesChart = new Chart(ctx, {
                         type: 'pie',
-                        data: data,
+                        data: {
+                ...data,
+                datasets: datasets // Include the customized datasets
+            },
                         options: {
                             responsive: true,
                             plugins: {
@@ -375,9 +392,15 @@ fetch('get_diseases_data.php')
                 .then(response => response.json())
                 .then(data => {
                     const ctx = document.getElementById('medicinesChart').getContext('2d');
+                    const datasets = data.datasets.map((dataset, index) => ({
+            ...dataset,
+            backgroundColor: brightColors // Apply the colors to the pie chart
+        }));
                     new Chart(ctx, {
-                        type: 'pie',
-                        data: data,
+                        type: 'pie', data: {
+                ...data,
+                datasets: datasets // Include the customized datasets
+            },
                         options: {
                             responsive: true,
                             plugins: {
