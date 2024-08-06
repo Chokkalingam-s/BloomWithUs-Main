@@ -1,27 +1,35 @@
 <?php
 session_start();
 
-
 $host = 'localhost';
 include 'db_connection.php';
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Create connection
+$mysqli = new mysqli($host, $username, $password, $dbname);
 
-    $uniqueId = $_GET['unique_id']; 
-
-    // Fetch medicine data for a specific unique_id
-    $stmt = $pdo->prepare("SELECT * FROM medicines WHERE unique_id = :unique_id");
-    $stmt->execute(['unique_id' => $uniqueId]);
-    $medicines = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Return JSON response
-    header('Content-Type: application/json');
-    echo json_encode(['success' => true, 'data' => $medicines]);
-    exit();
-} catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
+// Check connection
+if ($mysqli->connect_error) {
+    echo json_encode(['success' => false, 'message' => 'Connection failed: ' . $mysqli->connect_error]);
     exit();
 }
+
+// Set charset to utf8mb4
+$mysqli->set_charset('utf8mb4');
+
+$uniqueId = $_GET['unique_id']; 
+
+// Fetch medicine data for a specific unique_id
+$stmt = $mysqli->prepare("SELECT * FROM medicines WHERE unique_id = ?");
+$stmt->bind_param('s', $uniqueId);
+$stmt->execute();
+$result = $stmt->get_result();
+$medicines = $result->fetch_all(MYSQLI_ASSOC);
+
+// Return JSON response
+header('Content-Type: application/json');
+echo json_encode(['success' => true, 'data' => $medicines]);
+exit();
+
+$stmt->close();
+$mysqli->close();
 ?>
