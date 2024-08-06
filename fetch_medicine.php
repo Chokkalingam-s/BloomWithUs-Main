@@ -28,8 +28,8 @@ $medicines = $result->fetch_all(MYSQLI_ASSOC);
 // Return JSON response
 header('Content-Type: application/json');
 echo json_encode(['success' => true, 'data' => $medicines]);
-exit();
 
+// Close statement and connection
 $stmt->close();
 $mysqli->close();
 ?>
