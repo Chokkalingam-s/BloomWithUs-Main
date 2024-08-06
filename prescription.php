@@ -321,6 +321,15 @@ if (!isset($_SESSION['username'])) {
        <script src="assets/js/p2.js"></script> 
 
        <script>
+
+function displayPhoto(event) {
+    const photo = document.getElementById('patient-photo');
+    const addButton = document.querySelector('.add-photo-btn');
+    photo.src = URL.createObjectURL(event.target.files[0]);
+    photo.style.display = 'block';
+    addButton.style.display = 'none';
+}
+
 function submitForm(uniqueIdName) {
     // Ensure the input value is included as a hidden input with the correct name
     var uniqueIdValue = document.getElementById('hiddenUniqueId').value;
