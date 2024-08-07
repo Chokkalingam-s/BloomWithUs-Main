@@ -207,7 +207,7 @@ $conn->close();
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <a href="Prescription.php" class="text-decoration-none">
+                        <a href="prescription.php" class="text-decoration-none">
                             <div class="card card-custom h-100">
                                 <div class="card-body d-flex flex-column align-items-center">
                                     <i class="bi bi-journal-text card-icon"></i>
